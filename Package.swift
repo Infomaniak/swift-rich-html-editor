@@ -12,13 +12,19 @@ let package = Package(
     products: [
         .library(
             name: "InfomaniakRichEditor",
-            targets: ["InfomaniakRichEditor"]),
+            targets: ["InfomaniakRichEditor"]
+        ),
     ],
     targets: [
         .target(
-            name: "InfomaniakRichEditor"),
+            name: "InfomaniakRichEditor",
+            resources: [
+                .process("Resources/index.html")
+            ]
+        ),
         .testTarget(
             name: "InfomaniakRichEditorTests",
-            dependencies: ["InfomaniakRichEditor"]),
+            dependencies: ["InfomaniakRichEditor"]
+        ),
     ]
 )
