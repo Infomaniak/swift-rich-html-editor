@@ -11,9 +11,16 @@ import WebKit
 public final class RichEditorView: UIView {
     private var webView: WKWebView!
 
+    private(set) var webViewBridge: WebViewBridge!
+
+    public override var canBecomeFirstResponder: Bool {
+        return true
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpWebView()
+        webViewBridge = WebViewBridge(webView: webView)
     }
 
     @available(*, unavailable)
@@ -21,10 +28,17 @@ public final class RichEditorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // TODO: Find better solution?
+        becomeFirstResponder()
+    }
+
     private func setUpWebView() {
         webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
         webView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(webView)
+
+        webView.isUserInteractionEnabled = false
 
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: topAnchor),
@@ -34,13 +48,7 @@ public final class RichEditorView: UIView {
         ])
 
         loadWebViewResources()
-
-        // TODO: Remove
-        if #available(iOS 16.4, *) {
-            #if DEBUG
-            webView.isInspectable = true
-            #endif
-        }
+        enableWebViewDebug()
     }
 
     private func loadWebViewResources() {
@@ -50,6 +58,15 @@ public final class RichEditorView: UIView {
 
         let request = URLRequest(url: indexURL)
         webView.load(request)
+    }
+
+    private func enableWebViewDebug() {
+        // TODO: Add flag to enable option
+        if #available(iOS 16.4, *) {
+            #if DEBUG
+            webView.isInspectable = true
+            #endif
+        }
     }
 }
 
