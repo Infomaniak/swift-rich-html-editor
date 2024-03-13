@@ -19,7 +19,10 @@ let package = Package(
         .target(
             name: "InfomaniakRichEditor",
             resources: [
-                .process("Resources/index.html")
+                .process("Resources/index.html"),
+                .process("Resources/js/editor.js"),
+                .process("Resources/js/javascriptBridge.js"),
+                .process("Resources/css/style.css"),
             ]
         ),
         .testTarget(

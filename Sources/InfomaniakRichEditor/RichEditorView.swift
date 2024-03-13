@@ -9,16 +9,29 @@ import UIKit
 import WebKit
 
 public final class RichEditorView: UIView {
-    private var webView: WKWebView!
-
-    private(set) var webViewBridge: WebViewBridge!
-
-    public override var canBecomeFirstResponder: Bool {
-        return true
+    public var text: String {
+        get {
+            return htmlContent
+        }
+        set {
+            // TODO: Set HTML content here
+        }
     }
+
+    public weak var delegate: RichEditorViewDelegate?
+
+    private var htmlContent = ""
+
+    private var webView: WKWebView!
+    private var webViewBridge: WebViewBridge!
+    private var scriptMessageHandler: ScriptMessageHandler!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+        scriptMessageHandler = ScriptMessageHandler()
+        scriptMessageHandler.delegate = self
+
         setUpWebView()
         webViewBridge = WebViewBridge(webView: webView)
     }
@@ -27,18 +40,19 @@ public final class RichEditorView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
 
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        // TODO: Find better solution?
-        becomeFirstResponder()
+// MARK: - WKWebView
+
+public extension RichEditorView {
+    func setURLSchemeHandler(_ urlSchemeHandler: (any WKURLSchemeHandler)?, forURLScheme urlScheme: String) {
+        webView.configuration.setURLSchemeHandler(urlSchemeHandler, forURLScheme: urlScheme)
     }
 
     private func setUpWebView() {
         webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
         webView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(webView)
-
-        webView.isUserInteractionEnabled = false
 
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: topAnchor),
@@ -47,11 +61,37 @@ public final class RichEditorView: UIView {
             webView.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
 
-        loadWebViewResources()
+        configureWebView()
         enableWebViewDebug()
+
+        loadWebViewPage()
+        loadScripts()
     }
 
-    private func loadWebViewResources() {
+    private func configureWebView() {
+        if #available(iOS 14.0, *) {
+            webView.configuration.defaultWebpagePreferences.allowsContentJavaScript = false
+        } else {
+            webView.configuration.preferences.javaScriptEnabled = false
+        }
+
+        webView.configuration.userContentController.add(scriptMessageHandler, scriptMessage: .userDidType)
+    }
+
+    private func loadScripts() {
+        webView.configuration.userContentController.addUserScript(
+            named: "javascriptBridge",
+            injectionTime: .atDocumentStart,
+            forMainFrameOnly: true
+        )
+        webView.configuration.userContentController.addUserScript(
+            named: "editor",
+            injectionTime: .atDocumentEnd,
+            forMainFrameOnly: true
+        )
+    }
+
+    private func loadWebViewPage() {
         guard let indexURL = Bundle.module.url(forResource: "index", withExtension: "html") else {
             return
         }
@@ -61,7 +101,6 @@ public final class RichEditorView: UIView {
     }
 
     private func enableWebViewDebug() {
-        // TODO: Add flag to enable option
         if #available(iOS 16.4, *) {
             #if DEBUG
             webView.isInspectable = true
@@ -69,6 +108,17 @@ public final class RichEditorView: UIView {
         }
     }
 }
+
+// MARK: - ScriptMessageHandlerDelegate
+
+extension RichEditorView: ScriptMessageHandlerDelegate {
+    func userDidType(_ text: String) {
+        htmlContent = text
+        delegate?.textViewDidChange(self)
+    }
+}
+
+// MARK: - Preview
 
 @available(iOS 17.0, *)
 #Preview {
