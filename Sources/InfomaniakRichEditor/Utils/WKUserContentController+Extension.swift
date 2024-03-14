@@ -9,7 +9,7 @@ import Foundation
 import WebKit
 
 extension WKUserContentController {
-    func add(_ scriptMessageHandler: any WKScriptMessageHandler, scriptMessage: ScriptMessageHandler.ScriptMessage) {
+    func add(_ scriptMessageHandler: any WKScriptMessageHandler, scriptMessage: ScriptMessageHandler.Handler) {
         add(scriptMessageHandler, name: scriptMessage.rawValue)
     }
     

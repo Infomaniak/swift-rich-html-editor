@@ -2,12 +2,9 @@
 
 const swiftRichEditor = document.getElementById("swift-rich-editor");
 
-swiftRichEditor.onkeyup = onKeyUpListener;
-
-function onKeyUpListener() {
+// Observe mutations of the editor's content
+const mutationObserver = new MutationObserver(() => {
     reportUserDidType(swiftRichEditor.innerHTML);
-}
-
-function getContent() {
-    return swiftRichEditor.innerHTML;
-}
+});
+const config = { subtree: true, childList: true, characterData: true };
+mutationObserver.observe(swiftRichEditor, config);

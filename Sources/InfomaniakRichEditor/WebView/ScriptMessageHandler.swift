@@ -1,10 +1,11 @@
 //
 //  ScriptMessageHandler.swift
-//  
+//
 //
 //  Created by Valentin Perignon on 13.03.2024.
 //
 
+import OSLog
 import WebKit
 
 protocol ScriptMessageHandlerDelegate: AnyObject {
@@ -12,20 +13,25 @@ protocol ScriptMessageHandlerDelegate: AnyObject {
 }
 
 final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
-    enum ScriptMessage: String {
+    enum Handler: String, CaseIterable {
         case userDidType
+        case log
     }
 
     weak var delegate: ScriptMessageHandlerDelegate?
 
+    private let logger = Logger(subsystem: "com.infomaniak.swift-rich-editor", category: "ScriptMessageHandler")
+
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        guard let messageName = ScriptMessage(rawValue: message.name) else {
+        guard let messageName = Handler(rawValue: message.name) else {
             return
         }
 
         switch messageName {
         case .userDidType:
             userDidType(message)
+        case .log:
+            log(message)
         }
     }
 
@@ -34,5 +40,12 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             return
         }
         delegate?.userDidType(body)
+    }
+
+    private func log(_ message: WKScriptMessage) {
+        guard let body = message.body as? String else {
+            return
+        }
+        logger.log(level: .info, "\(body)")
     }
 }

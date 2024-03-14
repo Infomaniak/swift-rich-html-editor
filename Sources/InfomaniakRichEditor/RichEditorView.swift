@@ -9,6 +9,7 @@ import UIKit
 import WebKit
 
 public final class RichEditorView: UIView {
+    /// The text that the text view displays.
     public var text: String {
         get {
             return htmlContent
@@ -18,6 +19,7 @@ public final class RichEditorView: UIView {
         }
     }
 
+    /// The editor view’s delegate.
     public weak var delegate: RichEditorViewDelegate?
 
     private var htmlContent = ""
@@ -75,20 +77,19 @@ public extension RichEditorView {
             webView.configuration.preferences.javaScriptEnabled = false
         }
 
-        webView.configuration.userContentController.add(scriptMessageHandler, scriptMessage: .userDidType)
+        for messageHandler in ScriptMessageHandler.Handler.allCases {
+            webView.configuration.userContentController.add(scriptMessageHandler, scriptMessage: messageHandler)
+        }
     }
 
     private func loadScripts() {
-        webView.configuration.userContentController.addUserScript(
-            named: "javascriptBridge",
-            injectionTime: .atDocumentStart,
-            forMainFrameOnly: true
-        )
-        webView.configuration.userContentController.addUserScript(
-            named: "editor",
-            injectionTime: .atDocumentEnd,
-            forMainFrameOnly: true
-        )
+        for script in Script.allCases {
+            webView.configuration.userContentController.addUserScript(
+                named: script.name,
+                injectionTime: script.injectionTime,
+                forMainFrameOnly: true
+            )
+        }
     }
 
     private func loadWebViewPage() {
