@@ -15,6 +15,7 @@ protocol ScriptMessageHandlerDelegate: AnyObject {
 final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     enum Handler: String, CaseIterable {
         case userDidType
+        case selectionDidChange
         case log
     }
 
@@ -30,6 +31,8 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         switch messageName {
         case .userDidType:
             userDidType(message)
+        case .selectionDidChange:
+            selectionDidChange(message)
         case .log:
             log(message)
         }
@@ -40,6 +43,20 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             return
         }
         delegate?.userDidType(body)
+    }
+
+    private func selectionDidChange(_ message: WKScriptMessage) {
+        guard let body = message.body as? [String: Int] else {
+            return
+        }
+
+        var selectionState = [Command: Bool]()
+        for (key, value) in body {
+            guard let command = Command(rawValue: key) else {
+                continue
+            }
+            selectionState[command] = value != 0
+        }
     }
 
     private func log(_ message: WKScriptMessage) {

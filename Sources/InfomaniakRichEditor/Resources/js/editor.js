@@ -8,3 +8,20 @@ const mutationObserver = new MutationObserver(() => {
 });
 const config = { subtree: true, childList: true, characterData: true };
 mutationObserver.observe(swiftRichEditor, config);
+
+// Observe selection changes
+document.addEventListener("selectionchange", () => {
+    const currentState = getCurrentSelectionState();
+    reportSelectionDidChange(currentState);
+});
+
+function getCurrentSelectionState() {
+    const properties = ["bold", "italic", "strikeThrough", "underline"];
+    
+    let currentState = {};
+    for (const property of properties) {
+        currentState[property] = document.queryCommandState(property);
+    }
+
+    return currentState;
+}

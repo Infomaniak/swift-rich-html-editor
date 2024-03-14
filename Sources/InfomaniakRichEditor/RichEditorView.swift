@@ -47,6 +47,7 @@ public final class RichEditorView: UIView {
 // MARK: - WKWebView
 
 public extension RichEditorView {
+    /// Registers an object to load resources associated with the specified URL scheme.
     func setURLSchemeHandler(_ urlSchemeHandler: (any WKURLSchemeHandler)?, forURLScheme urlScheme: String) {
         webView.configuration.setURLSchemeHandler(urlSchemeHandler, forURLScheme: urlScheme)
     }
