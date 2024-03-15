@@ -1,5 +1,5 @@
 //
-//  RichEditorTextAttribute.swift
+//  RETextAttributes.swift
 //
 //
 //  Created by Valentin Perignon on 15.03.2024.
@@ -13,8 +13,8 @@ import UIKit
 #endif
 
 public struct RETextAttributes: Codable {
-    var format = RETextAttributesFormat()
-    var textInfo = RETextAttributesTextInfo()
+    public var format = RETextAttributesFormat()
+    public var textInfo = RETextAttributesTextInfo()
 }
 
 public struct RETextAttributesFormat: Codable {
