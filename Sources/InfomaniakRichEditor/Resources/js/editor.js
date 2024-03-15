@@ -16,12 +16,30 @@ document.addEventListener("selectionchange", () => {
 });
 
 function getCurrentSelectionState() {
-    const properties = ["bold", "italic", "strikeThrough", "underline"];
+    const format = [
+        "bold",
+        "italic",
+        "underline",
+        "strikethrough"
+    ];
+    const textInfo = [
+        "fontName",
+        "fontSize",
+        "foreColor",
+        "hiliteColor"
+    ];
     
-    let currentState = {};
-    for (const property of properties) {
-        currentState[property] = document.queryCommandState(property);
+    let currentState = {
+        format: {},
+        textInfo: {}
+    };
+
+    for (const property of format) {
+        currentState.format[property] = document.queryCommandState(property);
+    }
+    for (const property of textInfo) {
+        currentState.textInfo[property] = document.queryCommandValue(property);
     }
 
-    return currentState;
+    return JSON.stringify(currentState);
 }

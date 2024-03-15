@@ -10,13 +10,14 @@ import WebKit
 
 protocol ScriptMessageHandlerDelegate: AnyObject {
     func userDidType(_ text: String)
+    func selectionDidChange(_ selectedTextAttributes: RETextAttributes?)
 }
 
 final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     enum Handler: String, CaseIterable {
         case userDidType
         case selectionDidChange
-        case log
+        case scriptLog
     }
 
     weak var delegate: ScriptMessageHandlerDelegate?
@@ -33,8 +34,8 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             userDidType(message)
         case .selectionDidChange:
             selectionDidChange(message)
-        case .log:
-            log(message)
+        case .scriptLog:
+            scriptLog(message)
         }
     }
 
@@ -46,23 +47,25 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     }
 
     private func selectionDidChange(_ message: WKScriptMessage) {
-        guard let body = message.body as? [String: Int] else {
+        guard let body = message.body as? String, let data = body.data(using: .utf8) else {
             return
         }
 
-        var selectionState = [Command: Bool]()
-        for (key, value) in body {
-            guard let command = Command(rawValue: key) else {
-                continue
-            }
-            selectionState[command] = value != 0
+        do {
+            let decoder = JSONDecoder()
+            let selectedTextAttributes = try decoder.decode(RETextAttributes.self, from: data)
+
+            delegate?.selectionDidChange(selectedTextAttributes)
+        } catch {
+            logger.error("Error while trying to decode RETextAttributes: \(error)")
+            delegate?.selectionDidChange(nil)
         }
     }
 
-    private func log(_ message: WKScriptMessage) {
+    private func scriptLog(_ message: WKScriptMessage) {
         guard let body = message.body as? String else {
             return
         }
-        logger.log(level: .info, "\(body)")
+        logger.info("[ScriptLog] \(body)")
     }
 }

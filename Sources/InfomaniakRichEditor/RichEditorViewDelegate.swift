@@ -11,4 +11,7 @@ import UIKit
 public protocol RichEditorViewDelegate: AnyObject {
     /// Tells the delegate when the user changes the content or format in the specified editor view.
     func textViewDidChange(_ editor: RichEditorView)
+
+    /// Tells the delegate when the text selection changes in the specified text view.
+    func textViewDidChangeSelection(_ editor: RichEditorView)
 }

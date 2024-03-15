@@ -22,6 +22,9 @@ public final class RichEditorView: UIView {
     /// The editor view’s delegate.
     public weak var delegate: RichEditorViewDelegate?
 
+    /// The current selection styled text of the editor.
+    public var selectedTextAttributes = RETextAttributes()
+
     private var htmlContent = ""
 
     private var webView: WKWebView!
@@ -118,11 +121,11 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
         htmlContent = text
         delegate?.textViewDidChange(self)
     }
-}
 
-// MARK: - Preview
-
-@available(iOS 17.0, *)
-#Preview {
-    RichEditorView()
+    func selectionDidChange(_ selectedTextAttributes: RETextAttributes?) {
+        if let selectedTextAttributes {
+            self.selectedTextAttributes = selectedTextAttributes
+        }
+        delegate?.textViewDidChangeSelection(self)
+    }
 }

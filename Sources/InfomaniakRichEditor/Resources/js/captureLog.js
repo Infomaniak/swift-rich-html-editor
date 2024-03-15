@@ -1,5 +1,5 @@
 function captureLog(message) {
-    window.webkit.messageHandlers.log.postMessage(message);
+    window.webkit.messageHandlers.scriptLog.postMessage(message);
 }
 
 window.console.log = captureLog;
