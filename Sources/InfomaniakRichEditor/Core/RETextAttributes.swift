@@ -47,19 +47,19 @@ public struct RETextAttributesTextInfo: Codable {
 
     #if canImport(AppKit)
     public var foregroundColor: NSColor? {
-        return .clear
+        return NSColor(rgb: foreground)
     }
 
     public var highlightColor: NSColor? {
-        return .clear
+        return NSColor(rgb: highlight)
     }
     #elseif canImport(UIKit)
     public var foregroundColor: UIColor? {
-        return .clear
+        return UIColor(rgb: foreground)
     }
 
     public var highlightColor: UIColor? {
-        return .clear
+        return UIColor(rgb: highlight)
     }
     #endif
 
