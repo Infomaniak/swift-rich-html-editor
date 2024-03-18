@@ -15,7 +15,7 @@
 import UIKit
 import WebKit
 
-public final class RichEditorView: UIView {
+public class RichEditorView: UIView {
     /// The text that the text view displays.
     public var text: String {
         get {
@@ -30,12 +30,12 @@ public final class RichEditorView: UIView {
     public weak var delegate: RichEditorViewDelegate?
 
     /// The current selection styled text of the editor.
-    public var selectedTextAttributes = RETextAttributes()
+    public private(set) var selectedTextAttributes = RETextAttributes()
 
     private var htmlContent = ""
 
     private var webView: WKWebView!
-    private var webViewBridge: WebViewBridge!
+    private var webViewBridge: WebViewBridgeManager!
     private var scriptMessageHandler: ScriptMessageHandler!
 
     override init(frame: CGRect) {
@@ -45,12 +45,32 @@ public final class RichEditorView: UIView {
         scriptMessageHandler.delegate = self
 
         setUpWebView()
-        webViewBridge = WebViewBridge(webView: webView)
+        webViewBridge = WebViewBridgeManager(webView: webView)
     }
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - Format text
+
+public extension RichEditorView {
+    func bold() {
+        webViewBridge.applyFormat(.bold)
+    }
+
+    func italic() {
+        webViewBridge.applyFormat(.italic)
+    }
+
+    func underline() {
+        webViewBridge.applyFormat(.underline)
+    }
+
+    func strikethrough() {
+        webViewBridge.applyFormat(.strikethrough)
     }
 }
 

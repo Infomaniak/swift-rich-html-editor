@@ -45,3 +45,9 @@ function getCurrentSelectionState() {
 
     return JSON.stringify(currentState);
 }
+
+// MARK: - Format functions
+
+function execCommand(command, argument) {
+    return document.execCommand(command, false, argument);
+}

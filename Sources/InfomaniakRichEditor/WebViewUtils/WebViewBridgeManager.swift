@@ -15,6 +15,14 @@
 import Foundation
 import WebKit
 
-struct WebViewBridge {
+enum RETextFormat: String {
+    case bold, italic, underline, strikethrough
+}
+
+struct WebViewBridgeManager {
     let webView: WKWebView
+
+    func applyFormat(_ format: RETextFormat) {
+        webView.evaluateJavaScript("execCommand(\"\(format.rawValue)\", null)")
+    }
 }
