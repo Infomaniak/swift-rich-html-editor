@@ -45,7 +45,7 @@ private enum ColorHelper {
         let rgbValues = value
             .trimmingCharacters(in: CharacterSet(charactersIn: "rgb()"))
             .split(separator: ",")
-            .compactMap { Float($0) }
+            .compactMap { Float($0.trimmingCharacters(in: .whitespaces)) }
 
         guard rgbValues.count == 3 else {
             return nil

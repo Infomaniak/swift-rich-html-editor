@@ -84,6 +84,6 @@ public struct RETextAttributesTextInfo: Codable {
         self.highlight = try container.decode(String.self, forKey: .highlight)
 
         let rawFontSize = try container.decode(String.self, forKey: .fontSize)
-        self.fontSize = CGFloat(Double(rawFontSize) ?? .zero)
+        self.fontSize = CGFloat(Float(rawFontSize) ?? .zero)
     }
 }

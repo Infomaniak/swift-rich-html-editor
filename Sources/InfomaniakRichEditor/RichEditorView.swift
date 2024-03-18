@@ -94,7 +94,7 @@ public extension RichEditorView {
     }
 
     private func loadScripts() {
-        for script in Script.allCases {
+        for script in REScript.allCases {
             webView.configuration.userContentController.addUserScript(
                 named: script.name,
                 injectionTime: script.injectionTime,

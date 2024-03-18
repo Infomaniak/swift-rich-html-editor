@@ -14,16 +14,16 @@
 
 import WebKit
 
-struct Script {
+struct REScript {
     let name: String
     let injectionTime: WKUserScriptInjectionTime
 
     static let allCases = [
         // At document start
-        Script(name: "captureLog", injectionTime: .atDocumentStart),
-        Script(name: "javascriptBridge", injectionTime: .atDocumentStart),
+        REScript(name: "captureLog", injectionTime: .atDocumentStart),
+        REScript(name: "javascriptBridge", injectionTime: .atDocumentStart),
 
         // At document end
-        Script(name: "editor", injectionTime: .atDocumentEnd)
+        REScript(name: "editor", injectionTime: .atDocumentEnd)
     ]
 }
