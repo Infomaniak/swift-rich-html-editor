@@ -32,9 +32,11 @@ public class RichEditorView: UIView {
     /// The current selection styled text of the editor.
     public private(set) var selectedTextAttributes = RETextAttributes()
 
+    ///
+    private(set) var webView: WKWebView!
+
     private var htmlContent = ""
 
-    private var webView: WKWebView!
     private var webViewBridge: WebViewBridgeManager!
     private var scriptMessageHandler: ScriptMessageHandler!
 
@@ -58,30 +60,29 @@ public class RichEditorView: UIView {
 
 public extension RichEditorView {
     func bold() {
-        webViewBridge.applyFormat(.bold)
+        applyStyle(.bold)
     }
 
     func italic() {
-        webViewBridge.applyFormat(.italic)
+        applyStyle(.italic)
     }
 
     func underline() {
-        webViewBridge.applyFormat(.underline)
+        applyStyle(.underline)
     }
 
     func strikethrough() {
-        webViewBridge.applyFormat(.strikethrough)
+        applyStyle(.strikethrough)
+    }
+
+    private func applyStyle(_ style: RETextFormat) {
+        webViewBridge.applyFormat(style)
     }
 }
 
 // MARK: - WKWebView
 
 public extension RichEditorView {
-    /// Registers an object to load resources associated with the specified URL scheme.
-    func setURLSchemeHandler(_ urlSchemeHandler: (any WKURLSchemeHandler)?, forURLScheme urlScheme: String) {
-        webView.configuration.setURLSchemeHandler(urlSchemeHandler, forURLScheme: urlScheme)
-    }
-
     private func setUpWebView() {
         webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -150,9 +151,15 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
     }
 
     func selectionDidChange(_ selectedTextAttributes: RETextAttributes?) {
-        if let selectedTextAttributes {
-            self.selectedTextAttributes = selectedTextAttributes
-        }
         delegate?.textViewDidChangeSelection(self)
+    }
+
+    func selectionStateDidChange(_ selectedTextAttributes: RETextAttributes?) {
+        guard let selectedTextAttributes else {
+            return
+        }
+
+        self.selectedTextAttributes = selectedTextAttributes
+        delegate?.editor(self, didSelectedTextAttributesChanged: selectedTextAttributes)
     }
 }

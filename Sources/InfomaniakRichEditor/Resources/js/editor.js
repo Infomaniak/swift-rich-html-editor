@@ -1,21 +1,30 @@
 "use strict";
 
+// MARK: - Constants
+
 const swiftRichEditor = document.getElementById("swift-rich-editor");
+let currentSelectionState = getCurrentSelectionState();
 
 // MARK: - Observe mutations of the editor's content
 
 const mutationObserver = new MutationObserver(() => {
     reportUserDidType(swiftRichEditor.innerHTML);
+    reportSelectionStateChangedIfNecessary();
 });
 const config = { subtree: true, childList: true, characterData: true };
 mutationObserver.observe(swiftRichEditor, config);
 
-// MARK: - Observe selection changes
-
 document.addEventListener("selectionchange", () => {
-    const currentState = getCurrentSelectionState();
-    reportSelectionDidChange(currentState);
+    reportSelectionStateChangedIfNecessary();
 });
+
+function reportSelectionStateChangedIfNecessary() {
+    const newSelectionState = getCurrentSelectionState();
+    if (!Object.is(currentSelectionState, newSelectionState)) {
+        currentSelectionState = newSelectionState;
+        reportSelectionStateDidChange(currentSelectionState);
+    }
+}
 
 function getCurrentSelectionState() {
     const format = [
@@ -49,5 +58,6 @@ function getCurrentSelectionState() {
 // MARK: - Format functions
 
 function execCommand(command, argument) {
-    return document.execCommand(command, false, argument);
+    document.execCommand(command, false, argument);
+    reportSelectionStateChangedIfNecessary();
 }

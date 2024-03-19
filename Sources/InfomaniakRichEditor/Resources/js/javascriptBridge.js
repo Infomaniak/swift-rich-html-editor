@@ -7,3 +7,7 @@ function reportUserDidType(content) {
 function reportSelectionDidChange(selectionState) {
     window.webkit.messageHandlers.selectionDidChange.postMessage(selectionState);
 }
+
+function reportSelectionStateDidChange(selectionState) {
+    window.webkit.messageHandlers.selectionStateDidChange.postMessage(selectionState);
+}
