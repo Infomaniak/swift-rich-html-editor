@@ -147,11 +147,7 @@ public extension RichEditorView {
 extension RichEditorView: ScriptMessageHandlerDelegate {
     func userDidType(_ text: String) {
         htmlContent = text
-        delegate?.textViewDidChange(self)
-    }
-
-    func selectionDidChange(_ selectedTextAttributes: RETextAttributes?) {
-        delegate?.textViewDidChangeSelection(self)
+        delegate?.richEditorViewDidChange(self)
     }
 
     func selectionStateDidChange(_ selectedTextAttributes: RETextAttributes?) {
@@ -160,6 +156,6 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
         }
 
         self.selectedTextAttributes = selectedTextAttributes
-        delegate?.editor(self, didSelectedTextAttributesChanged: selectedTextAttributes)
+        delegate?.richEditorView(self, didSelectedTextAttributesChanged: selectedTextAttributes)
     }
 }

@@ -17,14 +17,12 @@ import WebKit
 
 protocol ScriptMessageHandlerDelegate: AnyObject {
     func userDidType(_ text: String)
-    func selectionDidChange(_ selectedTextAttributes: RETextAttributes?)
     func selectionStateDidChange(_ selectedTextAttributes: RETextAttributes?)
 }
 
 final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     enum Handler: String, CaseIterable {
         case userDidType
-        case selectionDidChange
         case selectionStateDidChange
         case scriptLog
     }
@@ -41,8 +39,6 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         switch messageName {
         case .userDidType:
             userDidType(message)
-        case .selectionDidChange:
-            selectionDidChange(message)
         case .selectionStateDidChange:
             selectionStateDidChange(message)
         case .scriptLog:
@@ -55,22 +51,6 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             return
         }
         delegate?.userDidType(body)
-    }
-
-    private func selectionDidChange(_ message: WKScriptMessage) {
-//        guard let body = message.body as? String, let data = body.data(using: .utf8) else {
-//            return
-//        }
-//
-//        do {
-//            let decoder = JSONDecoder()
-//            let selectedTextAttributes = try decoder.decode(RETextAttributes.self, from: data)
-//
-//            delegate?.selectionDidChange(selectedTextAttributes)
-//        } catch {
-//            logger.error("Error while trying to decode RETextAttributes: \(error)")
-//            delegate?.selectionDidChange(nil)
-//        }
     }
 
     private func selectionStateDidChange(_ message: WKScriptMessage) {
