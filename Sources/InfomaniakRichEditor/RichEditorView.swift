@@ -83,6 +83,10 @@ public extension RichEditorView {
 // MARK: - WKWebView
 
 public extension RichEditorView {
+    func addInputAccessoryView(_ view: UIView) {
+        webView.addInputAccessoryView(view)
+    }
+
     private func setUpWebView() {
         webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
         webView.translatesAutoresizingMaskIntoConstraints = false
