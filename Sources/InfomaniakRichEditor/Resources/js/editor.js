@@ -3,7 +3,8 @@
 // MARK: - Constants
 
 const swiftRichEditor = document.getElementById("swift-rich-editor");
-let currentSelectionState = getCurrentSelectionState();
+
+let currentSelectionState = {};
 
 // MARK: - Observe mutations of the editor's content
 
@@ -18,6 +19,8 @@ document.addEventListener("selectionchange", () => {
     reportSelectionStateChangedIfNecessary();
 });
 
+reportSelectionStateChangedIfNecessary();
+
 function reportSelectionStateChangedIfNecessary() {
     const newSelectionState = getCurrentSelectionState();
     if (!Object.is(currentSelectionState, newSelectionState)) {
@@ -27,30 +30,36 @@ function reportSelectionStateChangedIfNecessary() {
 }
 
 function getCurrentSelectionState() {
-    const format = [
-        "bold",
-        "italic",
-        "underline",
-        "strikethrough"
-    ];
-    const textInfo = [
-        "fontName",
-        "fontSize",
-        "foreColor",
-        "hiliteColor"
-    ];
+    const format = {
+        hasBold: "bold",
+        hasItalic: "italic",
+        hasUnderline: "underline",
+        hasStrikeThrough: "strikeThrough",
+        hasOrderedList: "insertOrderedList",
+        hasUnorderedList: "insertUnorderedList"
+    };
+    const textInfo = {
+        fontName: "fontName",
+        fontSize: "fontSize",
+        foreground: "foreColor",
+        highlight: "hiliteColor"
+    };
     
     let currentState = {
         format: {},
         textInfo: {}
     };
 
-    for (const property of format) {
-        currentState.format[property] = document.queryCommandState(property);
+    for (const property in format) {
+        const commandName = format[property];
+        currentState.format[property] = document.queryCommandState(commandName);
     }
-    for (const property of textInfo) {
-        currentState.textInfo[property] = document.queryCommandValue(property);
+    for (const property in textInfo) {
+        const commandName = textInfo[property];
+        currentState.textInfo[property] = document.queryCommandValue(commandName);
     }
+
+    console.log(currentState);
 
     return JSON.stringify(currentState);
 }

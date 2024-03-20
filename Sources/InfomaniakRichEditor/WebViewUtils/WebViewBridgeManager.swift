@@ -16,7 +16,12 @@ import Foundation
 import WebKit
 
 enum RETextFormat: String {
-    case bold, italic, underline, strikethrough
+    case bold
+    case italic
+    case underline
+    case strikeThrough
+    case orderedList = "insertOrderedList"
+    case unorderedList = "insertUnorderedList"
 }
 
 struct WebViewBridgeManager {

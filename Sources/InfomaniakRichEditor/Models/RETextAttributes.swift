@@ -28,14 +28,9 @@ public struct RETextAttributesFormat: Codable {
     public var hasBold = false
     public var hasItalic = false
     public var hasUnderline = false
-    public var hasStrikethrough = false
-
-    enum CodingKeys: String, CodingKey {
-        case hasBold = "bold"
-        case hasItalic = "italic"
-        case hasUnderline = "underline"
-        case hasStrikethrough = "strikethrough"
-    }
+    public var hasStrikeThrough = false
+    public var hasOrderedList = false
+    public var hasUnorderedList = false
 }
 
 public struct RETextAttributesTextInfo: Codable {
@@ -62,13 +57,6 @@ public struct RETextAttributesTextInfo: Codable {
         return UIColor(rgb: highlight)
     }
     #endif
-
-    enum CodingKeys: String, CodingKey {
-        case fontName
-        case fontSize
-        case foreground = "foreColor"
-        case highlight = "hiliteColor"
-    }
 
     public init() {
         fontName = ""

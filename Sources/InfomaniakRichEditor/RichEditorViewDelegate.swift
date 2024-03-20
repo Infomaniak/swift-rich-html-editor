@@ -22,3 +22,9 @@ public protocol RichEditorViewDelegate: AnyObject {
     /// Tells the delegate when the attributes of the selected text changes in the specified editor view.
     func richEditorView(_ richEditorView: RichEditorView, didSelectedTextAttributesChanged textAttributes: RETextAttributes)
 }
+
+// Optional implementation
+public extension RichEditorViewDelegate {
+    func richEditorViewDidChange(_ richEditorView: RichEditorView) {}
+    func richEditorView(_ richEditorView: RichEditorView, didSelectedTextAttributesChanged textAttributes: RETextAttributes) {}
+}

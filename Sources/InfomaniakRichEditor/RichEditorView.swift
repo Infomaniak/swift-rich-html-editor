@@ -11,7 +11,6 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-
 import UIKit
 import WebKit
 
@@ -72,7 +71,15 @@ public extension RichEditorView {
     }
 
     func strikethrough() {
-        applyStyle(.strikethrough)
+        applyStyle(.strikeThrough)
+    }
+
+    func orderedList() {
+        applyStyle(.orderedList)
+    }
+
+    func unorderedList() {
+        applyStyle(.unorderedList)
     }
 
     private func applyStyle(_ style: RETextFormat) {

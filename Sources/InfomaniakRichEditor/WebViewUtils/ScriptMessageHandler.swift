@@ -62,8 +62,6 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             let decoder = JSONDecoder()
             let selectedTextAttributes = try decoder.decode(RETextAttributes.self, from: data)
 
-            print("New format:", selectedTextAttributes)
-
             delegate?.selectionStateDidChange(selectedTextAttributes)
         } catch {
             logger.error("Error while trying to decode RETextAttributes: \(error)")
