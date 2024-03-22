@@ -64,9 +64,13 @@ function getCurrentSelectionState() {
     return JSON.stringify(currentState);
 }
 
-// MARK: - Format functions
+// MARK: - Other functions
 
 function execCommand(command, argument) {
     document.execCommand(command, false, argument);
     reportSelectionStateChangedIfNecessary();
+}
+
+function getContent() {
+    return swiftRichEditor.innerHTML;
 }

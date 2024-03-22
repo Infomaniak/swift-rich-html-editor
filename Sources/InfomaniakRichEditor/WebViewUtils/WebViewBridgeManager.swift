@@ -29,6 +29,7 @@ struct WebViewBridgeManager {
 
     private enum JavaScriptFunction {
         case execCommand(command: String, argument: String?)
+        case getContent
 
         func call() -> String {
             let formattedArgs = formatArgs(args)
@@ -39,6 +40,8 @@ struct WebViewBridgeManager {
             switch self {
             case .execCommand(_, _):
                 return "execCommand"
+            case .getContent:
+                return "getContent"
             }
         }
 
@@ -46,10 +49,16 @@ struct WebViewBridgeManager {
             switch self {
             case .execCommand(let command, let argument):
                 return [command, argument]
+            case .getContent:
+                return []
             }
         }
 
         private func formatArgs(_ args: [Any]) -> String {
+            guard !args.isEmpty else {
+                return ""
+            }
+
             let formattedArgs = args.map { arg in
                 if let value = arg as? Int {
                     return "\(value)"
@@ -67,6 +76,17 @@ struct WebViewBridgeManager {
 
             return formattedArgs.joined(separator: ", ")
         }
+    }
+
+    func getContent() -> String {
+        evaluate(function: .getContent)
+        return ""
+    }
+
+    func insertContent(_ content: String) {
+        let execCommand = JavaScriptFunction.execCommand(command: "insertHTML", argument: content)
+        print(execCommand.call())
+        evaluate(function: execCommand)
     }
 
     func applyFormat(_ format: RETextFormat) {

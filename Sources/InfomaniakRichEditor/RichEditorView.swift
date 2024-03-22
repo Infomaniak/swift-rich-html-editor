@@ -21,7 +21,7 @@ public class RichEditorView: UIView {
             return htmlContent
         }
         set {
-            // TODO: Set HTML content here
+            insertContent(newValue)
         }
     }
 
@@ -52,6 +52,11 @@ public class RichEditorView: UIView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    private func insertContent(_ newContent: String) {
+        let cleanedContent = newContent.protected
+        webViewBridge.insertContent(cleanedContent)
     }
 }
 
