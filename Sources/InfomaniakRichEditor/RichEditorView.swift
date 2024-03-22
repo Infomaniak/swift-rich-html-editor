@@ -82,6 +82,10 @@ public extension RichEditorView {
         applyStyle(.unorderedList)
     }
 
+    func addLink(_ url: URL) {
+        webViewBridge.addLink(path: url.absoluteString)
+    }
+
     private func applyStyle(_ style: RETextFormat) {
         webViewBridge.applyFormat(style)
     }
