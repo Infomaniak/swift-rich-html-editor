@@ -28,8 +28,8 @@ struct WebViewBridgeManager {
     let webView: WKWebView
 
     private enum JavaScriptFunction {
-        case execCommand(command: String, argument: String?)
-        case getContent
+        case execCommand(command: String, argument: String? = nil)
+        case setContent(content: String)
 
         func call() -> String {
             let formattedArgs = formatArgs(args)
@@ -40,21 +40,21 @@ struct WebViewBridgeManager {
             switch self {
             case .execCommand(_, _):
                 return "execCommand"
-            case .getContent:
-                return "getContent"
+            case .setContent:
+                return "setContent"
             }
         }
 
-        private var args: [Any] {
+        private var args: [Any?] {
             switch self {
             case .execCommand(let command, let argument):
                 return [command, argument]
-            case .getContent:
-                return []
+            case .setContent(let content):
+                return [content]
             }
         }
 
-        private func formatArgs(_ args: [Any]) -> String {
+        private func formatArgs(_ args: [Any?]) -> String {
             guard !args.isEmpty else {
                 return ""
             }
@@ -78,15 +78,9 @@ struct WebViewBridgeManager {
         }
     }
 
-    func getContent() -> String {
-        evaluate(function: .getContent)
-        return ""
-    }
-
     func insertContent(_ content: String) {
-        let execCommand = JavaScriptFunction.execCommand(command: "insertHTML", argument: content)
-        print(execCommand.call())
-        evaluate(function: execCommand)
+        let setContent = JavaScriptFunction.setContent(content: content)
+        evaluate(function: setContent)
     }
 
     func applyFormat(_ format: RETextFormat) {
@@ -95,11 +89,16 @@ struct WebViewBridgeManager {
     }
 
     func addLink(path: String) {
-        let execCommand = JavaScriptFunction.execCommand(command: "createLink", argument: path)
-        evaluate(function: execCommand)
+        let createLink = JavaScriptFunction.execCommand(command: "createLink", argument: path)
+        evaluate(function: createLink)
     }
 
     private func evaluate(function: JavaScriptFunction) {
         webView.evaluateJavaScript(function.call())
+    }
+
+    @MainActor
+    private func evaluate(function: JavaScriptFunction) async throws -> Any {
+        return try await webView.evaluateJavaScript(function.call())
     }
 }

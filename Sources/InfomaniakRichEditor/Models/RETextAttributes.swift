@@ -38,23 +38,23 @@ public struct RETextAttributesTextInfo: Codable {
     public var fontSize: CGFloat
 
     private var foreground: String
-    private var highlight: String
+    private var background: String
 
     #if canImport(AppKit)
     public var foregroundColor: NSColor? {
         return NSColor(rgb: foreground)
     }
 
-    public var highlightColor: NSColor? {
-        return NSColor(rgb: highlight)
+    public var backgroundColor: NSColor? {
+        return NSColor(rgb: background)
     }
     #elseif canImport(UIKit)
     public var foregroundColor: UIColor? {
         return UIColor(rgb: foreground)
     }
 
-    public var highlightColor: UIColor? {
-        return UIColor(rgb: highlight)
+    public var backgroundColor: UIColor? {
+        return UIColor(rgb: background)
     }
     #endif
 
@@ -62,14 +62,14 @@ public struct RETextAttributesTextInfo: Codable {
         fontName = ""
         fontSize = .zero
         foreground = ""
-        highlight = ""
+        background = ""
     }
 
     public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.fontName = try container.decode(String.self, forKey: .fontName)
         self.foreground = try container.decode(String.self, forKey: .foreground)
-        self.highlight = try container.decode(String.self, forKey: .highlight)
+        self.background = try container.decode(String.self, forKey: .background)
 
         let rawFontSize = try container.decode(String.self, forKey: .fontSize)
         self.fontSize = CGFloat(Float(rawFontSize) ?? .zero)

@@ -1,35 +1,41 @@
 "use strict";
 
-// MARK: - Constants
-
 const swiftRichEditor = document.getElementById("swift-rich-editor");
 
-let currentSelectionState = {};
+let currentSelectedTextAttributes = {
+    format: {},
+    textInfo: {}
+};
 
 // MARK: - Observe mutations of the editor's content
 
 const mutationObserver = new MutationObserver(() => {
-    reportUserDidType(swiftRichEditor.innerHTML);
-    reportSelectionStateChangedIfNecessary();
+    reportContentDidChange(swiftRichEditor.innerHTML);
+    checkIfSelectedTextAttributesDidChange();
 });
-const config = { subtree: true, childList: true, characterData: true };
-mutationObserver.observe(swiftRichEditor, config);
+mutationObserver.observe(swiftRichEditor, { subtree: true, childList: true, characterData: true });
 
 document.addEventListener("selectionchange", () => {
-    reportSelectionStateChangedIfNecessary();
+    checkIfSelectedTextAttributesDidChange();
 });
 
-reportSelectionStateChangedIfNecessary();
+checkIfSelectedTextAttributesDidChange();
 
-function reportSelectionStateChangedIfNecessary() {
-    const newSelectionState = getCurrentSelectionState();
-    if (!Object.is(currentSelectionState, newSelectionState)) {
-        currentSelectionState = newSelectionState;
-        reportSelectionStateDidChange(currentSelectionState);
+// MARK: - Functions
+
+function checkIfSelectedTextAttributesDidChange() {
+    const newTextAttributes = getSelectedTextAttributes();
+    if (compareTextAttributes(currentSelectedTextAttributes, newTextAttributes)) {
+        return;
     }
+
+    currentSelectedTextAttributes = newTextAttributes;
+
+    let json = JSON.stringify(currentSelectedTextAttributes);
+    reportSelectedTextAttributesDidChange(json);
 }
 
-function getCurrentSelectionState() {
+function getSelectedTextAttributes() {
     const format = {
         hasBold: "bold",
         hasItalic: "italic",
@@ -42,35 +48,53 @@ function getCurrentSelectionState() {
         fontName: "fontName",
         fontSize: "fontSize",
         foreground: "foreColor",
-        highlight: "hiliteColor"
+        background: "backColor"
     };
     
-    let currentState = {
+    let textAttributes = {
         format: {},
         textInfo: {}
     };
 
     for (const property in format) {
         const commandName = format[property];
-        currentState.format[property] = document.queryCommandState(commandName);
+        textAttributes.format[property] = document.queryCommandState(commandName);
     }
     for (const property in textInfo) {
         const commandName = textInfo[property];
-        currentState.textInfo[property] = document.queryCommandValue(commandName);
+        textAttributes.textInfo[property] = document.queryCommandValue(commandName);
     }
 
-    console.log(currentState);
-
-    return JSON.stringify(currentState);
+    return textAttributes;
 }
-
-// MARK: - Other functions
 
 function execCommand(command, argument) {
     document.execCommand(command, false, argument);
-    reportSelectionStateChangedIfNecessary();
+    checkIfSelectedTextAttributesDidChange();
 }
 
-function getContent() {
-    return swiftRichEditor.innerHTML;
+function setContent(content) {
+    // TODO: Set editor content
+}
+
+// MARK: - Compare objects
+
+function compareTextAttributes(lhs, rhs) {
+    return compareObjectProperties(lhs.format, rhs.format) && compareObjectProperties(lhs.textInfo, rhs.textInfo);
+}
+
+function compareObjectProperties(lhs, rhs) {
+    let lhsKeys = Object.keys(lhs);
+    let rhsKeys = Object.keys(rhs);
+    if (lhsKeys.length !== rhsKeys.length) {
+        return false;
+    }
+
+    for (const key of lhsKeys) {
+        if (lhs[key] !== rhs[key]) {
+            return false;
+        }
+    }
+
+    return true;
 }

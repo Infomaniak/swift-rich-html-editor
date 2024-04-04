@@ -16,14 +16,14 @@ import OSLog
 import WebKit
 
 protocol ScriptMessageHandlerDelegate: AnyObject {
-    func userDidType(_ text: String)
+    func contentDidChange(_ text: String)
     func selectionStateDidChange(_ selectedTextAttributes: RETextAttributes?)
 }
 
 final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     enum Handler: String, CaseIterable {
-        case userDidType
-        case selectionStateDidChange
+        case contentDidChange
+        case selectedTextAttributesDidChange
         case scriptLog
     }
 
@@ -37,23 +37,23 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         }
 
         switch messageName {
-        case .userDidType:
-            userDidType(message)
-        case .selectionStateDidChange:
-            selectionStateDidChange(message)
+        case .contentDidChange:
+            contentDidChange(message)
+        case .selectedTextAttributesDidChange:
+            selectedTextAttributesDidChange(message)
         case .scriptLog:
             scriptLog(message)
         }
     }
 
-    private func userDidType(_ message: WKScriptMessage) {
+    private func contentDidChange(_ message: WKScriptMessage) {
         guard let body = message.body as? String else {
             return
         }
-        delegate?.userDidType(body)
+        delegate?.contentDidChange(body)
     }
 
-    private func selectionStateDidChange(_ message: WKScriptMessage) {
+    private func selectedTextAttributesDidChange(_ message: WKScriptMessage) {
         guard let body = message.body as? String, let data = body.data(using: .utf8) else {
             return
         }

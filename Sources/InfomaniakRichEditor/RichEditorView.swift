@@ -165,7 +165,7 @@ public extension RichEditorView {
 // MARK: - ScriptMessageHandlerDelegate
 
 extension RichEditorView: ScriptMessageHandlerDelegate {
-    func userDidType(_ text: String) {
+    func contentDidChange(_ text: String) {
         htmlContent = text
         delegate?.richEditorViewDidChange(self)
     }
