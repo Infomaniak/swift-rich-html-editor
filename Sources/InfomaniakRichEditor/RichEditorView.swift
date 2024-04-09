@@ -55,7 +55,6 @@ public class RichEditorView: UIView {
     }
 
     private func insertContent(_ newContent: String) {
-        print("COUCOU, content will be changed")
         webViewBridge.insertContent(newContent.protected)
     }
 }

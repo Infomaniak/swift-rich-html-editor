@@ -34,7 +34,6 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     private let logger = Logger(subsystem: "com.infomaniak.swift-rich-editor", category: "ScriptMessageHandler")
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        print("YOYO, messageName", message.name)
         guard let messageName = Handler(rawValue: message.name) else {
             return
         }
