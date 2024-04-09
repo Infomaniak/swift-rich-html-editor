@@ -55,8 +55,8 @@ public class RichEditorView: UIView {
     }
 
     private func insertContent(_ newContent: String) {
-        let cleanedContent = newContent.protected
-        webViewBridge.insertContent(cleanedContent)
+        print("COUCOU, content will be changed")
+        webViewBridge.insertContent(newContent.protected)
     }
 }
 
@@ -165,6 +165,10 @@ public extension RichEditorView {
 // MARK: - ScriptMessageHandlerDelegate
 
 extension RichEditorView: ScriptMessageHandlerDelegate {
+    func editorDidLoad() {
+        delegate?.richEditorViewDidLoad(self)
+    }
+
     func contentDidChange(_ text: String) {
         htmlContent = text
         delegate?.richEditorViewDidChange(self)

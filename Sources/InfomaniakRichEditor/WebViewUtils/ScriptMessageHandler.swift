@@ -16,12 +16,14 @@ import OSLog
 import WebKit
 
 protocol ScriptMessageHandlerDelegate: AnyObject {
+    func editorDidLoad()
     func contentDidChange(_ text: String)
     func selectionStateDidChange(_ selectedTextAttributes: RETextAttributes?)
 }
 
 final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     enum Handler: String, CaseIterable {
+        case editorDidLoad
         case contentDidChange
         case selectedTextAttributesDidChange
         case scriptLog
@@ -32,11 +34,14 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     private let logger = Logger(subsystem: "com.infomaniak.swift-rich-editor", category: "ScriptMessageHandler")
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        print("YOYO, messageName", message.name)
         guard let messageName = Handler(rawValue: message.name) else {
             return
         }
 
         switch messageName {
+        case .editorDidLoad:
+            editorDidLoad()
         case .contentDidChange:
             contentDidChange(message)
         case .selectedTextAttributesDidChange:
@@ -44,6 +49,10 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         case .scriptLog:
             scriptLog(message)
         }
+    }
+
+    private func editorDidLoad() {
+        delegate?.editorDidLoad()
     }
 
     private func contentDidChange(_ message: WKScriptMessage) {

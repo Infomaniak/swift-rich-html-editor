@@ -7,6 +7,11 @@ let currentSelectedTextAttributes = {
     textInfo: {}
 };
 
+// MARK: - DOM is loaded
+
+reportEditorDidLoad();
+checkIfSelectedTextAttributesDidChange();
+
 // MARK: - Observe mutations of the editor's content
 
 const mutationObserver = new MutationObserver(() => {
@@ -18,8 +23,6 @@ mutationObserver.observe(swiftRichEditor, { subtree: true, childList: true, char
 document.addEventListener("selectionchange", () => {
     checkIfSelectedTextAttributesDidChange();
 });
-
-checkIfSelectedTextAttributesDidChange();
 
 // MARK: - Functions
 
@@ -74,7 +77,8 @@ function execCommand(command, argument) {
 }
 
 function setContent(content) {
-    // TODO: Set editor content
+    console.log("UPDATED")
+    swiftRichEditor.innerHTML = content;
 }
 
 // MARK: - Compare objects
@@ -86,6 +90,7 @@ function compareTextAttributes(lhs, rhs) {
 function compareObjectProperties(lhs, rhs) {
     let lhsKeys = Object.keys(lhs);
     let rhsKeys = Object.keys(rhs);
+
     if (lhsKeys.length !== rhsKeys.length) {
         return false;
     }
