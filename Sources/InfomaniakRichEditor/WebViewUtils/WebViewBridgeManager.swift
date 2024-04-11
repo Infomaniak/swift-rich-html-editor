@@ -30,6 +30,7 @@ struct WebViewBridgeManager {
     private enum JavaScriptFunction {
         case execCommand(command: String, argument: String? = nil)
         case setContent(content: String)
+        case injectCSS(content: String)
 
         func call() -> String {
             let formattedArgs = formatArgs(args)
@@ -38,10 +39,12 @@ struct WebViewBridgeManager {
 
         private var identifier: String {
             switch self {
-            case .execCommand(_, _):
+            case .execCommand:
                 return "execCommand"
             case .setContent:
                 return "setContent"
+            case .injectCSS:
+                return "injectCSS"
             }
         }
 
@@ -50,6 +53,8 @@ struct WebViewBridgeManager {
             case .execCommand(let command, let argument):
                 return [command, argument]
             case .setContent(let content):
+                return [content]
+            case .injectCSS(let content):
                 return [content]
             }
         }
@@ -81,6 +86,11 @@ struct WebViewBridgeManager {
     func insertContent(_ content: String) {
         let setContent = JavaScriptFunction.setContent(content: content)
         evaluate(function: setContent)
+    }
+
+    func injectCSS(_ content: String) {
+        let injectCSS = JavaScriptFunction.injectCSS(content: content)
+        evaluate(function: injectCSS)
     }
 
     func applyFormat(_ format: RETextFormat) {

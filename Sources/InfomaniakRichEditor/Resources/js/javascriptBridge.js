@@ -1,7 +1,6 @@
 "use strict";
 
 function reportEditorDidLoad() {
-    console.log("EDITOR DID LOAD")
     window.webkit.messageHandlers.editorDidLoad.postMessage({});
 }
 

@@ -54,6 +54,10 @@ public class RichEditorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    public func injectAdditionalCSS(_ css: String) {
+        webViewBridge.injectCSS(css.protected)
+    }
+
     private func insertContent(_ newContent: String) {
         webViewBridge.insertContent(newContent.protected)
     }
@@ -173,7 +177,7 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
         delegate?.richEditorViewDidChange(self)
     }
 
-    func selectionStateDidChange(_ selectedTextAttributes: RETextAttributes?) {
+    func selectedTextAttributesDidChange(_ selectedTextAttributes: RETextAttributes?) {
         guard let selectedTextAttributes else {
             return
         }

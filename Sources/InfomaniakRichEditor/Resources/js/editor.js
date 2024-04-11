@@ -77,8 +77,13 @@ function execCommand(command, argument) {
 }
 
 function setContent(content) {
-    console.log("UPDATED")
     swiftRichEditor.innerHTML = content;
+}
+
+function injectCSS(content) {
+    const styleElement = document.createElement("style");
+    styleElement.innerText = content;
+    document.head.appendChild(styleElement);
 }
 
 // MARK: - Compare objects

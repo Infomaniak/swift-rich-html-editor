@@ -18,7 +18,7 @@ import WebKit
 protocol ScriptMessageHandlerDelegate: AnyObject {
     func editorDidLoad()
     func contentDidChange(_ text: String)
-    func selectionStateDidChange(_ selectedTextAttributes: RETextAttributes?)
+    func selectedTextAttributesDidChange(_ selectedTextAttributes: RETextAttributes?)
 }
 
 final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
@@ -70,10 +70,10 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             let decoder = JSONDecoder()
             let selectedTextAttributes = try decoder.decode(RETextAttributes.self, from: data)
 
-            delegate?.selectionStateDidChange(selectedTextAttributes)
+            delegate?.selectedTextAttributesDidChange(selectedTextAttributes)
         } catch {
             logger.error("Error while trying to decode RETextAttributes: \(error)")
-            delegate?.selectionStateDidChange(nil)
+            delegate?.selectedTextAttributesDidChange(nil)
         }
     }
 
