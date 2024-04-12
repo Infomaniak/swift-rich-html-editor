@@ -20,34 +20,34 @@ import UIKit
 
 #if canImport(AppKit)
 extension NSColor {
-    convenience init?(rgb: String) {
-        guard let (red, green, blue) = ColorHelper.extractRGB(from: rgb) else {
+    convenience init?(rgba: String) {
+        guard let (red, green, blue, alpha) = ColorHelper.extractRGBA(from: rgba) else {
             return nil
         }
 
-        self.init(red: red, green: green, blue: blue, alpha: 1)
+        self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 }
 #elseif canImport(UIKit)
 extension UIColor {
-    convenience init?(rgb: String) {
-        guard let (red, green, blue) = ColorHelper.extractRGB(from: rgb) else {
+    convenience init?(rgba: String) {
+        guard let (red, green, blue, alpha) = ColorHelper.extractRGBA(from: rgba) else {
             return nil
         }
 
-        self.init(red: red, green: green, blue: blue, alpha: 1)
+        self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 }
 #endif
 
 private enum ColorHelper {
-    static func extractRGB(from value: String) -> (red: CGFloat, green: CGFloat, blue: CGFloat)? {
+    static func extractRGBA(from value: String) -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat)? {
         let rgbValues = value
-            .trimmingCharacters(in: CharacterSet(charactersIn: "rgb()"))
+            .trimmingCharacters(in: CharacterSet(charactersIn: "rgba()"))
             .split(separator: ",")
             .compactMap { Float($0.trimmingCharacters(in: .whitespaces)) }
 
-        guard rgbValues.count == 3 else {
+        guard rgbValues.count >= 3 else {
             return nil
         }
 
@@ -55,6 +55,11 @@ private enum ColorHelper {
         let green = CGFloat(rgbValues[1] / 255)
         let blue = CGFloat(rgbValues[2] / 255)
 
-        return (red, green, blue)
+        var alpha: CGFloat = 1
+        if rgbValues.count >= 4 {
+            alpha = CGFloat(rgbValues[3] / 255)
+        }
+
+        return (red, green, blue, alpha)
     }
 }
