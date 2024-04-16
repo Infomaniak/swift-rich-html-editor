@@ -15,13 +15,13 @@ import UIKit
 import WebKit
 
 public class RichEditorView: UIView {
-    /// The text that the text view displays.
-    public var text: String {
+    /// The HTML that the editor view displays.
+    public var html: String {
         get {
-            return htmlContent
+            return internalHTMLContent
         }
         set {
-            insertContent(newValue)
+            setHTMLContent(newValue)
         }
     }
 
@@ -31,10 +31,10 @@ public class RichEditorView: UIView {
     /// The current selection styled text of the editor.
     public private(set) var selectedTextAttributes = RETextAttributes()
 
-    ///
-    private(set) var webView: WKWebView!
+    /// The web view that displays the HTML and handle the input.
+    public private(set) var webView: WKWebView!
 
-    private var htmlContent = ""
+    private var internalHTMLContent = ""
 
     private var webViewBridge: WebViewBridgeManager!
     private var scriptMessageHandler: ScriptMessageHandler!
@@ -53,19 +53,12 @@ public class RichEditorView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    public func injectAdditionalCSS(_ css: String) {
-        webViewBridge.injectCSS(css.protected)
-    }
-
-    private func insertContent(_ newContent: String) {
-        webViewBridge.insertContent(newContent.protected)
-    }
 }
 
 // MARK: - Format text
 
 public extension RichEditorView {
+    /// Toggles the bold style for the selected text
     func bold() {
         applyStyle(.bold)
     }
@@ -96,6 +89,15 @@ public extension RichEditorView {
 
     private func applyStyle(_ style: RETextFormat) {
         webViewBridge.applyFormat(style)
+    }
+}
+
+// MARK: - Customize Editor
+
+public extension RichEditorView {
+    ///
+    func injectAdditionalCSS(_ css: String) {
+        webViewBridge.injectCSS(css.protected)
     }
 }
 
@@ -163,6 +165,10 @@ public extension RichEditorView {
             #endif
         }
     }
+
+    private func setHTMLContent(_ newContent: String) {
+        webViewBridge.setHTMLContent(newContent.protected)
+    }
 }
 
 // MARK: - ScriptMessageHandlerDelegate
@@ -173,7 +179,7 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
     }
 
     func contentDidChange(_ text: String) {
-        htmlContent = text
+        internalHTMLContent = text
         delegate?.richEditorViewDidChange(self)
     }
 
@@ -183,6 +189,6 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
         }
 
         self.selectedTextAttributes = selectedTextAttributes
-        delegate?.richEditorView(self, didSelectedTextAttributesChanged: selectedTextAttributes)
+        delegate?.richEditorView(self, selectedTextAttributesDidChange: selectedTextAttributes)
     }
 }

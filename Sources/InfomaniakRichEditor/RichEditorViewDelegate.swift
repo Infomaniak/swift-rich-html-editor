@@ -16,19 +16,19 @@ import UIKit
 
 /// The methods for receiving editing-related messages for editor view objects.
 public protocol RichEditorViewDelegate: AnyObject {
-    ///
+    /// Tells the delegate when the specified editor view is fully loaded and ready to be used.
     func richEditorViewDidLoad(_ richEditorView: RichEditorView)
 
     /// Tells the delegate when the user changes the content or format in the specified editor view.
     func richEditorViewDidChange(_ richEditorView: RichEditorView)
 
     /// Tells the delegate when the attributes of the selected text changes in the specified editor view.
-    func richEditorView(_ richEditorView: RichEditorView, didSelectedTextAttributesChanged textAttributes: RETextAttributes)
+    func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: RETextAttributes)
 }
 
-// Default implementation
+// Default implementation for optional functions
 public extension RichEditorViewDelegate {
     func richEditorViewDidLoad(_ richEditorView: RichEditorView) {}
     func richEditorViewDidChange(_ richEditorView: RichEditorView) {}
-    func richEditorView(_ richEditorView: RichEditorView, didSelectedTextAttributesChanged textAttributes: RETextAttributes) {}
+    func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: RETextAttributes) {}
 }

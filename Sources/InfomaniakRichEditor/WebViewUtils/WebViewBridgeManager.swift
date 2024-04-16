@@ -83,7 +83,7 @@ struct WebViewBridgeManager {
         }
     }
 
-    func insertContent(_ content: String) {
+    func setHTMLContent(_ content: String) {
         let setContent = JavaScriptFunction.setContent(content: content)
         evaluate(function: setContent)
     }
@@ -105,10 +105,5 @@ struct WebViewBridgeManager {
 
     private func evaluate(function: JavaScriptFunction) {
         webView.evaluateJavaScript(function.call())
-    }
-
-    @MainActor
-    private func evaluate(function: JavaScriptFunction) async throws -> Any {
-        return try await webView.evaluateJavaScript(function.call())
     }
 }
