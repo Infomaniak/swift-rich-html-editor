@@ -18,6 +18,7 @@ import WebKit
 protocol ScriptMessageHandlerDelegate: AnyObject {
     func editorDidLoad()
     func contentDidChange(_ text: String)
+    func contentHeightDidChange(_ contentHeight: CGFloat)
     func selectedTextAttributesDidChange(_ selectedTextAttributes: RETextAttributes?)
 }
 
@@ -25,6 +26,7 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     enum Handler: String, CaseIterable {
         case editorDidLoad
         case contentDidChange
+        case contentHeightDidChange
         case selectedTextAttributesDidChange
         case scriptLog
     }
@@ -43,6 +45,8 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             editorDidLoad()
         case .contentDidChange:
             contentDidChange(message)
+        case .contentHeightDidChange:
+            contentHeightDidChange(message)
         case .selectedTextAttributesDidChange:
             selectedTextAttributesDidChange(message)
         case .scriptLog:
@@ -55,14 +59,21 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     }
 
     private func contentDidChange(_ message: WKScriptMessage) {
-        guard let body = message.body as? String else {
+        guard let newContent = message.body as? String else {
             return
         }
-        delegate?.contentDidChange(body)
+        delegate?.contentDidChange(newContent)
+    }
+
+    private func contentHeightDidChange(_ message: WKScriptMessage) {
+        guard let height = message.body as? CGFloat else {
+            return
+        }
+        delegate?.contentHeightDidChange(height)
     }
 
     private func selectedTextAttributesDidChange(_ message: WKScriptMessage) {
-        guard let body = message.body as? String, let data = body.data(using: .utf8) else {
+        guard let json = message.body as? String, let data = json.data(using: .utf8) else {
             return
         }
 
@@ -78,9 +89,9 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     }
 
     private func scriptLog(_ message: WKScriptMessage) {
-        guard let body = message.body as? String else {
+        guard let log = message.body as? String else {
             return
         }
-        logger.info("[ScriptLog] \(body)")
+        logger.info("[ScriptLog] \(log)")
     }
 }

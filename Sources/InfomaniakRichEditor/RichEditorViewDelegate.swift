@@ -12,7 +12,7 @@
 //  under the License.
 
 
-import UIKit
+import Foundation
 
 /// The methods for receiving editing-related messages for editor view objects.
 public protocol RichEditorViewDelegate: AnyObject {
@@ -22,6 +22,9 @@ public protocol RichEditorViewDelegate: AnyObject {
     /// Tells the delegate when the user changes the content or format in the specified editor view.
     func richEditorViewDidChange(_ richEditorView: RichEditorView)
 
+    /// Tells the delegate when the height of the content of the specified editor changes.
+    func richEditorView(_ richEditorView: RichEditorView, contentHeightDidChange contentHeight: CGFloat)
+
     /// Tells the delegate when the attributes of the selected text changes in the specified editor view.
     func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: RETextAttributes)
 }
@@ -30,5 +33,6 @@ public protocol RichEditorViewDelegate: AnyObject {
 public extension RichEditorViewDelegate {
     func richEditorViewDidLoad(_ richEditorView: RichEditorView) {}
     func richEditorViewDidChange(_ richEditorView: RichEditorView) {}
+    func richEditorView(_ richEditorView: RichEditorView, contentHeightDidChange contentHeight: CGFloat) {}
     func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: RETextAttributes) {}
 }

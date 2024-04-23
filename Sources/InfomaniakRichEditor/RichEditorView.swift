@@ -25,6 +25,9 @@ public class RichEditorView: UIView {
         }
     }
 
+    /// The content height of the editor view
+    public var contentHeight = CGFloat.zero
+
     /// The editor view’s delegate.
     public weak var delegate: RichEditorViewDelegate?
 
@@ -63,26 +66,32 @@ public extension RichEditorView {
         applyStyle(.bold)
     }
 
+    ///
     func italic() {
         applyStyle(.italic)
     }
 
+    ///
     func underline() {
         applyStyle(.underline)
     }
 
+    ///
     func strikethrough() {
         applyStyle(.strikeThrough)
     }
 
+    ///
     func orderedList() {
         applyStyle(.orderedList)
     }
 
+    ///
     func unorderedList() {
         applyStyle(.unorderedList)
     }
 
+    ///
     func addLink(_ url: URL) {
         webViewBridge.addLink(path: url.absoluteString)
     }
@@ -111,6 +120,7 @@ public extension RichEditorView {
     private func setUpWebView() {
         webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
         webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.scrollView.isScrollEnabled = false
         addSubview(webView)
 
         NSLayoutConstraint.activate([
@@ -181,6 +191,11 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
     func contentDidChange(_ text: String) {
         internalHTMLContent = text
         delegate?.richEditorViewDidChange(self)
+    }
+
+    func contentHeightDidChange(_ contentHeight: CGFloat) {
+        self.contentHeight = contentHeight
+        delegate?.richEditorView(self, contentHeightDidChange: contentHeight)
     }
 
     func selectedTextAttributesDidChange(_ selectedTextAttributes: RETextAttributes?) {

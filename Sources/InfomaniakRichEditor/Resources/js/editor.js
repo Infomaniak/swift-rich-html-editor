@@ -24,6 +24,12 @@ document.addEventListener("selectionchange", () => {
     checkIfSelectedTextAttributesDidChange();
 });
 
+const sizeObserver = new ResizeObserver(() => {
+    let newContentHeight = document.documentElement.offsetHeight;
+    reportContentHeightDidChange(newContentHeight);
+});
+sizeObserver.observe(swiftRichEditor);
+
 // MARK: - Functions
 
 function checkIfSelectedTextAttributesDidChange() {
