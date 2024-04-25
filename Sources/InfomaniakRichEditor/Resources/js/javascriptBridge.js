@@ -15,3 +15,7 @@ function reportSelectedTextAttributesDidChange(textAttributes) {
 function reportContentHeightDidChange(height) {
     window.webkit.messageHandlers.contentHeightDidChange.postMessage(height);
 }
+
+function reportSelectionDidChange() {
+    window.webkit.messageHandlers.selectionDidChange.postMessage({});
+}

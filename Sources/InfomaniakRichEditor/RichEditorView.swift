@@ -206,4 +206,8 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
         self.selectedTextAttributes = selectedTextAttributes
         delegate?.richEditorView(self, selectedTextAttributesDidChange: selectedTextAttributes)
     }
+
+    func selectionDidChange() {
+        print("HEY, Selection Did Change")
+    }
 }

@@ -20,6 +20,7 @@ protocol ScriptMessageHandlerDelegate: AnyObject {
     func contentDidChange(_ text: String)
     func contentHeightDidChange(_ contentHeight: CGFloat)
     func selectedTextAttributesDidChange(_ selectedTextAttributes: RETextAttributes?)
+    func selectionDidChange()
 }
 
 final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
@@ -28,6 +29,7 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         case contentDidChange
         case contentHeightDidChange
         case selectedTextAttributesDidChange
+        case selectionDidChange
         case scriptLog
     }
 
@@ -49,6 +51,8 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             contentHeightDidChange(message)
         case .selectedTextAttributesDidChange:
             selectedTextAttributesDidChange(message)
+        case .selectionDidChange:
+            selectionDidChange(message)
         case .scriptLog:
             scriptLog(message)
         }
@@ -86,6 +90,10 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             logger.error("Error while trying to decode RETextAttributes: \(error)")
             delegate?.selectedTextAttributesDidChange(nil)
         }
+    }
+
+    private func selectionDidChange(_ message: WKScriptMessage) {
+        delegate?.selectionDidChange()
     }
 
     private func scriptLog(_ message: WKScriptMessage) {

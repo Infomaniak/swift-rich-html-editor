@@ -22,6 +22,7 @@ mutationObserver.observe(swiftRichEditor, { subtree: true, childList: true, char
 
 document.addEventListener("selectionchange", () => {
     checkIfSelectedTextAttributesDidChange();
+    reportSelectionDidChange();
 });
 
 const sizeObserver = new ResizeObserver(() => {
@@ -30,7 +31,7 @@ const sizeObserver = new ResizeObserver(() => {
 });
 sizeObserver.observe(swiftRichEditor);
 
-// MARK: - Functions
+// MARK: - Commands
 
 function checkIfSelectedTextAttributesDidChange() {
     const newTextAttributes = getSelectedTextAttributes();
@@ -90,6 +91,40 @@ function injectCSS(content) {
     const styleElement = document.createElement("style");
     styleElement.innerText = content;
     document.head.appendChild(styleElement);
+}
+
+// MARK: - Caret and selection
+
+function getClosestParentNodeElement(node) {
+    if (node === null) {
+        return null;
+    }
+
+    if (node.nodeType === Node.ELEMENT_NODE) {
+        return node;
+    } else {
+        return getClosestNodeElement(node.parentNode);
+    }
+}
+
+function getCaretRect() {
+    const selection = window.getSelection();
+    if (selection.rangeCount <= 0) {
+        return null;
+    }
+
+    const range = selection.getRangeAt(0).cloneRange();
+    const rangeRects = range.getClientRects();
+
+    switch (rangeRects.length) {
+        case 0:
+            const closestParentElement = getClosestParentNodeElement(selection.focusNode);
+            return closestParentElement.getBoundingClientRect();
+        case 1:
+            return rangeRects[0];
+        default:
+            return range.getBoundingClientRect();
+    }
 }
 
 // MARK: - Compare objects
