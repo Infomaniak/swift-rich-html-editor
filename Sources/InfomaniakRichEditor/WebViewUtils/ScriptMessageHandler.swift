@@ -20,7 +20,7 @@ protocol ScriptMessageHandlerDelegate: AnyObject {
     func contentDidChange(_ text: String)
     func contentHeightDidChange(_ contentHeight: CGFloat)
     func selectedTextAttributesDidChange(_ selectedTextAttributes: RETextAttributes?)
-    func selectionDidChange()
+    func selectionDidChange(_ selection: RESelection?)
 }
 
 final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
@@ -93,7 +93,20 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     }
 
     private func selectionDidChange(_ message: WKScriptMessage) {
-        delegate?.selectionDidChange()
+        guard let json = message.body as? String, let data = json.data(using: .utf8) else {
+            return
+        }
+
+        do {
+            let decoder = JSONDecoder()
+            let selection = try decoder.decode(RESelection.self, from: data)
+
+            delegate?.selectionDidChange(selection)
+        } catch {
+            logger.error("Error while trying to decode RESelection: \(error)")
+            delegate?.selectionDidChange(nil)
+        }
+
     }
 
     private func scriptLog(_ message: WKScriptMessage) {

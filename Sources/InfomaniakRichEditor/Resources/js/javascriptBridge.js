@@ -9,13 +9,15 @@ function reportContentDidChange(content) {
 }
 
 function reportSelectedTextAttributesDidChange(textAttributes) {
-    window.webkit.messageHandlers.selectedTextAttributesDidChange.postMessage(textAttributes);
+    const json = JSON.stringify(textAttributes);
+    window.webkit.messageHandlers.selectedTextAttributesDidChange.postMessage(json);
 }
 
 function reportContentHeightDidChange(height) {
     window.webkit.messageHandlers.contentHeightDidChange.postMessage(height);
 }
 
-function reportSelectionDidChange() {
-    window.webkit.messageHandlers.selectionDidChange.postMessage({});
+function reportSelectionDidChange(selectionInfo) {
+    const json = JSON.stringify(selectionInfo);
+    window.webkit.messageHandlers.selectionDidChange.postMessage(json);
 }

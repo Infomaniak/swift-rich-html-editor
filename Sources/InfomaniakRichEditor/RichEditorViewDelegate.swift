@@ -22,6 +22,9 @@ public protocol RichEditorViewDelegate: AnyObject {
     /// Tells the delegate when the user changes the content or format in the specified editor view.
     func richEditorViewDidChange(_ richEditorView: RichEditorView)
 
+    ///
+    func richEditorViewDidChangeSelection(_ richEditorView: RichEditorView)
+
     /// Tells the delegate when the height of the content of the specified editor changes.
     func richEditorView(_ richEditorView: RichEditorView, contentHeightDidChange contentHeight: CGFloat)
 
@@ -33,6 +36,7 @@ public protocol RichEditorViewDelegate: AnyObject {
 public extension RichEditorViewDelegate {
     func richEditorViewDidLoad(_ richEditorView: RichEditorView) {}
     func richEditorViewDidChange(_ richEditorView: RichEditorView) {}
+    func richEditorViewDidChangeSelection(_ richEditorView: RichEditorView) {}
     func richEditorView(_ richEditorView: RichEditorView, contentHeightDidChange contentHeight: CGFloat) {}
     func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: RETextAttributes) {}
 }

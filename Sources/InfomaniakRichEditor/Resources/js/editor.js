@@ -22,7 +22,7 @@ mutationObserver.observe(swiftRichEditor, { subtree: true, childList: true, char
 
 document.addEventListener("selectionchange", () => {
     checkIfSelectedTextAttributesDidChange();
-    reportSelectionDidChange();
+    computeSelectionInfo();
 });
 
 const sizeObserver = new ResizeObserver(() => {
@@ -41,8 +41,7 @@ function checkIfSelectedTextAttributesDidChange() {
 
     currentSelectedTextAttributes = newTextAttributes;
 
-    let json = JSON.stringify(currentSelectedTextAttributes);
-    reportSelectedTextAttributesDidChange(json);
+    reportSelectedTextAttributesDidChange(currentSelectedTextAttributes);
 }
 
 function getSelectedTextAttributes() {
@@ -95,24 +94,27 @@ function injectCSS(content) {
 
 // MARK: - Caret and selection
 
-function getClosestParentNodeElement(node) {
-    if (node === null) {
-        return null;
-    }
-
-    if (node.nodeType === Node.ELEMENT_NODE) {
-        return node;
-    } else {
-        return getClosestNodeElement(node.parentNode);
-    }
-}
-
-function getCaretRect() {
+function computeSelectionInfo() {
     const selection = window.getSelection();
     if (selection.rangeCount <= 0) {
         return null;
     }
 
+    const caretRect = getCaretRect(selection);
+    const anchorPoint = getCaretAnchorPoint(caretRect);
+
+    const selectionInfo = {
+        type: selection.type,
+        anchorPoint: anchorPoint
+    };
+    reportSelectionDidChange(selectionInfo);
+}
+
+function getCaretAnchorPoint(rect) {
+    return [rect.x, rect.y];
+}
+
+function getCaretRect(selection) {
     const range = selection.getRangeAt(0).cloneRange();
     const rangeRects = range.getClientRects();
 
@@ -124,6 +126,18 @@ function getCaretRect() {
             return rangeRects[0];
         default:
             return range.getBoundingClientRect();
+    }
+}
+
+function getClosestParentNodeElement(node) {
+    if (node === null) {
+        return null;
+    }
+
+    if (node.nodeType === Node.ELEMENT_NODE) {
+        return node;
+    } else {
+        return getClosestNodeElement(node.parentNode);
     }
 }
 

@@ -34,6 +34,9 @@ public class RichEditorView: UIView {
     /// The current selection styled text of the editor.
     public private(set) var selectedTextAttributes = RETextAttributes()
 
+    ///
+    public private(set) var selection: RESelection? // TODO: Find a better name?
+
     /// The web view that displays the HTML and handle the input.
     public private(set) var webView: WKWebView!
 
@@ -207,7 +210,8 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
         delegate?.richEditorView(self, selectedTextAttributesDidChange: selectedTextAttributes)
     }
 
-    func selectionDidChange() {
-        print("HEY, Selection Did Change")
+    func selectionDidChange(_ selection: RESelection?) {
+        self.selection = selection
+        delegate?.richEditorViewDidChangeSelection(self)
     }
 }
