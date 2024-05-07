@@ -124,6 +124,7 @@ public extension RichEditorView {
         webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
         webView.translatesAutoresizingMaskIntoConstraints = false
         webView.scrollView.isScrollEnabled = false
+        webView.scrollView.delegate = self
         addSubview(webView)
 
         NSLayoutConstraint.activate([
@@ -181,6 +182,17 @@ public extension RichEditorView {
 
     private func setHTMLContent(_ newContent: String) {
         webViewBridge.setHTMLContent(newContent.protected)
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension RichEditorView: UIScrollViewDelegate {
+    // The WebView should never scroll.
+    // Disabling the scrollview is not enough to completely prevent scrolling.
+    // It is necessary to reset the scrollOffset when it changes (when the focus is under the keyboard for example).
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.contentOffset = .zero
     }
 }
 
