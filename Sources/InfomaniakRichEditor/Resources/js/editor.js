@@ -22,7 +22,7 @@ mutationObserver.observe(swiftRichEditor, { subtree: true, childList: true, char
 
 document.addEventListener("selectionchange", () => {
     checkIfSelectedTextAttributesDidChange();
-    computeSelectionInfo();
+    setTimeout(computeSelectionInfo, 50);
 });
 
 const sizeObserver = new ResizeObserver(() => {
@@ -88,7 +88,7 @@ function setContent(content) {
 
 function injectCSS(content) {
     const styleElement = document.createElement("style");
-    styleElement.innerText = content;
+    styleElement.textContent = content;
     document.head.appendChild(styleElement);
 }
 
@@ -133,12 +133,10 @@ function getClosestParentNodeElement(node) {
     if (node === null) {
         return null;
     }
-
     if (node.nodeType === Node.ELEMENT_NODE) {
         return node;
-    } else {
-        return getClosestNodeElement(node.parentNode);
     }
+    return getClosestParentNodeElement(node.parentNode);
 }
 
 // MARK: - Compare objects
