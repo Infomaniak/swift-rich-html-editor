@@ -1,3 +1,5 @@
+"use strict";
+
 function captureLog(message) {
     window.webkit.messageHandlers.scriptLog.postMessage(message);
 }

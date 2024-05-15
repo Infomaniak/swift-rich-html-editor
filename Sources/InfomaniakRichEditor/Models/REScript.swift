@@ -24,6 +24,10 @@ struct REScript {
         REScript(name: "javascriptBridge", injectionTime: .atDocumentStart),
 
         // At document end
-        REScript(name: "editor", injectionTime: .atDocumentEnd)
+        REScript(name: "editor", injectionTime: .atDocumentEnd),
+        REScript(name: "observer", injectionTime: .atDocumentEnd),
+        REScript(name: "commands", injectionTime: .atDocumentEnd),
+        REScript(name: "selection", injectionTime: .atDocumentEnd),
+        REScript(name: "utils", injectionTime: .atDocumentEnd)
     ]
 }
