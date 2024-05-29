@@ -1,5 +1,7 @@
 "use strict";
 
+// MARK: Selection info method
+
 function computeSelectionInfo() {
     const selection = window.getSelection();
     if (selection.rangeCount <= 0) {
@@ -17,6 +19,8 @@ function computeSelectionInfo() {
     };
     reportSelectionDidChange(selectionInfo);
 }
+
+// MARK: Utils
 
 function getCaretAnchorPoint(rect) {
     return [rect.x, rect.y];
