@@ -1,21 +1,31 @@
 "use strict";
 
-const mutationObserver = new MutationObserver(() => {
-    reportContentDidChange(swiftRichEditor.innerHTML);
-    checkIfSelectedTextAttributesDidChange();
-});
-mutationObserver.observe(swiftRichEditor, {subtree: true, childList: true, characterData: true});
+// MARK: Observation methods
 
-document.addEventListener("selectionchange", () => {
-    checkIfSelectedTextAttributesDidChange();
-    setTimeout(computeSelectionInfo, 50);
-});
+function observeContentMutation(target) {
+    const mutationObserver = new MutationObserver(() => {
+        reportContentDidChange(target.innerHTML);
+        checkIfSelectedTextAttributesDidChange();
+    });
+    mutationObserver.observe(target, { subtree: true, childList: true, characterData: true });
+}
 
-const sizeObserver = new ResizeObserver(() => {
-    let newContentHeight = document.documentElement.offsetHeight;
-    reportContentHeightDidChange(newContentHeight);
-});
-sizeObserver.observe(swiftRichEditor);
+function observeResize(target) {
+    const sizeObserver = new ResizeObserver(() => {
+        let newContentHeight = document.documentElement.offsetHeight;
+        reportContentHeightDidChange(newContentHeight);
+    });
+    sizeObserver.observe(target);
+}
+
+function observeSelectionChange(target) {
+    target.addEventListener("selectionchange", () => {
+        checkIfSelectedTextAttributesDidChange();
+        setTimeout(computeSelectionInfo, 50);
+    });
+}
+
+// MARK: Utils
 
 function checkIfSelectedTextAttributesDidChange() {
     const newTextAttributes = getSelectedTextAttributes();
