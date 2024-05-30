@@ -52,17 +52,17 @@ extension WebViewBridgeManager {
             }
 
             let formattedArgs = args.map { arg in
-                if let value = arg as? Int {
-                    return "\(value)"
-                }
-                else if let value = arg as? Double {
-                    return "\(value)"
+                if arg == nil {
+                    return "null"
                 }
                 else if let value = arg as? String {
-                    return "\"\(value)\""
+                    return "\"\(value.escapedForJavaScript)\""
+                }
+                else if let value = arg as? LosslessStringConvertible {
+                    return String(value)
                 }
                 else {
-                    return "null"
+                    fatalError("Error while encoding \(type(of: arg)) for JavaScript: type not yet implemented.")
                 }
             }
             return formattedArgs.joined(separator: ", ")

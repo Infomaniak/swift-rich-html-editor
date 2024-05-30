@@ -109,7 +109,7 @@ public extension RichEditorView {
 public extension RichEditorView {
     ///
     func injectAdditionalCSS(_ css: String) {
-        webViewBridge.injectCSS(css.protected)
+        webViewBridge.injectCSS(css)
     }
 }
 
@@ -181,7 +181,7 @@ public extension RichEditorView {
     }
 
     private func setHTMLContent(_ newContent: String) {
-        webViewBridge.setHTMLContent(newContent.protected)
+        webViewBridge.setHTMLContent(newContent)
     }
 }
 

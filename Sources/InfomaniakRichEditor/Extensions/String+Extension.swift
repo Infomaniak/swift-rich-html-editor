@@ -14,11 +14,25 @@
 import Foundation
 
 extension String {
-    var protected: String {
-        return self
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-            .replacingOccurrences(of: "\"", with: "\\\"")
-            .replacingOccurrences(of: "\r", with: "")
-            .replacingOccurrences(of: "\n", with: "")
+    var escapedForJavaScript: String {
+        var escapedString = ""
+        for letter in self {
+            switch letter {
+            case "\\":
+                escapedString.append("\\\\")
+            case "\"":
+                escapedString.append("\\\"")
+            case "'":
+                escapedString.append("\'")
+            case "\n":
+                escapedString.append("\\n")
+            case "\r":
+                escapedString.append("\\r")
+            default:
+                escapedString.append(letter)
+            }
+        }
+
+        return escapedString
     }
 }
