@@ -11,77 +11,11 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-
 import Foundation
 import WebKit
 
-enum RETextFormat: String {
-    case bold
-    case italic
-    case underline
-    case strikeThrough
-    case orderedList = "insertOrderedList"
-    case unorderedList = "insertUnorderedList"
-}
-
 struct WebViewBridgeManager {
     let webView: WKWebView
-
-    private enum JavaScriptFunction {
-        case execCommand(command: String, argument: String? = nil)
-        case setContent(content: String)
-        case injectCSS(content: String)
-
-        func call() -> String {
-            let formattedArgs = formatArgs(args)
-            return "\(identifier)(\(formattedArgs));"
-        }
-
-        private var identifier: String {
-            switch self {
-            case .execCommand:
-                return "execCommand"
-            case .setContent:
-                return "setContent"
-            case .injectCSS:
-                return "injectCSS"
-            }
-        }
-
-        private var args: [Any?] {
-            switch self {
-            case .execCommand(let command, let argument):
-                return [command, argument]
-            case .setContent(let content):
-                return [content]
-            case .injectCSS(let content):
-                return [content]
-            }
-        }
-
-        private func formatArgs(_ args: [Any?]) -> String {
-            guard !args.isEmpty else {
-                return ""
-            }
-
-            let formattedArgs = args.map { arg in
-                if let value = arg as? Int {
-                    return "\(value)"
-                }
-                else if let value = arg as? Double {
-                    return "\(value)"
-                }
-                else if let value = arg as? String {
-                    return "\"\(value)\""
-                }
-                else {
-                    return "null"
-                }
-            }
-
-            return formattedArgs.joined(separator: ", ")
-        }
-    }
 
     func setHTMLContent(_ content: String) {
         let setContent = JavaScriptFunction.setContent(content: content)

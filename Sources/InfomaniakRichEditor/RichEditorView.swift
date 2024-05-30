@@ -189,6 +189,7 @@ public extension RichEditorView {
 
 extension RichEditorView: UIScrollViewDelegate {
     // The WebView should never scroll.
+    //
     // Disabling the scrollview is not enough to completely prevent scrolling.
     // It is necessary to reset the scrollOffset when it changes (when the focus is under the keyboard for example).
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
