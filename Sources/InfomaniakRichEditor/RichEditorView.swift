@@ -53,6 +53,7 @@ public class RichEditorView: UIView {
 
         setUpWebView()
         webViewBridge = WebViewBridgeManager(webView: webView)
+        webViewBridge.delegate = self
     }
 
     @available(*, unavailable)
@@ -226,5 +227,13 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
     func selectionDidChange(_ selection: RESelection?) {
         self.selection = selection
         delegate?.richEditorViewDidChangeSelection(self)
+    }
+}
+
+// MARK: - WebViewBridgeManagerDelegate
+
+extension RichEditorView: WebViewBridgeManagerDelegate {
+    func javascriptFunctionDidFail(error: any Error) {
+        delegate?.richEditorView(self, javascriptFunctionDidFail: error)
     }
 }

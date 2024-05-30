@@ -14,8 +14,13 @@
 import Foundation
 import WebKit
 
+protocol WebViewBridgeManagerDelegate {
+    func javascriptFunctionDidFail(error: any Error)
+}
+
 struct WebViewBridgeManager {
     let webView: WKWebView
+    var delegate: WebViewBridgeManagerDelegate?
 
     func setHTMLContent(_ content: String) {
         let setContent = JavaScriptFunction.setContent(content: content)
@@ -38,6 +43,10 @@ struct WebViewBridgeManager {
     }
 
     private func evaluate(function: JavaScriptFunction) {
-        webView.evaluateJavaScript(function.call())
+        webView.evaluateJavaScript(function.call()) { _, error in
+            if let error {
+                delegate?.javascriptFunctionDidFail(error: error)
+            }
+        }
     }
 }

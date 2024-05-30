@@ -28,6 +28,7 @@ struct REScript {
         REScript(name: "observer", injectionTime: .atDocumentStart),
         REScript(name: "commands", injectionTime: .atDocumentStart),
         REScript(name: "selection", injectionTime: .atDocumentStart),
+        REScript(name: "links", injectionTime: .atDocumentStart),
 
         // -- At document end
 

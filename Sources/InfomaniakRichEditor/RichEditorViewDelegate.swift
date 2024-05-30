@@ -30,6 +30,8 @@ public protocol RichEditorViewDelegate: AnyObject {
 
     /// Tells the delegate when the attributes of the selected text changes in the specified editor view.
     func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: RETextAttributes)
+
+    func richEditorView(_ richEditorView: RichEditorView, javascriptFunctionDidFail: any Error)
 }
 
 // Default implementation for optional functions
@@ -39,4 +41,5 @@ public extension RichEditorViewDelegate {
     func richEditorViewDidChangeSelection(_ richEditorView: RichEditorView) {}
     func richEditorView(_ richEditorView: RichEditorView, contentHeightDidChange contentHeight: CGFloat) {}
     func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: RETextAttributes) {}
+    func richEditorView(_ richEditorView: RichEditorView, javascriptFunctionDidFail: any Error) {}
 }
