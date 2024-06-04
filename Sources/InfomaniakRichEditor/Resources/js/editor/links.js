@@ -1,59 +1,58 @@
 // MARK: Detect links
 
-function getAllLinksOfSelection() {
+function getAllAnchorsOfSelection() {
     const anchorElements = [...swiftRichEditor.querySelectorAll("a[href]")];
     
     const range = document.getSelection().getRangeAt(0);
     return anchorElements.filter(element => doesElementInteractWithRange(element, range));
 }
 
-function getFirstLinkOfSelection() {
-    const links = getAllLinksOfSelection();
-    if (links.length <= 0) {
+function getFirstAnchorOfSelection() {
+    const anchors = getAllAnchorsOfSelection();
+    if (anchors.length <= 0) {
         return null;
     }
-    
-    return links[0];
+    return anchors[0];
 }
 
 // MARK: Create and edit links
 
 function createLink(text, url) {
     const range = document.getSelection().getRangeAt(0);
-    
     if (range.collapsed) {
-        createLinkForCaret(range, text, url);
+        createLinkForCaret(text, url);
     } else {
         createLinkForRange(text, url);
     }
 }
 
-function createLinkForCaret(range, text, url) {
-    const anchor = getFirstLinkOfSelection();
+function createLinkForCaret(text, url) {
+    let anchor = getFirstAnchorOfSelection();
     if (anchor !== null) {
         anchor.href = url;
-        updateLinkText(anchor, text);
+        updateAnchorText(anchor, text);
     } else {
-        const newAnchor = document.createElement("a");
-        newAnchor.textContent = text || url;
-        newAnchor.href = url;
-        range.insertNode(newAnchor);
+        anchor = document.createElement("a");
+        anchor.textContent = text || url;
+        anchor.href = url;
     }
+
+    setCaretAtEndOfAnchor(anchor);
 }
 
 function createLinkForRange(text, url) {
     document.execCommand("createLink", false, url);
     
     if (text !== null) {
-        const anchor = getFirstLinkOfSelection();
-        updateLinkText(anchor, text);
+        const anchor = getFirstAnchorOfSelection();
+        updateAnchorText(anchor, text);
     }
 }
 
 // MARK: Remove link
 
 function unlink() {
-    let anchorNodes = getAllLinksOfSelection();
+    let anchorNodes = getAllAnchorsOfSelection();
     anchorNodes.forEach(unlinkAnchorNode);
 }
 
@@ -71,8 +70,19 @@ function unlinkAnchorNode(anchor) {
 
 // MARK: Utils
 
-function updateLinkText(link, text) {
-    if (text !== null && link.textContent !== text) {
-        link.textContent = text;
+function updateAnchorText(anchor, text) {
+    if (text !== null && anchor.textContent !== text) {
+        anchor.textContent = text;
     }
+}
+
+function setCaretAtEndOfAnchor(anchor) {
+    const range = new Range();
+    range.setStart(anchor, 1);
+    range.setEnd(anchor, 1);
+    range.collapsed = true;
+
+    const selection = document.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
 }
