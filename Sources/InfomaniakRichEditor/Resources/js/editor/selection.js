@@ -35,7 +35,11 @@ function getCaretAnchorPoint(rect) {
 }
 
 function getCaretRect(selection, anchoreNode) {
-    let range = selection.getRangeAt(0).cloneRange();
+    const range = getRange()?.cloneRange();
+    if (range === null) {
+        return null;
+    }
+
     if (anchoreNode !== null) {
         range.selectNodeContents(anchoreNode);
     }

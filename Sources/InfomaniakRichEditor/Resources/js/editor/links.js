@@ -5,14 +5,12 @@ function hasLink() {
 }
 
 function getAllAnchorsOfSelection() {
-    const selection = document.getSelection();
-    if (selection.rangeCount <= 0) {
+    const range = getRange();
+    if (range === null) {
         return [];
     }
 
     const anchorElements = [...swiftRichEditor.querySelectorAll("a[href]")];
-    
-    const range = selection.getRangeAt(0);
     return anchorElements.filter(element => doesElementInteractWithRange(element, range));
 }
 
@@ -27,7 +25,11 @@ function getFirstAnchorOfSelection() {
 // MARK: Create and edit links
 
 function createLink(text, url) {
-    const range = document.getSelection().getRangeAt(0);
+    const range = getRange();
+    if (range === null) {
+        return;
+    }
+
     if (range.collapsed) {
         createLinkForCaret(text, url, range);
     } else {
@@ -68,6 +70,10 @@ function unlink() {
 
 function unlinkAnchorNode(anchor) {
     const selection = document.getSelection();
+    if (selection.rangeCount <= 0) {
+        return;
+    }
+
     const range = selection.getRangeAt(0);
     const rangeBackup = range.cloneRange();
     

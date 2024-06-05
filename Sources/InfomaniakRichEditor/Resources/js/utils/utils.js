@@ -2,6 +2,16 @@
 
 const DOCUMENT_POSITION_SAME = 0;
 
+// MARK: Current selection
+
+function getRange() {
+    const selection = document.getSelection();
+    if (selection.rangeCount <= 0) {
+        return null;
+    }
+    return selection.getRangeAt(0);
+}
+
 // MARK: Check element positions
 
 function doesElementInteractWithRange(element, range) {
