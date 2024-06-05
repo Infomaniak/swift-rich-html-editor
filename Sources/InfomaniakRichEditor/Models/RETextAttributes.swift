@@ -13,10 +13,10 @@
 
 
 import Foundation
-#if canImport(AppKit)
-import AppKit
-#elseif canImport(UIKit)
+#if canImport(UIKit)
 import UIKit
+#elseif canImport(AppKit)
+import AppKit
 #endif
 
 public struct RETextAttributes: Codable {
@@ -31,6 +31,7 @@ public struct RETextAttributesFormat: Codable {
     public var hasStrikeThrough = false
     public var hasOrderedList = false
     public var hasUnorderedList = false
+    public var hasLink = false
 }
 
 public struct RETextAttributesTextInfo: Codable {
@@ -40,21 +41,21 @@ public struct RETextAttributesTextInfo: Codable {
     private var foreground: String
     private var background: String
 
-    #if canImport(AppKit)
-    public var foregroundColor: NSColor? {
-        return NSColor(rgba: foreground)
-    }
-
-    public var backgroundColor: NSColor? {
-        return NSColor(rgba: background)
-    }
-    #elseif canImport(UIKit)
+    #if canImport(UIKit)
     public var foregroundColor: UIColor? {
         return UIColor(rgba: foreground)
     }
 
     public var backgroundColor: UIColor? {
         return UIColor(rgba: background)
+    }
+    #elseif canImport(AppKit)
+    public var foregroundColor: NSColor? {
+        return NSColor(rgba: foreground)
+    }
+
+    public var backgroundColor: NSColor? {
+        return NSColor(rgba: background)
     }
     #endif
 

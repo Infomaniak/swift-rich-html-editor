@@ -1,9 +1,18 @@
 // MARK: Detect links
 
+function hasLink() {
+    return getAllAnchorsOfSelection().length > 0;
+}
+
 function getAllAnchorsOfSelection() {
+    const selection = document.getSelection();
+    if (selection.rangeCount <= 0) {
+        return [];
+    }
+
     const anchorElements = [...swiftRichEditor.querySelectorAll("a[href]")];
     
-    const range = document.getSelection().getRangeAt(0);
+    const range = selection.getRangeAt(0);
     return anchorElements.filter(element => doesElementInteractWithRange(element, range));
 }
 
@@ -20,13 +29,13 @@ function getFirstAnchorOfSelection() {
 function createLink(text, url) {
     const range = document.getSelection().getRangeAt(0);
     if (range.collapsed) {
-        createLinkForCaret(text, url);
+        createLinkForCaret(text, url, range);
     } else {
         createLinkForRange(text, url);
     }
 }
 
-function createLinkForCaret(text, url) {
+function createLinkForCaret(text, url, range) {
     let anchor = getFirstAnchorOfSelection();
     if (anchor !== null) {
         anchor.href = url;
@@ -35,6 +44,7 @@ function createLinkForCaret(text, url) {
         anchor = document.createElement("a");
         anchor.textContent = text || url;
         anchor.href = url;
+        range.insertNode(anchor);
     }
 
     setCaretAtEndOfAnchor(anchor);
