@@ -18,6 +18,8 @@ extension WebViewBridgeManager {
         case execCommand(command: String, argument: String? = nil)
         case setContent(content: String)
         case injectCSS(content: String)
+        case createLink(text: String?, url: String)
+        case unlink
 
         func call() -> String {
             let formattedArgs = formatArgs(args)
@@ -32,6 +34,10 @@ extension WebViewBridgeManager {
                 return "setContent"
             case .injectCSS:
                 return "injectCSS"
+            case .createLink:
+                return "createLink"
+            case .unlink:
+                return "unlink"
             }
         }
 
@@ -43,6 +49,10 @@ extension WebViewBridgeManager {
                 return [content]
             case .injectCSS(let content):
                 return [content]
+            case .createLink(let text, let url):
+                return [text, url]
+            case .unlink:
+                return []
             }
         }
 

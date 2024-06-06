@@ -37,8 +37,8 @@ struct WebViewBridgeManager {
         evaluate(function: execCommand)
     }
 
-    func addLink(path: String) {
-        let createLink = JavaScriptFunction.execCommand(command: "createLink", argument: path)
+    func addLink(text: String?, path: String) {
+        let createLink = JavaScriptFunction.createLink(text: text, url: path)
         evaluate(function: createLink)
     }
 

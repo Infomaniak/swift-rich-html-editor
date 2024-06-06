@@ -30,10 +30,13 @@ function createLink(text, url) {
         return;
     }
 
+    const trimmedText = text.trim();
+    const formattedText = trimmedText === "" ? null : trimmedText;
+
     if (range.collapsed) {
-        createLinkForCaret(text, url, range);
+        createLinkForCaret(formattedText, url, range);
     } else {
-        createLinkForRange(text, url);
+        createLinkForRange(formattedText, url);
     }
 }
 

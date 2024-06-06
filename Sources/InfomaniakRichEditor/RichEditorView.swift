@@ -96,8 +96,8 @@ public extension RichEditorView {
     }
 
     ///
-    func addLink(_ url: URL) {
-        webViewBridge.addLink(path: url.absoluteString)
+    func addLink(text: String?, url: URL) {
+        webViewBridge.addLink(text: text, path: url.absoluteString)
     }
 
     private func applyStyle(_ style: RETextFormat) {
