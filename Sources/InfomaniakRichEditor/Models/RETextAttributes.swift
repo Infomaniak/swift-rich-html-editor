@@ -41,23 +41,13 @@ public struct RETextAttributesTextInfo: Codable {
     private var foreground: String
     private var background: String
 
-    #if canImport(UIKit)
-    public var foregroundColor: UIColor? {
-        return UIColor(rgba: foreground)
+    public var foregroundColor: PlatformColor? {
+        return PlatformColor(rgba: foreground)
     }
 
-    public var backgroundColor: UIColor? {
-        return UIColor(rgba: background)
+    public var backgroundColor: PlatformColor? {
+        return PlatformColor(rgba: background)
     }
-    #elseif canImport(AppKit)
-    public var foregroundColor: NSColor? {
-        return NSColor(rgba: foreground)
-    }
-
-    public var backgroundColor: NSColor? {
-        return NSColor(rgba: background)
-    }
-    #endif
 
     public init() {
         fontName = ""

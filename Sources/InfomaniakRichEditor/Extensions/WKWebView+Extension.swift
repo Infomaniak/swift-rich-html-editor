@@ -13,6 +13,7 @@
 
 import WebKit
 
+#if os(iOS)
 extension WKWebView {
     private static var ToolbarHandle: UInt8 = 0
 
@@ -72,3 +73,4 @@ extension WKWebView {
         return customInputAccessory as? UIView
     }
 }
+#endif

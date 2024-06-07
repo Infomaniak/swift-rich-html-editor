@@ -11,10 +11,21 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
+#if canImport(UIKit)
 import UIKit
+
+public typealias PlatformView = UIView
+public typealias PlatformColor = UIColor
+#elseif canImport(AppKit)
+import AppKit
+
+public typealias PlatformView = NSView
+public typealias PlatformColor = NSColor
+#endif
+
 import WebKit
 
-public class RichEditorView: UIView {
+public class RichEditorView: PlatformView {
     /// The HTML that the editor view displays.
     public var html: String {
         get {
@@ -117,15 +128,19 @@ public extension RichEditorView {
 // MARK: - WKWebView
 
 public extension RichEditorView {
-    func addInputAccessoryView(_ view: UIView) {
+    #if os(iOS)
+    func addInputAccessoryView(_ view: PlatformView) {
         webView.addInputAccessoryView(view)
     }
+    #endif
 
     private func setUpWebView() {
         webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
         webView.translatesAutoresizingMaskIntoConstraints = false
+        #if os(iOS)
         webView.scrollView.isScrollEnabled = false
         webView.scrollView.delegate = self
+        #endif
         addSubview(webView)
 
         NSLayoutConstraint.activate([
@@ -174,7 +189,7 @@ public extension RichEditorView {
     }
 
     private func enableWebViewDebug() {
-        if #available(iOS 16.4, *) {
+        if #available(iOS 16.4, macOS 13.3, *) {
             #if DEBUG
             webView.isInspectable = true
             #endif
@@ -188,6 +203,7 @@ public extension RichEditorView {
 
 // MARK: - UIScrollViewDelegate
 
+#if os(iOS)
 extension RichEditorView: UIScrollViewDelegate {
     // The WebView should never scroll.
     //
@@ -197,6 +213,7 @@ extension RichEditorView: UIScrollViewDelegate {
         scrollView.contentOffset = .zero
     }
 }
+#endif
 
 // MARK: - ScriptMessageHandlerDelegate
 

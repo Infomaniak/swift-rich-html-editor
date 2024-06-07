@@ -18,8 +18,8 @@ import AppKit
 import UIKit
 #endif
 
-#if canImport(AppKit)
-extension NSColor {
+#if canImport(UIKit)
+    extension UIColor {
     convenience init?(rgba: String) {
         guard let (red, green, blue, alpha) = ColorHelper.extractRGBA(from: rgba) else {
             return nil
@@ -28,8 +28,8 @@ extension NSColor {
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 }
-#elseif canImport(UIKit)
-extension UIColor {
+#elseif canImport(AppKit)
+extension NSColor {
     convenience init?(rgba: String) {
         guard let (red, green, blue, alpha) = ColorHelper.extractRGBA(from: rgba) else {
             return nil
