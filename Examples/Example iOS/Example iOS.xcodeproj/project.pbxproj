@@ -13,6 +13,7 @@
 		F9792C232C132443007BA48A /* Base in Resources */ = {isa = PBXBuildFile; fileRef = F9792C222C132443007BA48A /* Base */; };
 		F9792C252C132444007BA48A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9792C242C132444007BA48A /* Assets.xcassets */; };
 		F9792C282C132444007BA48A /* Base in Resources */ = {isa = PBXBuildFile; fileRef = F9792C272C132444007BA48A /* Base */; };
+		F99CE4C62C132CB000949F40 /* InfomaniakRichEditor in Frameworks */ = {isa = PBXBuildFile; productRef = F99CE4C52C132CB000949F40 /* InfomaniakRichEditor */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,7 +25,6 @@
 		F9792C242C132444007BA48A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9792C272C132444007BA48A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F9792C292C132444007BA48A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F9792C2F2C13248D007BA48A /* swift-rich-editor */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "swift-rich-editor"; path = ../../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F99CE4C62C132CB000949F40 /* InfomaniakRichEditor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,7 +65,6 @@
 				F9792C242C132444007BA48A /* Assets.xcassets */,
 				F9792C262C132444007BA48A /* LaunchScreen.storyboard */,
 				F9792C292C132444007BA48A /* Info.plist */,
-				F9792C2F2C13248D007BA48A /* swift-rich-editor */,
 			);
 			path = "Example iOS";
 			sourceTree = "<group>";
@@ -83,9 +83,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				F9FBB6962C1324DC007CC5A5 /* PBXTargetDependency */,
 			);
 			name = "Example iOS";
+			packageProductDependencies = (
+				F99CE4C52C132CB000949F40 /* InfomaniakRichEditor */,
+			);
 			productName = "Example iOS";
 			productReference = F9792C182C132443007BA48A /* Example iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +116,9 @@
 				Base,
 			);
 			mainGroup = F9792C0F2C132443007BA48A;
+			packageReferences = (
+				F99CE4C42C132CB000949F40 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */,
+			);
 			productRefGroup = F9792C192C132443007BA48A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -148,13 +153,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		F9FBB6962C1324DC007CC5A5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = F9FBB6952C1324DC007CC5A5 /* InfomaniakRichEditor */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F9792C212C132443007BA48A /* Main.storyboard */ = {
@@ -310,6 +308,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -338,6 +337,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -374,9 +374,21 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		F99CE4C42C132CB000949F40 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Infomaniak/swift-rich-html-editor.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
-		F9FBB6952C1324DC007CC5A5 /* InfomaniakRichEditor */ = {
+		F99CE4C52C132CB000949F40 /* InfomaniakRichEditor */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = F99CE4C42C132CB000949F40 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */;
 			productName = InfomaniakRichEditor;
 		};
 /* End XCSwiftPackageProductDependency section */
