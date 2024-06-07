@@ -158,7 +158,7 @@ public extension RichEditorView {
     }
 
     private func configureWebView() {
-        if #available(iOS 14.0, *) {
+        if #available(iOS 14.0, macOS 11.0, *) {
             webView.configuration.defaultWebpagePreferences.allowsContentJavaScript = false
         } else {
             webView.configuration.preferences.javaScriptEnabled = false
