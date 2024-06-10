@@ -15,39 +15,55 @@ import WebKit
 
 #if os(iOS)
 extension WKWebView {
-    private static var ToolbarHandle: UInt8 = 0
+    private static let customInputAccessoryViewClassName = "_CustomInputAccessoryView"
+    private static var richEditorInputAccessoryViewKey: UInt8 = 0
 
-    func addInputAccessoryView(_ view: UIView?) {
-        guard let view else { return }
-        objc_setAssociatedObject(self, &Self.ToolbarHandle, view, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-
-        var candidateView: UIView?
-        for view in scrollView.subviews {
-            let description = String(describing: type(of: view))
-            if description.hasPrefix("WKContent") {
-                candidateView = view
-                break
-            }
+    public var richEditorInputAccessoryView: UIView? {
+        get {
+            return objc_getAssociatedObject(self, &Self.richEditorInputAccessoryViewKey) as? UIView
         }
-        guard let targetView = candidateView else { return }
-        let newClass: AnyClass? = classWithCustomAccessoryView(targetView: targetView)
+        set {
+            setInputAccessoryView(newValue)
+        }
+    }
 
-        guard let targetNewClass = newClass else { return }
+    private func setInputAccessoryView(_ view: UIView?) {
+        guard let view else { return }
+        objc_setAssociatedObject(
+            self,
+            &Self.richEditorInputAccessoryViewKey,
+            view,
+            objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC
+        )
 
+        guard let targetView = getWKContentView(),
+              let targetNewClass = getClassWithCustomAccessoryView(targetView: targetView)else {
+            return
+        }
         object_setClass(targetView, targetNewClass)
     }
 
-    func classWithCustomAccessoryView(targetView: UIView) -> AnyClass? {
-        guard targetView.superclass != nil else { return nil }
-        let customInputAccesoryViewClassName = "_CustomInputAccessoryView"
-
-        var newClass: AnyClass? = NSClassFromString(customInputAccesoryViewClassName)
-        if newClass == nil {
-            newClass = objc_allocateClassPair(object_getClass(targetView), customInputAccesoryViewClassName, 0)
-        } else {
-            return newClass
+    private func getWKContentView() -> UIView? {
+        for view in scrollView.subviews {
+            let description = String(describing: type(of: view))
+            if description.hasPrefix("WKContent") {
+                return view
+            }
         }
 
+        return nil
+    }
+
+    private func getClassWithCustomAccessoryView(targetView: UIView) -> AnyClass? {
+        guard targetView.superclass != nil else {
+            return nil
+        }
+
+        if let inputAccessoryViewClass = NSClassFromString(Self.customInputAccessoryViewClassName) {
+            return inputAccessoryViewClass
+        }
+
+        let newClass: AnyClass? = objc_allocateClassPair(object_getClass(targetView), Self.customInputAccessoryViewClassName, 0)
         let newMethod = class_getInstanceMethod(WKWebView.self, #selector(WKWebView.getCustomInputAccessoryView))
         class_addMethod(
             newClass.self,
@@ -61,15 +77,15 @@ extension WKWebView {
         return newClass
     }
 
-    @objc func getCustomInputAccessoryView() -> UIView? {
+    @objc private func getCustomInputAccessoryView() -> UIView? {
         var superWebView: UIView? = self
-        while (superWebView != nil) && !(superWebView is WKWebView) {
+        while superWebView != nil && !(superWebView is WKWebView) {
             superWebView = superWebView?.superview
         }
 
-        guard let webView = superWebView else { return nil }
+        guard let superWebView else { return nil }
 
-        let customInputAccessory = objc_getAssociatedObject(webView, &Self.ToolbarHandle)
+        let customInputAccessory = objc_getAssociatedObject(superWebView, &Self.richEditorInputAccessoryViewKey)
         return customInputAccessory as? UIView
     }
 }

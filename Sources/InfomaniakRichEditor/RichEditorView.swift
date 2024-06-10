@@ -26,6 +26,8 @@ public typealias PlatformColor = NSColor
 import WebKit
 
 public class RichEditorView: PlatformView {
+    // MARK: - Public Properties
+
     /// The HTML that the editor view displays.
     public var html: String {
         get {
@@ -36,11 +38,23 @@ public class RichEditorView: PlatformView {
         }
     }
 
-    /// The content height of the editor view
-    public var contentHeight = CGFloat.zero
+    #if os(iOS)
+    /// The custom accessory view to display when the editor view becomes the first responder.
+    override public var inputAccessoryView: UIView? {
+        get {
+            return webView.richEditorInputAccessoryView
+        }
+        set {
+            webView.richEditorInputAccessoryView = newValue
+        }
+    }
+    #endif
 
     /// The editor view’s delegate.
     public weak var delegate: RichEditorViewDelegate?
+
+    /// The content height of the editor view
+    public private(set) var contentHeight = CGFloat.zero
 
     /// The current selection styled text of the editor.
     public private(set) var selectedTextAttributes = RETextAttributes()
@@ -50,6 +64,8 @@ public class RichEditorView: PlatformView {
 
     /// The web view that displays the HTML and handle the input.
     public private(set) var webView: WKWebView!
+
+    // MARK: - Private properties
 
     private var internalHTMLContent = ""
 
@@ -128,12 +144,6 @@ public extension RichEditorView {
 // MARK: - WKWebView
 
 public extension RichEditorView {
-    #if os(iOS)
-    func addInputAccessoryView(_ view: PlatformView) {
-        webView.addInputAccessoryView(view)
-    }
-    #endif
-
     private func setUpWebView() {
         webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
         webView.translatesAutoresizingMaskIntoConstraints = false
