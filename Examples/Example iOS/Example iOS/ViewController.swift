@@ -27,6 +27,8 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "Infomaniak - Rich Text Editor"
+
         // Toolbar
 
         let backgroundView = UIView()
@@ -140,4 +142,8 @@ extension ViewController: RichEditorViewDelegate {
         selectButtonIfNecessary(orderedListButton, isSelected: selectedFormat.hasOrderedList)
         selectButtonIfNecessary(unorderedListButton, isSelected: selectedFormat.hasUnorderedList)
     }
+}
+
+#Preview {
+    ViewController()
 }
