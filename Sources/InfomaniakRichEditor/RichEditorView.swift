@@ -53,24 +53,24 @@ public class RichEditorView: PlatformView {
     /// The editor view’s delegate.
     public weak var delegate: RichEditorViewDelegate?
 
-    /// The content height of the editor view
+    /// The content height of the editor view.
     public private(set) var contentHeight = CGFloat.zero
 
-    /// The current selection styled text of the editor.
+    /// The style of the text currently selected in the editor view.
     public private(set) var selectedTextAttributes = RETextAttributes()
 
-    ///
-    public private(set) var selection: RESelection? // TODO: Find a better name?
+    /// The state of the selection in the editor view.
+    public private(set) var selection: RESelection?
 
     /// The web view that displays the HTML and handle the input.
     public private(set) var webView: WKWebView!
 
     // MARK: - Private properties
 
-    private var internalHTMLContent = ""
+    var internalHTMLContent = ""
 
-    private var webViewBridge: WebViewBridgeManager!
-    private var scriptMessageHandler: ScriptMessageHandler!
+    var webViewBridge: WebViewBridgeManager!
+    var scriptMessageHandler: ScriptMessageHandler!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -89,53 +89,11 @@ public class RichEditorView: PlatformView {
     }
 }
 
-// MARK: - Format text
-
-public extension RichEditorView {
-    /// Toggles the bold style for the selected text
-    func bold() {
-        applyStyle(.bold)
-    }
-
-    ///
-    func italic() {
-        applyStyle(.italic)
-    }
-
-    ///
-    func underline() {
-        applyStyle(.underline)
-    }
-
-    ///
-    func strikethrough() {
-        applyStyle(.strikeThrough)
-    }
-
-    ///
-    func orderedList() {
-        applyStyle(.orderedList)
-    }
-
-    ///
-    func unorderedList() {
-        applyStyle(.unorderedList)
-    }
-
-    ///
-    func addLink(text: String?, url: URL) {
-        webViewBridge.addLink(text: text, path: url.absoluteString)
-    }
-
-    private func applyStyle(_ style: RETextFormat) {
-        webViewBridge.applyFormat(style)
-    }
-}
-
 // MARK: - Customize Editor
 
 public extension RichEditorView {
-    ///
+    /// <#Description#>
+    /// - Parameter css: <#css description#>
     func injectAdditionalCSS(_ css: String) {
         webViewBridge.injectCSS(css)
     }

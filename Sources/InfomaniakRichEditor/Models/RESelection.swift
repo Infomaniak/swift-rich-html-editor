@@ -15,9 +15,7 @@ import Foundation
 
 // TODO: Add documentation
 public enum RESelectionType: String, Codable {
-    ///
     case caret = "Caret"
-    ///
     case range = "Range"
 }
 

@@ -32,14 +32,18 @@ struct WebViewBridgeManager {
         evaluate(function: injectCSS)
     }
 
-    func applyFormat(_ format: RETextFormat) {
-        let execCommand = JavaScriptFunction.execCommand(command: format.rawValue, argument: nil)
+    func execCommand(_ command: RECommand, argument: Any? = nil) {
+        let execCommand = JavaScriptFunction.execCommand(command: command.rawValue, argument: argument)
         evaluate(function: execCommand)
     }
 
     func addLink(text: String?, path: String) {
         let createLink = JavaScriptFunction.createLink(text: text, url: path)
         evaluate(function: createLink)
+    }
+
+    func unlink() {
+        evaluate(function: .unlink)
     }
 
     private func evaluate(function: JavaScriptFunction) {

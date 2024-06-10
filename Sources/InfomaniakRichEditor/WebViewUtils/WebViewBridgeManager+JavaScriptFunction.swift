@@ -15,7 +15,7 @@ import Foundation
 
 extension WebViewBridgeManager {
     enum JavaScriptFunction {
-        case execCommand(command: String, argument: String? = nil)
+        case execCommand(command: String, argument: Any? = nil)
         case setContent(content: String)
         case injectCSS(content: String)
         case createLink(text: String?, url: String)

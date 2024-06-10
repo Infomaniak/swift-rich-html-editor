@@ -13,11 +13,43 @@
 
 import Foundation
 
-enum RETextFormat: String {
+enum RECommand: String {
+    case removeFormat
     case bold
     case italic
     case underline
     case strikeThrough
     case orderedList = "insertOrderedList"
     case unorderedList = "insertUnorderedList"
+    case indent
+    case outdent
+    case justifyFull
+    case justifyLeft
+    case justifyCenter
+    case justifyRight
+    case fontSize
+    case increaseFontSize
+    case decreaseFontSize
+    case undo
+    case redo
+}
+
+public enum RECommandJustifySide {
+    case full
+    case left
+    case center
+    case right
+
+    var command: RECommand {
+        switch self {
+        case .full:
+            return .justifyFull
+        case .left:
+            return .justifyLeft
+        case .center:
+            return .justifyCenter
+        case .right:
+            return .justifyRight
+        }
+    }
 }
