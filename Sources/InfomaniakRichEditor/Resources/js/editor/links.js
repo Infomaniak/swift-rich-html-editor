@@ -24,7 +24,7 @@ function getFirstAnchorOfSelection() {
 
 // MARK: Create and edit links
 
-function createLink(text, url) {
+function createLink(url, text) {
     const range = getRange();
     if (range === null) {
         return;
@@ -34,13 +34,13 @@ function createLink(text, url) {
     const formattedText = trimmedText === "" ? null : trimmedText;
 
     if (range.collapsed) {
-        createLinkForCaret(formattedText, url, range);
+        createLinkForCaret(url, formattedText, range);
     } else {
-        createLinkForRange(formattedText, url);
+        createLinkForRange(url, formattedText);
     }
 }
 
-function createLinkForCaret(text, url, range) {
+function createLinkForCaret(url, text, range) {
     let anchor = getFirstAnchorOfSelection();
     if (anchor !== null) {
         anchor.href = url;
@@ -55,7 +55,7 @@ function createLinkForCaret(text, url, range) {
     setCaretAtEndOfAnchor(anchor);
 }
 
-function createLinkForRange(text, url) {
+function createLinkForRange(url, text) {
     document.execCommand("createLink", false, url);
     
     if (text !== null) {
