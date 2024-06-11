@@ -4,8 +4,7 @@
 const swiftRichEditor = document.getElementById("swift-rich-editor");
 
 reportEditorDidLoad();
-checkIfSelectedTextAttributesDidChange();
 
 observeResize(document.documentElement);
-observeContentMutation(swiftRichEditor);
-observeSelectionChange(swiftRichEditor);
+observeContentMutation(document, swiftRichEditor);
+observeSelectionChange(document);

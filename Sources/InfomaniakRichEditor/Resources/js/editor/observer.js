@@ -2,10 +2,9 @@
 
 // MARK: Observation methods
 
-function observeContentMutation(target) {
+function observeContentMutation(target, contentContainer) {
     const mutationObserver = new MutationObserver(() => {
-        reportContentDidChange(target.innerHTML);
-        checkIfSelectedTextAttributesDidChange();
+        reportContentDidChange(contentContainer.innerHTML);
     });
     mutationObserver.observe(target, { subtree: true, childList: true, characterData: true });
 }
