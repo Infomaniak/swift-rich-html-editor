@@ -1,10 +1,5 @@
 "use strict";
 
-/** Information about the current selection */
-let currentSelectedTextAttributes = {
-    format: {},
-    textInfo: {}
-};
 /** Lastest selection range */
 let lastSelectionRange = null;
 

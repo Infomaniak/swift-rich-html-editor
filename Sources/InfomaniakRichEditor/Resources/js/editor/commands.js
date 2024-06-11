@@ -20,7 +20,7 @@ function execCommand(command, argument) {
  * @param {string} content - The new HTML content of the editor
  */
 function setContent(content) {
-    swiftRichEditor.innerHTML = content;
+    getEditor().innerHTML = content;
 }
 
 /**

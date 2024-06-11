@@ -2,7 +2,13 @@
 
 const DOCUMENT_POSITION_SAME = 0;
 
-// MARK: Current selection
+// MARK: - Editor
+
+function getEditor() {
+    return document.getElementById("swift-rich-editor");
+}
+
+// MARK: - Current selection
 
 function getRange() {
     const selection = document.getSelection();
@@ -12,7 +18,7 @@ function getRange() {
     return selection.getRangeAt(0);
 }
 
-// MARK: Check element positions
+// MARK: - Check element positions
 
 function doesElementInteractWithRange(element, range) {
     const startPosition = element.compareDocumentPosition(range.startContainer);

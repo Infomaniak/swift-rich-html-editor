@@ -1,10 +1,9 @@
 "use strict";
 
-/** Editor DOM element */
-const swiftRichEditor = document.getElementById("swift-rich-editor");
+document.addEventListener("DOMContentLoaded", () => {
+    reportEditorDidLoad();
 
-reportEditorDidLoad();
-
-observeResize(document.documentElement);
-observeContentMutation(document, swiftRichEditor);
-observeSelectionChange(document);
+    observeResize(document.documentElement);
+    observeContentMutation(document, getEditor());
+    observeSelectionChange(document);
+});

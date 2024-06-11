@@ -10,7 +10,7 @@ function getAllAnchorsOfSelection() {
         return [];
     }
 
-    const anchorElements = [...swiftRichEditor.querySelectorAll("a[href]")];
+    const anchorElements = [...getEditor().querySelectorAll("a[href]")];
     return anchorElements.filter(element => doesElementInteractWithRange(element, range));
 }
 

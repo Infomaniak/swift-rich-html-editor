@@ -19,19 +19,19 @@ struct REScript {
     let injectionTime: WKUserScriptInjectionTime
 
     static let allCases = [
-        // -- At document start
-
+        // Utils
         REScript(name: "captureLog", injectionTime: .atDocumentStart),
         REScript(name: "javascriptBridge", injectionTime: .atDocumentStart),
         REScript(name: "utils", injectionTime: .atDocumentStart),
 
-        REScript(name: "observer", injectionTime: .atDocumentStart),
+        // Editor
+        REScript(name: "text-attributes", injectionTime: .atDocumentStart),
         REScript(name: "commands", injectionTime: .atDocumentStart),
         REScript(name: "selection", injectionTime: .atDocumentStart),
         REScript(name: "links", injectionTime: .atDocumentStart),
+        REScript(name: "observer", injectionTime: .atDocumentStart),
 
-        // -- At document end
-
-        REScript(name: "main", injectionTime: .atDocumentEnd)
+        // Main
+        REScript(name: "main", injectionTime: .atDocumentStart)
     ]
 }
