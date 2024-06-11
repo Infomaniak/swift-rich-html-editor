@@ -21,24 +21,34 @@ public extension RichEditorView {
         execCommand(.removeFormat)
     }
 
-    /// Toggles the bold style for the current selection or at the insertion point.
+    /// Toggles bold for the current selection or at the insertion point.
     func bold() {
         execCommand(.bold)
     }
 
-    /// Toggles the italic style for the current selection or at the insertion point.
+    /// Toggles italic for the current selection or at the insertion point.
     func italic() {
         execCommand(.italic)
     }
 
-    /// Toggles the underline style for the current selection or at the insertion point.
+    /// Toggles underline for the current selection or at the insertion point.
     func underline() {
         execCommand(.underline)
     }
 
-    /// Toggles the bold style for the current selection or at the insertion point.
+    /// Toggles strikethrough for the current selection or at the insertion point.
     func strikethrough() {
         execCommand(.strikeThrough)
+    }
+
+    /// Toggles subscript for the current selection or at the insertion point.
+    func toggleSubscript() {
+        execCommand(.toggleSubscript)
+    }
+
+    /// Toggles superscript for the current selection or at the insertion point.
+    func toggleSuperscript() {
+        execCommand(.toggleSuperscript)
     }
 
     /// Creates or remove a numbered ordered list for the current selection or at the insertion point.
@@ -74,28 +84,40 @@ public extension RichEditorView {
         execCommand(.outdent)
     }
 
+    /// Justifies the selection or the insertion point to the `RECommandJustifySide` side.
+    /// - Parameters:
+    ///   - side: The side to align the text to.
     func justify(_ side: RECommandJustifySide) {
         execCommand(side.command)
     }
 
+    /// Sets the foreground color for the selection or at the insertion point.
+    /// - Parameters:
+    ///   - color: The color of the foreground.
     func setForegroundColor(_ color: PlatformColor) {
-        // TODO: Set Foreground Color
+        execCommand(.foregroundColor, argument: color.hex)
     }
 
+    /// Sets the background color for the selection or at the insertion point.
+    /// - Parameters:
+    ///   - color: The color of the background.
     func setBackgroundColor(_ color: PlatformColor) {
-        // TODO: Set Foreground Color
+        execCommand(.backgroundColor, argument: color.hex)
     }
 
+    /// Changes the font size for the selection or at the insertion point.
+    /// - Parameters:
+    ///   - size: The size should be included in the interval [1-7].
     func setFontSize(_ size: Int) {
         execCommand(.fontSize, argument: size)
     }
 
-    ///
+    /// Increases the font size of the current selection or at the insertion point.
     func increaseFontSize() {
         execCommand(.increaseFontSize)
     }
 
-    ///
+    /// Decreases the font size of the current selection or at the insertion point.
     func decreaseFontSize() {
         execCommand(.decreaseFontSize)
     }

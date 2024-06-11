@@ -19,6 +19,8 @@ enum RECommand: String {
     case italic
     case underline
     case strikeThrough
+    case toggleSubscript = "subscript"
+    case toggleSuperscript = "superscript"
     case orderedList = "insertOrderedList"
     case unorderedList = "insertUnorderedList"
     case indent
@@ -32,6 +34,8 @@ enum RECommand: String {
     case decreaseFontSize
     case undo
     case redo
+    case backgroundColor = "backColor"
+    case foregroundColor = "hiliteColor"
 }
 
 public enum RECommandJustifySide {

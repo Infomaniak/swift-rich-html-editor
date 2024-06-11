@@ -92,8 +92,8 @@ public class RichEditorView: PlatformView {
 // MARK: - Customize Editor
 
 public extension RichEditorView {
-    /// <#Description#>
-    /// - Parameter css: <#css description#>
+    /// Injects CSS code to customize the appearance of the editor view.
+    /// - Parameter css: CSS code.
     func injectAdditionalCSS(_ css: String) {
         webViewBridge.injectCSS(css)
     }
