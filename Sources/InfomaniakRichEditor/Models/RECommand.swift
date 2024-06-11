@@ -35,7 +35,7 @@ enum RECommand: String {
     case undo
     case redo
     case backgroundColor = "backColor"
-    case foregroundColor = "hiliteColor"
+    case foregroundColor = "foreColor"
 }
 
 public enum RECommandJustifySide {

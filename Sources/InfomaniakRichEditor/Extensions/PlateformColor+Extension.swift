@@ -18,30 +18,28 @@ import AppKit
 import UIKit
 #endif
 
-#if canImport(UIKit)
-    extension UIColor {
+extension PlatformColor {
+    public var hexadecimal: String? {
+        guard let colorComponents = cgColor.components, colorComponents.count >= 3 else {
+            return nil
+        }
+
+        let red = colorComponents[0] * 255
+        let green = colorComponents[1] * 255
+        let blue = colorComponents[2] * 255
+
+        return String(format: "#%02lX%02lX%02lX", red, green, blue)
+    }
+
     convenience init?(rgba: String) {
-        guard let (red, green, blue, alpha) = ColorHelper.extractRGBA(from: rgba) else {
+        guard let (red, green, blue, alpha) = Self.extractRGBA(from: rgba) else {
             return nil
         }
 
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
-}
-#elseif canImport(AppKit)
-extension NSColor {
-    convenience init?(rgba: String) {
-        guard let (red, green, blue, alpha) = ColorHelper.extractRGBA(from: rgba) else {
-            return nil
-        }
 
-        self.init(red: red, green: green, blue: blue, alpha: alpha)
-    }
-}
-#endif
-
-private enum ColorHelper {
-    static func extractRGBA(from value: String) -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat)? {
+    private static func extractRGBA(from value: String) -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat)? {
         let rgbValues = value
             .trimmingCharacters(in: CharacterSet(charactersIn: "rgba()"))
             .split(separator: ",")

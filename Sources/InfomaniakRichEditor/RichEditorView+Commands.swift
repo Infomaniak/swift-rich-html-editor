@@ -95,14 +95,14 @@ public extension RichEditorView {
     /// - Parameters:
     ///   - color: The color of the foreground.
     func setForegroundColor(_ color: PlatformColor) {
-        execCommand(.foregroundColor, argument: color.hex)
+        execCommand(.foregroundColor, argument: color.hexadecimal)
     }
 
     /// Sets the background color for the selection or at the insertion point.
     /// - Parameters:
     ///   - color: The color of the background.
     func setBackgroundColor(_ color: PlatformColor) {
-        execCommand(.backgroundColor, argument: color.hex)
+        execCommand(.backgroundColor, argument: color.hexadecimal)
     }
 
     /// Changes the font size for the selection or at the insertion point.
