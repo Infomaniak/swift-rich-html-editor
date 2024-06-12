@@ -50,7 +50,26 @@ public class RichEditorView: PlatformView {
     }
     #endif
 
-    /// A Boolean value that indicates if the DOM of the editor is loaded.
+    #if canImport(UIKit)
+    /// A Boolean value that indicates whether the responder accepts first responder status.
+    public override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    #elseif canImport(AppKit)
+    /// A Boolean value that indicates whether the responder accepts first responder status.
+    public override var acceptsFirstResponder: Bool {
+        return true
+    }
+    #endif
+
+    #if canImport(UIKit)
+    /// Returns a Boolean value indicating whether this object is the first responder.
+    public override var isFirstResponder: Bool {
+        return webView.containsFirstResponder
+    }
+    #endif
+
+    /// A Boolean value that indicates whether the DOM of the underlying WKWebView is loaded.
     public var isEditorLoaded: Bool {
         return javaScriptManager.isDOMContentLoaded
     }
@@ -91,6 +110,18 @@ public class RichEditorView: PlatformView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    /// Notifies the receiver that it’s about to become first responder in its window.
+    public override func becomeFirstResponder() -> Bool {
+        javaScriptManager.focus()
+        return true
+    }
+
+    /// Notifies this object that it has been asked to relinquish its status as first responder in its window.
+    public override func resignFirstResponder() -> Bool {
+        javaScriptManager.blur()
+        return true
     }
 }
 

@@ -13,6 +13,8 @@ enum JavaScriptFunction {
     case injectCSS(content: String)
     case createLink(url: String, text: String?)
     case unlink
+    case focus
+    case blur
 
     func call() -> String {
         let formattedArgs = formatArgs(args)
@@ -31,6 +33,10 @@ enum JavaScriptFunction {
             return "createLink"
         case .unlink:
             return "unlink"
+        case .focus:
+            return "focus"
+        case .blur:
+            return "blur"
         }
     }
 
@@ -44,7 +50,7 @@ enum JavaScriptFunction {
             return [content]
         case .createLink(let url, let text):
             return [url, text]
-        case .unlink:
+        case .unlink, .focus, .blur:
             return []
         }
     }

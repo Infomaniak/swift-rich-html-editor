@@ -58,6 +58,14 @@ final class JavaScriptManager {
         evaluate(function: .unlink)
     }
 
+    func focus() {
+        evaluate(function: .focus)
+    }
+
+    func blur() {
+        evaluate(function: .blur)
+    }
+
     private func evaluateWhenDOMIsReady(function: JavaScriptFunction) {
         guard isDOMContentLoaded else {
             functionsWaitingForDOM.append(function)
