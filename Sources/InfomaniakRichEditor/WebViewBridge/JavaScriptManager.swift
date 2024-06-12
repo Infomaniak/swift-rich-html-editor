@@ -19,20 +19,19 @@ protocol JavaScriptManagerDelegate {
 }
 
 final class JavaScriptManager {
-    weak var webView: WKWebView?
-    var delegate: JavaScriptManagerDelegate?
-
     var isDOMContentLoaded = false {
         didSet {
             evaluateWaitingFunctions()
         }
     }
 
+    var delegate: JavaScriptManagerDelegate?
+
+    private weak var webView: WKWebView?
     private var functionsWaitingForDOM = [JavaScriptFunction]()
 
-    init(webView: WKWebView, delegate: JavaScriptManagerDelegate? = nil) {
+    init(webView: WKWebView) {
         self.webView = webView
-        self.delegate = delegate
     }
 
     func setHTMLContent(_ content: String) {
@@ -79,7 +78,7 @@ final class JavaScriptManager {
         guard isDOMContentLoaded else {
             return
         }
-        
+
         for function in functionsWaitingForDOM {
             evaluate(function: function)
         }

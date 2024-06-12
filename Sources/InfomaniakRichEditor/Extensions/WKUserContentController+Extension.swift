@@ -11,7 +11,6 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-
 import Foundation
 import WebKit
 
@@ -19,7 +18,7 @@ extension WKUserContentController {
     func add(_ scriptMessageHandler: any WKScriptMessageHandler, scriptMessage: ScriptMessageHandler.ScriptMessage) {
         add(scriptMessageHandler, name: scriptMessage.rawValue)
     }
-    
+
     func addUserScript(named filename: String, injectionTime: WKUserScriptInjectionTime, forMainFrameOnly: Bool) {
         guard let url = Bundle.module.url(forResource: filename, withExtension: "js"),
               let document = try? String(contentsOf: url)

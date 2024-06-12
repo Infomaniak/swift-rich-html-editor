@@ -11,7 +11,6 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-
 #if canImport(AppKit)
 import AppKit
 #elseif canImport(UIKit)

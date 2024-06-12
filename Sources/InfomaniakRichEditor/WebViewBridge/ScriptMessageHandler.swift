@@ -11,7 +11,6 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-
 import OSLog
 import WebKit
 
@@ -106,7 +105,6 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             logger.error("Error while trying to decode RESelection: \(error)")
             delegate?.selectionDidChange(nil)
         }
-
     }
 
     private func scriptLog(_ message: WKScriptMessage) {

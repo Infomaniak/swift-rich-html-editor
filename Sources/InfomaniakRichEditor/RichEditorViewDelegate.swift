@@ -11,7 +11,6 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-
 import Foundation
 
 /// The methods for receiving editing-related messages for editor view objects.

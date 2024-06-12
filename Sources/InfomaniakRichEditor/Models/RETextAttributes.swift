@@ -11,7 +11,6 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-
 import Foundation
 #if canImport(UIKit)
 import UIKit
@@ -58,11 +57,11 @@ public struct RETextAttributesTextInfo: Codable {
 
     public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.fontName = try container.decode(String.self, forKey: .fontName)
-        self.foreground = try container.decode(String.self, forKey: .foreground)
-        self.background = try container.decode(String.self, forKey: .background)
+        fontName = try container.decode(String.self, forKey: .fontName)
+        foreground = try container.decode(String.self, forKey: .foreground)
+        background = try container.decode(String.self, forKey: .background)
 
         let rawFontSize = try container.decode(String.self, forKey: .fontSize)
-        self.fontSize = CGFloat(Float(rawFontSize) ?? .zero)
+        fontSize = CGFloat(Float(rawFontSize) ?? .zero)
     }
 }

@@ -73,7 +73,7 @@ public extension RichEditorView {
     func unlink() {
         javaScriptManager.unlink()
     }
-    
+
     /// Indents the lines containing the current selection or the insertion point.
     func indent() {
         execCommand(.indent)
@@ -121,7 +121,7 @@ public extension RichEditorView {
     func decreaseFontSize() {
         execCommand(.decreaseFontSize)
     }
-    
+
     /// Undoes the last executed command.
     func undo() {
         execCommand(.undo)

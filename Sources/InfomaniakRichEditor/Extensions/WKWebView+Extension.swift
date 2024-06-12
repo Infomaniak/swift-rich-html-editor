@@ -37,7 +37,7 @@ extension WKWebView {
         )
 
         guard let targetView = getWKContentView(),
-              let targetNewClass = getClassWithCustomAccessoryView(targetView: targetView)else {
+              let targetNewClass = getClassWithCustomAccessoryView(targetView: targetView) else {
             return
         }
         object_setClass(targetView, targetNewClass)
