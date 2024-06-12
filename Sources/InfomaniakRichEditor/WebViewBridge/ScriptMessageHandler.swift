@@ -24,7 +24,7 @@ protocol ScriptMessageHandlerDelegate: AnyObject {
 }
 
 final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
-    enum Handler: String, CaseIterable {
+    enum ScriptMessage: String, CaseIterable {
         case editorDidLoad
         case contentDidChange
         case contentHeightDidChange
@@ -38,7 +38,7 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     private let logger = Logger(subsystem: "com.infomaniak.swift-rich-editor", category: "ScriptMessageHandler")
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        guard let messageName = Handler(rawValue: message.name) else {
+        guard let messageName = ScriptMessage(rawValue: message.name) else {
             return
         }
 

@@ -66,12 +66,12 @@ public extension RichEditorView {
     ///   - url: The destination of the link, it is the value of the `href` attribute.
     ///   - text: The optional label of the link, if nil the url will be used.
     func addLink(url: URL, text: String? = nil) {
-        webViewBridge.addLink(text: text, path: url.absoluteString)
+        javaScriptManager.addLink(text: text, path: url.absoluteString)
     }
 
     /// Removes all the links of the current selection or at the insertion point.
     func unlink() {
-        webViewBridge.unlink()
+        javaScriptManager.unlink()
     }
     
     /// Indents the lines containing the current selection or the insertion point.
@@ -133,6 +133,6 @@ public extension RichEditorView {
     }
 
     private func execCommand(_ command: RECommand, argument: Any? = nil) {
-        webViewBridge.execCommand(command)
+        javaScriptManager.execCommand(command)
     }
 }

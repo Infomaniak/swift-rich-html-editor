@@ -50,7 +50,12 @@ public class RichEditorView: PlatformView {
     }
     #endif
 
-    /// The editor view’s delegate.
+    /// A Boolean value that indicates if the DOM of the editor is loaded.
+    public var isEditorLoaded: Bool {
+        return javaScriptManager.isDOMContentLoaded
+    }
+
+    /// The object you use to react to editor's events.
     public weak var delegate: RichEditorViewDelegate?
 
     /// The content height of the editor view.
@@ -69,7 +74,7 @@ public class RichEditorView: PlatformView {
 
     var internalHTMLContent = ""
 
-    var webViewBridge: WebViewBridgeManager!
+    var javaScriptManager: JavaScriptManager!
     var scriptMessageHandler: ScriptMessageHandler!
 
     override init(frame: CGRect) {
@@ -79,8 +84,8 @@ public class RichEditorView: PlatformView {
         scriptMessageHandler.delegate = self
 
         setUpWebView()
-        webViewBridge = WebViewBridgeManager(webView: webView)
-        webViewBridge.delegate = self
+        javaScriptManager = JavaScriptManager(webView: webView)
+        javaScriptManager.delegate = self
     }
 
     @available(*, unavailable)
@@ -95,7 +100,7 @@ public extension RichEditorView {
     /// Injects CSS code to customize the appearance of the editor view.
     /// - Parameter css: CSS code.
     func injectAdditionalCSS(_ css: String) {
-        webViewBridge.injectCSS(css)
+        javaScriptManager.injectCSS(css)
     }
 }
 
@@ -132,8 +137,8 @@ public extension RichEditorView {
             webView.configuration.preferences.javaScriptEnabled = false
         }
 
-        for messageHandler in ScriptMessageHandler.Handler.allCases {
-            webView.configuration.userContentController.add(scriptMessageHandler, scriptMessage: messageHandler)
+        for scriptMessage in ScriptMessageHandler.ScriptMessage.allCases {
+            webView.configuration.userContentController.add(scriptMessageHandler, scriptMessage: scriptMessage)
         }
     }
 
@@ -165,7 +170,7 @@ public extension RichEditorView {
     }
 
     private func setHTMLContent(_ newContent: String) {
-        webViewBridge.setHTMLContent(newContent)
+        javaScriptManager.setHTMLContent(newContent)
     }
 }
 
@@ -187,6 +192,7 @@ extension RichEditorView: UIScrollViewDelegate {
 
 extension RichEditorView: ScriptMessageHandlerDelegate {
     func editorDidLoad() {
+        javaScriptManager.isDOMContentLoaded = true
         delegate?.richEditorViewDidLoad(self)
     }
 
@@ -215,9 +221,9 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
     }
 }
 
-// MARK: - WebViewBridgeManagerDelegate
+// MARK: - JavaScriptManagerDelegate
 
-extension RichEditorView: WebViewBridgeManagerDelegate {
+extension RichEditorView: JavaScriptManagerDelegate {
     func javascriptFunctionDidFail(error: any Error) {
         delegate?.richEditorView(self, javascriptFunctionDidFail: error)
     }

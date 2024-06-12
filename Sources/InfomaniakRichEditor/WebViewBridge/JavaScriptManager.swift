@@ -14,22 +14,35 @@
 import Foundation
 import WebKit
 
-protocol WebViewBridgeManagerDelegate {
+protocol JavaScriptManagerDelegate {
     func javascriptFunctionDidFail(error: any Error)
 }
 
-struct WebViewBridgeManager {
-    let webView: WKWebView
-    var delegate: WebViewBridgeManagerDelegate?
+final class JavaScriptManager {
+    weak var webView: WKWebView?
+    var delegate: JavaScriptManagerDelegate?
+
+    var isDOMContentLoaded = false {
+        didSet {
+            evaluateWaitingFunctions()
+        }
+    }
+
+    private var functionsWaitingForDOM = [JavaScriptFunction]()
+
+    init(webView: WKWebView, delegate: JavaScriptManagerDelegate? = nil) {
+        self.webView = webView
+        self.delegate = delegate
+    }
 
     func setHTMLContent(_ content: String) {
         let setContent = JavaScriptFunction.setContent(content: content)
-        evaluate(function: setContent)
+        evaluateWhenDOMIsReady(function: setContent)
     }
 
     func injectCSS(_ content: String) {
         let injectCSS = JavaScriptFunction.injectCSS(content: content)
-        evaluate(function: injectCSS)
+        evaluateWhenDOMIsReady(function: injectCSS)
     }
 
     func execCommand(_ command: RECommand, argument: Any? = nil) {
@@ -46,11 +59,30 @@ struct WebViewBridgeManager {
         evaluate(function: .unlink)
     }
 
+    private func evaluateWhenDOMIsReady(function: JavaScriptFunction) {
+        guard isDOMContentLoaded else {
+            functionsWaitingForDOM.append(function)
+            return
+        }
+        evaluate(function: function)
+    }
+
     private func evaluate(function: JavaScriptFunction) {
-        webView.evaluateJavaScript(function.call()) { _, error in
+        webView?.evaluateJavaScript(function.call()) { [weak self] _, error in
             if let error {
-                delegate?.javascriptFunctionDidFail(error: error)
+                self?.delegate?.javascriptFunctionDidFail(error: error)
             }
         }
+    }
+
+    private func evaluateWaitingFunctions() {
+        guard isDOMContentLoaded else {
+            return
+        }
+        
+        for function in functionsWaitingForDOM {
+            evaluate(function: function)
+        }
+        functionsWaitingForDOM.removeAll()
     }
 }
