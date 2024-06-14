@@ -112,16 +112,6 @@ public extension RichEditorView {
         execCommand(.fontSize, argument: size)
     }
 
-    /// Increases the font size of the current selection or at the insertion point.
-    func increaseFontSize() {
-        execCommand(.increaseFontSize)
-    }
-
-    /// Decreases the font size of the current selection or at the insertion point.
-    func decreaseFontSize() {
-        execCommand(.decreaseFontSize)
-    }
-
     /// Undoes the last executed command.
     func undo() {
         execCommand(.undo)

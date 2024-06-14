@@ -30,8 +30,6 @@ enum RECommand: String {
     case justifyCenter
     case justifyRight
     case fontSize
-    case increaseFontSize
-    case decreaseFontSize
     case undo
     case redo
     case backgroundColor = "backColor"
