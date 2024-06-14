@@ -1,18 +1,37 @@
 "use strict";
 
-/** Lastest selection range */
-let lastSelectionRange = null;
+// MARK: Compute caret position
 
-// MARK: Selection info method
+function computeAndReportCaretPosition() {
+    const caretRect = computeCaretRect();
+    if (caretRect === null) {
+        return;
+    }
 
-function computeSelectionInfo() {
+    reportCursorPositionDidChange(caretRect);
+}
+
+function computeCaretRect() {
+    const selection = window.getSelection();
+    if (selection.rangeCount <= 0) {
+        return null;
+    }
+
+    const currentCaretRect = getCaretRect(selection);
+    if (selection.isCollapsed) {
+        return currentCaretRect;
+    }
+
+    return new DOMRect();
+}
+
+/*function computeSelectionInfo() {
     const selection = window.getSelection();
     if (selection.rangeCount <= 0) {
         return null;
     }
 
     const selectionRect = getCaretRect(selection, null);
-    // TODO: Get direction
 
     const anchorPoint = getCaretAnchorPoint(caretRect);
 
@@ -21,29 +40,29 @@ function computeSelectionInfo() {
         anchorPoint: anchorPoint
     };
     reportSelectionDidChange(selectionInfo);
-}
+}*/
 
 // MARK: Utils
 
-function getCaretAnchorPoint(rect) {
-    return [rect.x, rect.y];
+function formatRect(rect) {
+    return [rect.x, rect.y, rect.width, rect.height];
 }
 
-function getCaretRect(selection, anchoreNode) {
+function getCaretRect(selection, anchorNode) {
     const range = getRange()?.cloneRange();
     if (range === null) {
         return null;
     }
 
-    if (anchoreNode !== null) {
-        range.selectNodeContents(anchoreNode);
+    if (anchorNode !== undefined) {
+        range.selectNodeContents(anchorNode);
     }
 
     const rangeRects = range.getClientRects();
 
     switch (rangeRects.length) {
         case 0:
-            const node = anchoreNode || selection.anchorNode;
+            const node = anchorNode || selection.anchorNode;
             const closestParentElement = getClosestParentNodeElement(node);
             return closestParentElement.getBoundingClientRect();
         case 1:

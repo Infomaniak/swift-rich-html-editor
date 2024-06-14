@@ -19,7 +19,7 @@ function observeResize(target) {
 
 function observeSelectionChange(target) {
     target.addEventListener("selectionchange", () => {
-        checkIfSelectedTextAttributesDidChange();
-        setTimeout(computeSelectionInfo, 50);
+        reportSelectedTextAttributesIfNecessary();
+        setTimeout(computeAndReportCaretPosition, 60);
     });
 }

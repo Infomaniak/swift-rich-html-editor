@@ -19,7 +19,7 @@ protocol ScriptMessageHandlerDelegate: AnyObject {
     func contentDidChange(_ text: String)
     func contentHeightDidChange(_ contentHeight: CGFloat)
     func selectedTextAttributesDidChange(_ selectedTextAttributes: RETextAttributes?)
-    func selectionDidChange(_ selection: RESelection?)
+    func caretRectDidChange(_ newRect: CGRect)
 }
 
 final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
@@ -28,7 +28,7 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         case contentDidChange
         case contentHeightDidChange
         case selectedTextAttributesDidChange
-        case selectionDidChange
+        case cursorPositionDidChange
         case scriptLog
     }
 
@@ -50,8 +50,8 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             contentHeightDidChange(message)
         case .selectedTextAttributesDidChange:
             selectedTextAttributesDidChange(message)
-        case .selectionDidChange:
-            selectionDidChange(message)
+        case .cursorPositionDidChange:
+            cursorPositionDidChange(message)
         case .scriptLog:
             scriptLog(message)
         }
@@ -91,20 +91,13 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         }
     }
 
-    private func selectionDidChange(_ message: WKScriptMessage) {
-        guard let json = message.body as? String, let data = json.data(using: .utf8) else {
+    private func cursorPositionDidChange(_ message: WKScriptMessage) {
+        guard let position = message.body as? [Double], position.count >= 4 else {
             return
         }
 
-        do {
-            let decoder = JSONDecoder()
-            let selection = try decoder.decode(RESelection.self, from: data)
-
-            delegate?.selectionDidChange(selection)
-        } catch {
-            logger.error("Error while trying to decode RESelection: \(error)")
-            delegate?.selectionDidChange(nil)
-        }
+        let positionRect = CGRect(x: position[0], y: position[1], width: position[2], height: position[3])
+        delegate?.caretRectDidChange(positionRect)
     }
 
     private func scriptLog(_ message: WKScriptMessage) {

@@ -6,7 +6,7 @@ let currentSelectedTextAttributes = {
     textInfo: {}
 };
 
-function checkIfSelectedTextAttributesDidChange() {
+function reportSelectedTextAttributesIfNecessary() {
     const newTextAttributes = getSelectedTextAttributes();
     if (compareTextAttributes(currentSelectedTextAttributes, newTextAttributes)) {
         return;

@@ -22,7 +22,7 @@ public protocol RichEditorViewDelegate: AnyObject {
     func richEditorViewDidChange(_ richEditorView: RichEditorView)
 
     ///
-    func richEditorViewDidChangeSelection(_ richEditorView: RichEditorView)
+    func richEditorView(_ richEditorView: RichEditorView, cursorPositionDidChange cursorPosition: CGRect)
 
     /// Tells the delegate when the height of the content of the specified editor changes.
     func richEditorView(_ richEditorView: RichEditorView, contentHeightDidChange contentHeight: CGFloat)
@@ -30,6 +30,7 @@ public protocol RichEditorViewDelegate: AnyObject {
     /// Tells the delegate when the attributes of the selected text changes in the specified editor view.
     func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: RETextAttributes)
 
+    ///
     func richEditorView(_ richEditorView: RichEditorView, javascriptFunctionDidFail: any Error)
 }
 
@@ -37,7 +38,7 @@ public protocol RichEditorViewDelegate: AnyObject {
 public extension RichEditorViewDelegate {
     func richEditorViewDidLoad(_ richEditorView: RichEditorView) {}
     func richEditorViewDidChange(_ richEditorView: RichEditorView) {}
-    func richEditorViewDidChangeSelection(_ richEditorView: RichEditorView) {}
+    func richEditorView(_ richEditorView: RichEditorView, cursorPositionDidChange cursorPosition: CGRect) {}
     func richEditorView(_ richEditorView: RichEditorView, contentHeightDidChange contentHeight: CGFloat) {}
     func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: RETextAttributes) {}
     func richEditorView(_ richEditorView: RichEditorView, javascriptFunctionDidFail: any Error) {}

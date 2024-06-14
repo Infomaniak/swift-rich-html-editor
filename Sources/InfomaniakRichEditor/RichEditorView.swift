@@ -246,9 +246,8 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
         delegate?.richEditorView(self, selectedTextAttributesDidChange: selectedTextAttributes)
     }
 
-    func selectionDidChange(_ selection: RESelection?) {
-        self.selection = selection
-        delegate?.richEditorViewDidChangeSelection(self)
+    func caretRectDidChange(_ position: CGRect) {
+        delegate?.richEditorView(self, cursorPositionDidChange: position)
     }
 }
 
