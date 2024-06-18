@@ -19,7 +19,7 @@ function observeResize(target) {
 
 function observeSelectionChange(target) {
     target.addEventListener("selectionchange", () => {
+        reportSelectionDidChange(window.getSelection().isCollapsed);
         reportSelectedTextAttributesIfNecessary();
-        setTimeout(computeAndReportCaretPosition, 60);
     });
 }

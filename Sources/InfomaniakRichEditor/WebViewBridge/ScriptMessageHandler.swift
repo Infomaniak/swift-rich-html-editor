@@ -19,7 +19,7 @@ protocol ScriptMessageHandlerDelegate: AnyObject {
     func contentDidChange(_ text: String)
     func contentHeightDidChange(_ contentHeight: CGFloat)
     func selectedTextAttributesDidChange(_ selectedTextAttributes: RETextAttributes?)
-    func caretRectDidChange(_ newRect: CGRect)
+    func selectionDidChange(_ isSelectionCollapsed: Bool)
 }
 
 final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
@@ -27,8 +27,8 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         case editorDidLoad
         case contentDidChange
         case contentHeightDidChange
+        case selectionDidChange
         case selectedTextAttributesDidChange
-        case cursorPositionDidChange
         case scriptLog
     }
 
@@ -50,8 +50,8 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             contentHeightDidChange(message)
         case .selectedTextAttributesDidChange:
             selectedTextAttributesDidChange(message)
-        case .cursorPositionDidChange:
-            cursorPositionDidChange(message)
+        case .selectionDidChange:
+            selectionDidChange(message)
         case .scriptLog:
             scriptLog(message)
         }
@@ -91,13 +91,12 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         }
     }
 
-    private func cursorPositionDidChange(_ message: WKScriptMessage) {
-        guard let position = message.body as? [Double], position.count >= 4 else {
+    private func selectionDidChange(_ message: WKScriptMessage) {
+        guard let isSelectionCollapsed = message.body as? Bool else {
             return
         }
 
-        let positionRect = CGRect(x: position[0], y: position[1], width: position[2], height: position[3])
-        delegate?.caretRectDidChange(positionRect)
+        delegate?.selectionDidChange(isSelectionCollapsed)
     }
 
     private func scriptLog(_ message: WKScriptMessage) {

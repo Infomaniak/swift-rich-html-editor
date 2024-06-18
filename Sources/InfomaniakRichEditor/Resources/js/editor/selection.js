@@ -25,23 +25,6 @@ function computeCaretRect() {
     return new DOMRect();
 }
 
-/*function computeSelectionInfo() {
-    const selection = window.getSelection();
-    if (selection.rangeCount <= 0) {
-        return null;
-    }
-
-    const selectionRect = getCaretRect(selection, null);
-
-    const anchorPoint = getCaretAnchorPoint(caretRect);
-
-    const selectionInfo = {
-        type: selection.type,
-        anchorPoint: anchorPoint
-    };
-    reportSelectionDidChange(selectionInfo);
-}*/
-
 // MARK: Utils
 
 function formatRect(rect) {
