@@ -19,7 +19,7 @@ protocol ScriptMessageHandlerDelegate: AnyObject {
     func contentDidChange(_ text: String)
     func contentHeightDidChange(_ contentHeight: CGFloat)
     func selectedTextAttributesDidChange(_ selectedTextAttributes: RETextAttributes?)
-    func selectionDidChange(_ isSelectionCollapsed: Bool)
+    func selectionDidChange(_ cursorRect: CGRect)
 }
 
 final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
@@ -92,11 +92,12 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     }
 
     private func selectionDidChange(_ message: WKScriptMessage) {
-        guard let isSelectionCollapsed = message.body as? Bool else {
+        guard let position = message.body as? [Double], position.count >= 4 else {
             return
         }
 
-        delegate?.selectionDidChange(isSelectionCollapsed)
+        let cursorRect = CGRect(x: position[0], y: position[1], width: position[2], height: position[3])
+        delegate?.selectionDidChange(cursorRect)
     }
 
     private func scriptLog(_ message: WKScriptMessage) {

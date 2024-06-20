@@ -17,6 +17,6 @@ function reportSelectedTextAttributesDidChange(textAttributes) {
     window.webkit.messageHandlers.selectedTextAttributesDidChange.postMessage(json);
 }
 
-function reportSelectionDidChange(isSelectionCollapsed) {
-    window.webkit.messageHandlers.selectionDidChange.postMessage(isSelectionCollapsed);
+function reportSelectionDidChange(cursorRect) {
+    window.webkit.messageHandlers.selectionDidChange.postMessage(cursorRect);
 }

@@ -8,7 +8,8 @@ function computeAndReportCaretPosition() {
         return;
     }
 
-    reportCursorPositionDidChange(caretRect);
+    let formattedRect = formatRect(caretRect);
+    reportSelectionDidChange(formattedRect);
 }
 
 function computeCaretRect() {
@@ -22,7 +23,7 @@ function computeCaretRect() {
         return currentCaretRect;
     }
 
-    return new DOMRect();
+    return currentCaretRect;
 }
 
 // MARK: Utils

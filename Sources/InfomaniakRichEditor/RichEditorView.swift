@@ -95,7 +95,6 @@ public class RichEditorView: PlatformView {
 
     var javaScriptManager: JavaScriptManager!
     var scriptMessageHandler: ScriptMessageHandler!
-    var cursorPositionManager: CursorPositionManager!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -106,8 +105,6 @@ public class RichEditorView: PlatformView {
         setUpWebView()
         javaScriptManager = JavaScriptManager(webView: webView)
         javaScriptManager.delegate = self
-
-        cursorPositionManager = CursorPositionManager(webView: webView)
     }
 
     @available(*, unavailable)
@@ -253,8 +250,8 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
         delegate?.richEditorView(self, cursorPositionDidChange: position)
     }
 
-    func selectionDidChange(_ isSelectionCollapsed: Bool) {
-        print("The new position is:", cursorPositionManager.computePosition(isCollapsed: isSelectionCollapsed))
+    func selectionDidChange(_ cursorRect: CGRect) {
+        delegate?.richEditorView(self, cursorPositionDidChange: cursorRect)
     }
 }
 
