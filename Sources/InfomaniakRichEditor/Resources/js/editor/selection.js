@@ -20,36 +20,18 @@ function computeCaretRect() {
         return null;
     }
 
-    const selectionRange = selection.getRangeAt(0).cloneRange();
-    const currentCaretRect = getCaretRect();
+    let caretRect = null;
     if (selection.isCollapsed) {
-        lastSelectionRange = selectionRange;
-        return currentCaretRect;
+        caretRect = getCaretRect();
+    } else {
+        const selectionNodeToFocus = getSelectionNodeToTarget(selection);
+        lastFocusedSelectionGrabber = selectionNodeToFocus;
+    
+        caretRect = (selectionNodeToFocus == null) ? null : getCaretRect(selectionNodeToFocus);
     }
+    lastSelectionRange = selection.getRangeAt(0).cloneRange();
 
-    const movingGrabber = guessMostProbableMovingSelectionGrabber(selectionRange);
-
-    let selectionNodeToFocus = null;
-    switch (movingGrabber) {
-        case SelectionGrabber.start:
-            selectionNodeToFocus = selection.anchorNode;
-            break;
-        case SelectionGrabber.end:
-            selectionNodeToFocus = selection.focusNode;
-            break;
-        case SelectionGrabber.unknown:
-            if (lastFocusedSelectionGrabber != null) {
-                selectionNodeToFocus = lastFocusedSelectionGrabber;
-            }
-            break;
-    }
-    lastSelectionRange = selectionRange;
-    lastFocusedSelectionGrabber = selectionNodeToFocus;
-
-    if (selectionNodeToFocus == null) {
-        return null;
-    }
-    return getCaretRect(selectionNodeToFocus);
+    return caretRect;
 }
 
 // MARK: Utils
@@ -58,23 +40,7 @@ const SelectionGrabber = {
     start: "Start",
     end: "End",
     unknown: "Unknown"
-}
-
-function guessMostProbableMovingSelectionGrabber(selectionRange) {
-    if (lastSelectionRange == null) {
-        return SelectionGrabber.unknown;
-    }
-
-    if (lastSelectionRange.startContainer === selectionRange.startContainer && lastSelectionRange.endContainer === selectionRange.endContainer) {
-        if (lastSelectionRange.startOffset === selectionRange.startOffset && lastSelectionRange.endOffset === selectionRange.endOffset) {
-            return SelectionGrabber.unknown;
-        } else {
-            return (lastSelectionRange.endOffset !== selectionRange.endOffset) ? SelectionGrabber.end : SelectionGrabber.start;
-        }
-    } else {
-        return (lastSelectionRange.endContainer !== selectionRange.endContainer) ? SelectionGrabber.end : SelectionGrabber.start;
-    }
-}
+};
 
 function getCaretRect(anchorNode) {
     const range = getRange()?.cloneRange();
@@ -102,9 +68,46 @@ function getCaretRect(anchorNode) {
 function getClosestParentNodeElement(node) {
     if (node == null) {
         return null;
-    }
-    if (node.nodeType === Node.ELEMENT_NODE) {
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
         return node;
+    } else {
+        return getClosestParentNodeElement(node.parentNode);
     }
-    return getClosestParentNodeElement(node.parentNode);
+}
+
+function getSelectionNodeToTarget(selection) {
+    const movingGrabber = guessMostProbableMovingSelectionGrabber(selection.getRangeAt(0).cloneRange());
+
+    let selectionNodeToFocus = null;
+    switch (movingGrabber) {
+        case SelectionGrabber.start:
+            selectionNodeToFocus = selection.anchorNode;
+            break;
+        case SelectionGrabber.end:
+            selectionNodeToFocus = selection.focusNode;
+            break;
+        case SelectionGrabber.unknown:
+            if (lastFocusedSelectionGrabber != null) {
+                selectionNodeToFocus = lastFocusedSelectionGrabber;
+            }
+            break;
+    }
+
+    return selectionNodeToFocus;
+}
+
+function guessMostProbableMovingSelectionGrabber(selectionRange) {
+    if (lastSelectionRange == null) {
+        return SelectionGrabber.unknown;
+    }
+
+    if (lastSelectionRange.startContainer === selectionRange.startContainer && lastSelectionRange.endContainer === selectionRange.endContainer) {
+        if (lastSelectionRange.startOffset === selectionRange.startOffset && lastSelectionRange.endOffset === selectionRange.endOffset) {
+            return SelectionGrabber.unknown;
+        } else {
+            return (lastSelectionRange.endOffset !== selectionRange.endOffset) ? SelectionGrabber.end : SelectionGrabber.start;
+        }
+    } else {
+        return (lastSelectionRange.endContainer !== selectionRange.endContainer) ? SelectionGrabber.end : SelectionGrabber.start;
+    }
 }
