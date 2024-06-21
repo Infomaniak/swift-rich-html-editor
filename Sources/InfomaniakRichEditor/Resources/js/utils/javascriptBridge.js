@@ -1,7 +1,7 @@
 "use strict";
 
 function reportEditorDidLoad() {
-    window.webkit.messageHandlers.editorDidLoad.postMessage({});
+    window.webkit.messageHandlers.editorDidLoad.postMessage(null);
 }
 
 function reportContentDidChange(content) {
@@ -18,5 +18,5 @@ function reportSelectedTextAttributesDidChange(textAttributes) {
 }
 
 function reportSelectionDidChange(cursorRect) {
-    window.webkit.messageHandlers.selectionDidChange.postMessage(cursorRect);
+    window.webkit.messageHandlers.selectionDidChange.postMessage([cursorRect.x, cursorRect.y, cursorRect.width, cursorRect.height]);
 }
