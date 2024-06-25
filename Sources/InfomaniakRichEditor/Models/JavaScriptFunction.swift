@@ -5,8 +5,6 @@
 //  Created by Valentin Perignon on 11.06.2024.
 //
 
-import Foundation
-
 enum JavaScriptFunction {
     case execCommand(command: String, argument: Any? = nil)
     case setContent(content: String)

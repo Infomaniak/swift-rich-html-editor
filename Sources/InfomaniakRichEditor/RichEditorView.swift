@@ -83,9 +83,6 @@ public class RichEditorView: PlatformView {
     /// The style of the text currently selected in the editor view.
     public private(set) var selectedTextAttributes = RETextAttributes()
 
-    /// The state of the selection in the editor view.
-    public private(set) var selection: RESelection?
-
     /// The web view that displays the HTML and handle the input.
     public private(set) var webView: WKWebView!
 

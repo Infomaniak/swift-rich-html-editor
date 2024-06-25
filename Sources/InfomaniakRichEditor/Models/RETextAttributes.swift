@@ -11,7 +11,6 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-import Foundation
 #if canImport(UIKit)
 import UIKit
 #elseif canImport(AppKit)

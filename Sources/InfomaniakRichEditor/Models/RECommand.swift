@@ -11,8 +11,6 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-import Foundation
-
 enum RECommand: String {
     case removeFormat
     case bold
