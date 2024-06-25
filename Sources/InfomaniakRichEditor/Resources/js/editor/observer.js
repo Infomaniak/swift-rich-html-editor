@@ -1,6 +1,6 @@
 "use strict";
 
-// MARK: Observation methods
+// MARK: - Observation methods
 
 function observeContentMutation(target, contentContainer) {
     const mutationObserver = new MutationObserver(() => {

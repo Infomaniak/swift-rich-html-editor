@@ -12,6 +12,8 @@
 //  under the License.
 
 extension String {
+    /// When we include a string as an argument of a JavaScript function,
+    /// we must escape it, so it won't break 
     var escapedForJavaScript: String {
         var escapedString = ""
         for letter in self {

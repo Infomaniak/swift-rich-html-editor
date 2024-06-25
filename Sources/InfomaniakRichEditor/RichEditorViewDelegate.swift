@@ -21,7 +21,7 @@ public protocol RichEditorViewDelegate: AnyObject {
     /// Tells the delegate when the user changes the content or format in the specified editor view.
     func richEditorViewDidChange(_ richEditorView: RichEditorView)
 
-    ///
+    /// Tells the delegate when the position of the cursor of the specified editor moves.
     func richEditorView(_ richEditorView: RichEditorView, cursorPositionDidChange cursorPosition: CGRect)
 
     /// Tells the delegate when the height of the content of the specified editor changes.
@@ -30,7 +30,7 @@ public protocol RichEditorViewDelegate: AnyObject {
     /// Tells the delegate when the attributes of the selected text changes in the specified editor view.
     func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: RETextAttributes)
 
-    ///
+    /// Tells the delegate when a JavaScript function executed in the specified editor has failed.
     func richEditorView(_ richEditorView: RichEditorView, javascriptFunctionDidFail: any Error)
 }
 

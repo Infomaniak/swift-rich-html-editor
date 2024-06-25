@@ -1,4 +1,4 @@
-// MARK: Detect links
+// MARK: - Detect links
 
 function hasLink() {
     return getAllAnchorsOfSelection().length > 0;
@@ -22,7 +22,7 @@ function getFirstAnchorOfSelection() {
     return anchors[0];
 }
 
-// MARK: Create and edit links
+// MARK: - Create and edit links
 
 function createLink(url, text) {
     const range = getRange();
@@ -64,7 +64,7 @@ function createLinkForRange(url, text) {
     }
 }
 
-// MARK: Remove link
+// MARK: - Remove link
 
 function unlink() {
     let anchorNodes = getAllAnchorsOfSelection();
@@ -87,7 +87,7 @@ function unlinkAnchorNode(anchor) {
     selection.addRange(rangeBackup);
 }
 
-// MARK: Utils
+// MARK: - Utils
 
 function updateAnchorText(anchor, text) {
     if (text !== null && anchor.textContent !== text) {

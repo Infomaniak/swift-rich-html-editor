@@ -13,7 +13,7 @@
 
 import WebKit
 
-protocol JavaScriptManagerDelegate {
+protocol JavaScriptManagerDelegate: AnyObject {
     func javascriptFunctionDidFail(error: any Error)
 }
 
@@ -24,7 +24,7 @@ final class JavaScriptManager {
         }
     }
 
-    var delegate: JavaScriptManagerDelegate?
+    weak var delegate: JavaScriptManagerDelegate?
 
     private weak var webView: WKWebView?
     private var functionsWaitingForDOM = [JavaScriptFunction]()
@@ -65,6 +65,17 @@ final class JavaScriptManager {
         evaluate(function: .blur)
     }
 
+    private func evaluateWaitingFunctions() {
+        guard isDOMContentLoaded else {
+            return
+        }
+
+        for function in functionsWaitingForDOM {
+            evaluate(function: function)
+        }
+        functionsWaitingForDOM.removeAll()
+    }
+
     private func evaluateWhenDOMIsReady(function: JavaScriptFunction) {
         guard isDOMContentLoaded else {
             functionsWaitingForDOM.append(function)
@@ -79,16 +90,5 @@ final class JavaScriptManager {
                 self?.delegate?.javascriptFunctionDidFail(error: error)
             }
         }
-    }
-
-    private func evaluateWaitingFunctions() {
-        guard isDOMContentLoaded else {
-            return
-        }
-
-        for function in functionsWaitingForDOM {
-            evaluate(function: function)
-        }
-        functionsWaitingForDOM.removeAll()
     }
 }

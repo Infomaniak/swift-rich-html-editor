@@ -45,7 +45,7 @@ function doesPositionMatchTargets(position, targets) {
     });
 }
 
-// MARK: Compare objects
+// MARK: - Compare objects
 
 function compareTextAttributes(lhs, rhs) {
     return compareObjectProperties(lhs.format, rhs.format) && compareObjectProperties(lhs.textInfo, rhs.textInfo);
