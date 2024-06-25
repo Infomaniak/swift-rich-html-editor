@@ -96,7 +96,13 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             return
         }
 
-        let cursorRect = CGRect(x: position[0], y: position[1], width: position[2], height: position[3])
+        // Sometimes, the JavaScript function returns a width and height equal to 0
+        let cursorRect = CGRect(
+            x: position[0],
+            y: position[1],
+            width: max(1, position[2]),
+            height: max(1, position[3])
+        )
         delegate?.selectionDidChange(cursorRect)
     }
 
