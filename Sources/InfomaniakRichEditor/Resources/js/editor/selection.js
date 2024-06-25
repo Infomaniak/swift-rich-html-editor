@@ -3,15 +3,15 @@
 let lastSelectionRange = null;
 let lastFocusedSelectionGrabber = null;
 
-// MARK: Compute caret position
+// MARK: - Compute caret position
 
 function computeAndReportCaretPosition() {
     const caretRect = computeCaretRect();
-    if (caretRect === null) {
+    if (caretRect == null) {
         return;
     }
 
-    reportSelectionDidChange(caretRect);
+    reportCursorPositionDidChange(caretRect);
 }
 
 function computeCaretRect() {
@@ -34,7 +34,7 @@ function computeCaretRect() {
     return caretRect;
 }
 
-// MARK: Utils
+// MARK: - Utils
 
 const SelectionGrabber = {
     start: "Start",

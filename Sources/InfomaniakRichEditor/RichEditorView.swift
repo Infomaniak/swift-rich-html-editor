@@ -250,7 +250,7 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
         delegate?.richEditorView(self, cursorPositionDidChange: position)
     }
 
-    func selectionDidChange(_ cursorRect: CGRect) {
+    func cursorPositionDidChange(_ cursorRect: CGRect) {
         delegate?.richEditorView(self, cursorPositionDidChange: cursorRect)
     }
 }

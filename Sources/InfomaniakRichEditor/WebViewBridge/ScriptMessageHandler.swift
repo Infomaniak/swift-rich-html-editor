@@ -19,7 +19,7 @@ protocol ScriptMessageHandlerDelegate: AnyObject {
     func contentDidChange(_ text: String)
     func contentHeightDidChange(_ contentHeight: CGFloat)
     func selectedTextAttributesDidChange(_ selectedTextAttributes: RETextAttributes?)
-    func selectionDidChange(_ cursorRect: CGRect)
+    func cursorPositionDidChange(_ cursorRect: CGRect)
 }
 
 final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
@@ -27,7 +27,7 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         case editorDidLoad
         case contentDidChange
         case contentHeightDidChange
-        case selectionDidChange
+        case cursorPositionDidChange
         case selectedTextAttributesDidChange
         case scriptLog
     }
@@ -50,8 +50,8 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             contentHeightDidChange(message)
         case .selectedTextAttributesDidChange:
             selectedTextAttributesDidChange(message)
-        case .selectionDidChange:
-            selectionDidChange(message)
+        case .cursorPositionDidChange:
+            cursorPositionDidChange(message)
         case .scriptLog:
             scriptLog(message)
         }
@@ -91,19 +91,19 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         }
     }
 
-    private func selectionDidChange(_ message: WKScriptMessage) {
-        guard let position = message.body as? [Double], position.count >= 4 else {
+    private func cursorPositionDidChange(_ message: WKScriptMessage) {
+        guard let cursorData = message.body as? [Double], cursorData.count >= 4 else {
             return
         }
 
         // Sometimes, the JavaScript function returns a width and height equal to 0
-        let cursorRect = CGRect(
-            x: position[0],
-            y: position[1],
-            width: max(1, position[2]),
-            height: max(1, position[3])
+        let cursorPosition = CGRect(
+            x: cursorData[0],
+            y: cursorData[1],
+            width: max(1, cursorData[2]),
+            height: max(1, cursorData[3])
         )
-        delegate?.selectionDidChange(cursorRect)
+        delegate?.cursorPositionDidChange(cursorPosition)
     }
 
     private func scriptLog(_ message: WKScriptMessage) {
