@@ -81,7 +81,7 @@ public class RichEditorView: PlatformView {
     public private(set) var contentHeight = CGFloat.zero
 
     /// The style of the text currently selected in the editor view.
-    public private(set) var selectedTextAttributes = RETextAttributes()
+    public private(set) var selectedTextAttributes = TextAttributes()
 
     /// The web view that displays the HTML and handle the input.
     public private(set) var webView: WKWebView!
@@ -171,7 +171,7 @@ public extension RichEditorView {
     }
 
     private func loadScripts() {
-        for script in REScript.allCases {
+        for script in UserScript.allCases {
             webView.configuration.userContentController.addUserScript(
                 named: script.name,
                 injectionTime: script.injectionTime,
@@ -234,7 +234,7 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
         delegate?.richEditorView(self, contentHeightDidChange: contentHeight)
     }
 
-    func selectedTextAttributesDidChange(_ selectedTextAttributes: RETextAttributes?) {
+    func selectedTextAttributesDidChange(_ selectedTextAttributes: TextAttributes?) {
         guard let selectedTextAttributes else {
             return
         }

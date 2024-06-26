@@ -17,12 +17,12 @@ import UIKit
 import AppKit
 #endif
 
-public struct RETextAttributes: Codable {
-    public var format = RETextAttributesFormat()
-    public var textInfo = RETextAttributesTextInfo()
+public struct TextAttributes: Codable {
+    public var format = TextAttributesFormat()
+    public var textInfo = TextAttributesTextInfo()
 }
 
-public struct RETextAttributesFormat: Codable {
+public struct TextAttributesFormat: Codable {
     public var hasBold = false
     public var hasItalic = false
     public var hasUnderline = false
@@ -32,7 +32,7 @@ public struct RETextAttributesFormat: Codable {
     public var hasLink = false
 }
 
-public struct RETextAttributesTextInfo: Codable {
+public struct TextAttributesTextInfo: Codable {
     public var fontName: String
     public var fontSize: CGFloat
 

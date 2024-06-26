@@ -13,24 +13,24 @@
 
 import WebKit
 
-struct REScript {
+struct UserScript {
     let name: String
     let injectionTime: WKUserScriptInjectionTime
 
     static let allCases = [
         // Utils
-        REScript(name: "captureLog", injectionTime: .atDocumentStart),
-        REScript(name: "javascriptBridge", injectionTime: .atDocumentStart),
-        REScript(name: "utils", injectionTime: .atDocumentStart),
+        UserScript(name: "captureLog", injectionTime: .atDocumentStart),
+        UserScript(name: "javascriptBridge", injectionTime: .atDocumentStart),
+        UserScript(name: "utils", injectionTime: .atDocumentStart),
 
         // Editor
-        REScript(name: "text-attributes", injectionTime: .atDocumentStart),
-        REScript(name: "commands", injectionTime: .atDocumentStart),
-        REScript(name: "selection", injectionTime: .atDocumentStart),
-        REScript(name: "links", injectionTime: .atDocumentStart),
-        REScript(name: "observer", injectionTime: .atDocumentStart),
+        UserScript(name: "text-attributes", injectionTime: .atDocumentStart),
+        UserScript(name: "commands", injectionTime: .atDocumentStart),
+        UserScript(name: "selection", injectionTime: .atDocumentStart),
+        UserScript(name: "links", injectionTime: .atDocumentStart),
+        UserScript(name: "observer", injectionTime: .atDocumentStart),
 
         // Main
-        REScript(name: "main", injectionTime: .atDocumentStart)
+        UserScript(name: "main", injectionTime: .atDocumentStart)
     ]
 }

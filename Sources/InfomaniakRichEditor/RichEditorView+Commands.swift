@@ -122,7 +122,7 @@ public extension RichEditorView {
         execCommand(.redo)
     }
 
-    private func execCommand(_ command: RECommand, argument: Any? = nil) {
+    private func execCommand(_ command: ExecCommand, argument: Any? = nil) {
         javaScriptManager.execCommand(command)
     }
 }

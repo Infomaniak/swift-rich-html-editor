@@ -11,7 +11,7 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-enum RECommand: String {
+enum ExecCommand: String {
     case removeFormat
     case bold
     case italic
@@ -27,11 +27,35 @@ enum RECommand: String {
     case justifyLeft
     case justifyCenter
     case justifyRight
+    case fontName
     case fontSize
     case undo
     case redo
     case backgroundColor = "backColor"
     case foregroundColor = "foreColor"
+    case createLink
+
+    var type: ExecCommandType? {
+        switch self {
+        // List of commands that return a boolean state
+        case .bold, .italic, .underline, .strikeThrough, .toggleSubscript, .toggleSuperscript, .orderedList, .unorderedList,
+             .indent, .outdent:
+            return .state
+        // List of command that return a value
+        case .fontName, .fontSize, .backgroundColor, .foregroundColor:
+            return .value
+        // List of command that return a custom value
+        case .createLink, .justifyFull, .justifyLeft, .justifyCenter, .justifyRight:
+            return .custom
+        // List of command that return nothing
+        case .removeFormat, .undo, .redo:
+            return nil
+        }
+    }
+}
+
+enum ExecCommandType {
+    case state, value, custom
 }
 
 public enum RECommandJustifySide {
@@ -40,7 +64,7 @@ public enum RECommandJustifySide {
     case center
     case right
 
-    var command: RECommand {
+    var command: ExecCommand {
         switch self {
         case .full:
             return .justifyFull

@@ -43,7 +43,7 @@ final class JavaScriptManager {
         evaluateWhenDOMIsReady(function: injectCSS)
     }
 
-    func execCommand(_ command: RECommand, argument: Any? = nil) {
+    func execCommand(_ command: ExecCommand, argument: Any? = nil) {
         let execCommand = JavaScriptFunction.execCommand(command: command.rawValue, argument: argument)
         evaluate(function: execCommand)
     }

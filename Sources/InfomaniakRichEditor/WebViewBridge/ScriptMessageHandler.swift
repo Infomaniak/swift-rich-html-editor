@@ -18,7 +18,7 @@ protocol ScriptMessageHandlerDelegate: AnyObject {
     func editorDidLoad()
     func contentDidChange(_ text: String)
     func contentHeightDidChange(_ contentHeight: CGFloat)
-    func selectedTextAttributesDidChange(_ selectedTextAttributes: RETextAttributes?)
+    func selectedTextAttributesDidChange(_ selectedTextAttributes: TextAttributes?)
     func cursorPositionDidChange(_ cursorRect: CGRect)
 }
 
@@ -82,7 +82,7 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
 
         do {
             let decoder = JSONDecoder()
-            let selectedTextAttributes = try decoder.decode(RETextAttributes.self, from: data)
+            let selectedTextAttributes = try decoder.decode(TextAttributes.self, from: data)
 
             delegate?.selectedTextAttributesDidChange(selectedTextAttributes)
         } catch {
