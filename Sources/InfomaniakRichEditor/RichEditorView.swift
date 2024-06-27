@@ -56,7 +56,6 @@ public class RichEditorView: PlatformView {
     override public var canBecomeFirstResponder: Bool {
         return true
     }
-
     #elseif canImport(AppKit)
     /// A Boolean value that indicates whether the responder accepts first responder status.
     override public var acceptsFirstResponder: Bool {

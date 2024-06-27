@@ -28,15 +28,12 @@ public struct TextAttributes: Codable {
     public var hasLink = false
 
     public var fontName = ""
-
     public var fontSize: Int? {
-        Int(rawFontSize)
+        return Int(rawFontSize)
     }
-
     public var foregroundColor: PlatformColor? {
         return PlatformColor(rgba: rawForegroundColor)
     }
-
     public var backgroundColor: PlatformColor? {
         return PlatformColor(rgba: rawBackgroundColor)
     }

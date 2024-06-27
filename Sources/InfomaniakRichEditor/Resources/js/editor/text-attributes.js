@@ -5,6 +5,7 @@
 /** Information about the current selection */
 let currentSelectedTextAttributes = {};
 
+/** Dictionary of commands that return a boolean state with the function `document.queryCommandState()` */
 const stateCommands = {
     hasBold: "bold",
     hasItalic: "italic",
@@ -15,6 +16,7 @@ const stateCommands = {
     hasOrderedList: "insertOrderedList",
     hasUnorderedList: "insertUnorderedList"
 };
+/** Dictionary of commands that return a value with the function `document.queryCommandValue()` */
 const valueCommands = {
     fontName: "fontName",
     rawFontSize: "fontSize",
