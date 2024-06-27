@@ -3,73 +3,80 @@
 // MARK: - Variables
 
 /** Information about the current selection */
-let currentSelectedTextAttributes = {
-    format: {},
-    textInfo: {}
-};
+let currentSelectedTextAttributes = {};
 
-const stateCommands = __STATE_COMMANDS__;
-const valueCommands = __VALUE_COMMANDS__;
-const customCommands = __CUSTOM_COMMANDS__;
+const stateCommands = {
+    hasBold: "bold",
+    hasItalic: "italic",
+    hasUnderline: "underline",
+    hasStrikeThrough: "strikeThrough",
+    hasSubscript: "subscript",
+    hasSuperscript: "superscript",
+    hasOrderedList: "insertOrderedList",
+    hasUnorderedList: "insertUnorderedList"
+};
+const valueCommands = {
+    fontName: "fontName",
+    rawFontSize: "fontSize",
+    rawForegroundColor: "foreColor",
+    rawBackgroundColor: "backColor"
+};
 
 // MARK: - Compute and report TextAttributes
 
 function reportSelectedTextAttributesIfNecessary() {
-    const newTextAttributes = getSelectedTextAttributes();
-    if (compareTextAttributes(currentSelectedTextAttributes, newTextAttributes)) {
+    const newSelectedTextAttributes = getSelectedTextAttributes();
+    if (compareObjectProperties(currentSelectedTextAttributes, newSelectedTextAttributes)) {
         return;
     }
 
-    currentSelectedTextAttributes = newTextAttributes;
-
+    currentSelectedTextAttributes = newSelectedTextAttributes;
     reportSelectedTextAttributesDidChange(currentSelectedTextAttributes);
 }
 
 function getSelectedTextAttributes() {
-    let textAttributes = {
-        format: {},
-        textInfo: {}
-    };
-
-    getFormatAttributes(textAttributes);
-    getTextInfoAttributes(textAttributes);
+    let textAttributes = {};
+    getTextAttributesFromStateCommands(textAttributes);
+    getTextAttributesFromValueCommands(textAttributes);
+    getTextAttributesFromCustomCommands(textAttributes);
 
     return textAttributes;
 }
 
 // MARK: - Utils
 
-function getFormatAttributes(textAttributes) {
-    const format = {
-        hasBold: "bold",
-        hasItalic: "italic",
-        hasUnderline: "underline",
-        hasStrikeThrough: "strikeThrough",
-        hasOrderedList: "insertOrderedList",
-        hasUnorderedList: "insertUnorderedList",
-        hasLink: "hasLink"
-    };
+function getTextAttributesFromStateCommands(textAttributes) {
+    for (const command in stateCommands) {
+        const commandName = stateCommands[command];
+        textAttributes[command] = document.queryCommandState(commandName);
+    }
+}
 
-    for (const property in format) {
-        if (property === format.hasLink) {
-            textAttributes.format[property] = hasLink();
-        } else {
-            const commandName = format[property];
-            textAttributes.format[property] = document.queryCommandState(commandName);
+function getTextAttributesFromValueCommands(textAttributes) {
+    for (const command in valueCommands) {
+        const commandName = valueCommands[command];
+        textAttributes[command] = document.queryCommandValue(commandName);
+    }
+}
+
+function getTextAttributesFromCustomCommands(textAttributes) {
+    textAttributes["hasLink"] = hasLink();
+    textAttributes["justifiedSide"] = getJustifiedSide();
+}
+
+function getJustifiedSide() {
+    const sides = {
+        "left": "justifyLeft",
+        "center": "justifyCenter",
+        "right": "justifyRight",
+        "full": "justifyFull"
+    }
+
+    for (const side in sides) {
+        if (document.queryCommandState(sides[side])) {
+            return side;
         }
     }
+    return null;
 }
 
-function getTextInfoAttributes(textAttributes) {
-    const textInfo = {
-        fontName: "fontName",
-        fontSize: "fontSize",
-        foreground: "foreColor",
-        background: "backColor"
-    };
-
-    for (const property in textInfo) {
-        const commandName = textInfo[property];
-        textAttributes.textInfo[property] = document.queryCommandValue(commandName);
-    }
-}

@@ -11,8 +11,8 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-enum ExecCommand: String {
-    case removeFormat
+enum ExecCommand: String, CaseIterable {
+    // Commands that return a state
     case bold
     case italic
     case underline
@@ -21,59 +21,21 @@ enum ExecCommand: String {
     case toggleSuperscript = "superscript"
     case orderedList = "insertOrderedList"
     case unorderedList = "insertUnorderedList"
-    case indent
-    case outdent
-    case justifyFull
     case justifyLeft
     case justifyCenter
     case justifyRight
+    case justifyFull
+
+    // Commands that return a value
     case fontName
     case fontSize
-    case undo
-    case redo
     case backgroundColor = "backColor"
     case foregroundColor = "foreColor"
-    case createLink
 
-    var type: ExecCommandType? {
-        switch self {
-        // List of commands that return a boolean state
-        case .bold, .italic, .underline, .strikeThrough, .toggleSubscript, .toggleSuperscript, .orderedList, .unorderedList,
-             .indent, .outdent:
-            return .state
-        // List of command that return a value
-        case .fontName, .fontSize, .backgroundColor, .foregroundColor:
-            return .value
-        // List of command that return a custom value
-        case .createLink, .justifyFull, .justifyLeft, .justifyCenter, .justifyRight:
-            return .custom
-        // List of command that return nothing
-        case .removeFormat, .undo, .redo:
-            return nil
-        }
-    }
-}
-
-enum ExecCommandType {
-    case state, value, custom
-}
-
-public enum RECommandJustifySide {
-    case full
-    case left
-    case center
-    case right
-
-    var command: ExecCommand {
-        switch self {
-        case .full:
-            return .justifyFull
-        case .left:
-            return .justifyLeft
-        case .center:
-            return .justifyCenter
-        case .right:
-            return .justifyRight
-        }
-    }
+    // Commands that return nothing
+    case removeFormat
+    case undo
+    case redo
+    case indent
+    case outdent
 }

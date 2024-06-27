@@ -18,49 +18,30 @@ import AppKit
 #endif
 
 public struct TextAttributes: Codable {
-    public var format = TextAttributesFormat()
-    public var textInfo = TextAttributesTextInfo()
-}
-
-public struct TextAttributesFormat: Codable {
     public var hasBold = false
     public var hasItalic = false
     public var hasUnderline = false
     public var hasStrikeThrough = false
     public var hasOrderedList = false
     public var hasUnorderedList = false
+
     public var hasLink = false
-}
 
-public struct TextAttributesTextInfo: Codable {
-    public var fontName: String
-    public var fontSize: CGFloat
+    public var fontName = ""
 
-    private var foreground: String
-    private var background: String
+    public var fontSize: Int? {
+        Int(rawFontSize)
+    }
 
     public var foregroundColor: PlatformColor? {
-        return PlatformColor(rgba: foreground)
+        return PlatformColor(rgba: rawForegroundColor)
     }
 
     public var backgroundColor: PlatformColor? {
-        return PlatformColor(rgba: background)
+        return PlatformColor(rgba: rawBackgroundColor)
     }
 
-    public init() {
-        fontName = ""
-        fontSize = .zero
-        foreground = ""
-        background = ""
-    }
-
-    public init(from decoder: any Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        fontName = try container.decode(String.self, forKey: .fontName)
-        foreground = try container.decode(String.self, forKey: .foreground)
-        background = try container.decode(String.self, forKey: .background)
-
-        let rawFontSize = try container.decode(String.self, forKey: .fontSize)
-        fontSize = CGFloat(Float(rawFontSize) ?? .zero)
-    }
+    private var rawFontSize = ""
+    private var rawForegroundColor = ""
+    private var rawBackgroundColor = ""
 }

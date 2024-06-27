@@ -16,14 +16,12 @@ import WebKit
 struct UserScript {
     let name: String
     let injectionTime: WKUserScriptInjectionTime
-    var arguments = [String: String]()
 
     func load(to webView: WKWebView) throws {
         try webView.configuration.userContentController.addUserScript(
             named: name,
             injectionTime: injectionTime,
-            forMainFrameOnly: true,
-            withArguments: arguments
+            forMainFrameOnly: true
         )
     }
 }
@@ -36,15 +34,7 @@ extension UserScript {
         UserScript(name: "utils", injectionTime: .atDocumentStart),
 
         // Editor
-        UserScript(
-            name: "text-attributes",
-            injectionTime: .atDocumentStart,
-            arguments: [
-                "STATE_COMMANDS": "1",
-                "VALUE_COMMANDS": "2",
-                "CUSTOM_COMMANDS": "3"
-            ]
-        ),
+        UserScript(name: "text-attributes", injectionTime: .atDocumentStart),
         UserScript(name: "commands", injectionTime: .atDocumentStart),
         UserScript(name: "selection", injectionTime: .atDocumentStart),
         UserScript(name: "links", injectionTime: .atDocumentStart),

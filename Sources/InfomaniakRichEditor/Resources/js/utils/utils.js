@@ -47,10 +47,6 @@ function doesPositionMatchTargets(position, targets) {
 
 // MARK: - Compare objects
 
-function compareTextAttributes(lhs, rhs) {
-    return compareObjectProperties(lhs.format, rhs.format) && compareObjectProperties(lhs.textInfo, rhs.textInfo);
-}
-
 function compareObjectProperties(lhs, rhs) {
     let lhsKeys = Object.keys(lhs);
     let rhsKeys = Object.keys(rhs);

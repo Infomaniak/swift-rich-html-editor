@@ -64,17 +64,7 @@ enum JavaScriptFunction {
             return ""
         }
 
-        let formattedArgs = args.map { arg in
-            if arg == nil {
-                return "null"
-            } else if let value = arg as? String {
-                return "\"\(value.escapedForJavaScript)\""
-            } else if let value = arg as? LosslessStringConvertible {
-                return String(value)
-            } else {
-                fatalError("Error while encoding \(type(of: arg)) for JavaScript: type not yet implemented.")
-            }
-        }
+        let formattedArgs = args.map { JavaScriptFormatterHelper.format($0) }
         return formattedArgs.joined(separator: ", ")
     }
 }

@@ -86,7 +86,7 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
 
             delegate?.selectedTextAttributesDidChange(selectedTextAttributes)
         } catch {
-            logger.error("Error while trying to decode RETextAttributes: \(error)")
+            logger.error("Error while trying to decode TextAttributes: \(error)")
             delegate?.selectedTextAttributesDidChange(nil)
         }
     }
