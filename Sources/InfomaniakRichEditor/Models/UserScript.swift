@@ -40,9 +40,9 @@ extension UserScript {
             name: "text-attributes",
             injectionTime: .atDocumentStart,
             arguments: [
-                "STATE_COMMANDS": "",
-                "VALUE_COMMANDS": "",
-                "CUSTOM_COMMANDS": ""
+                "STATE_COMMANDS": "1",
+                "VALUE_COMMANDS": "2",
+                "CUSTOM_COMMANDS": "3"
             ]
         ),
         UserScript(name: "commands", injectionTime: .atDocumentStart),

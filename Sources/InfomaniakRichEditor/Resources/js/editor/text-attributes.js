@@ -1,10 +1,18 @@
 "use strict";
 
+// MARK: - Variables
+
 /** Information about the current selection */
 let currentSelectedTextAttributes = {
     format: {},
     textInfo: {}
 };
+
+const stateCommands = __STATE_COMMANDS__;
+const valueCommands = __VALUE_COMMANDS__;
+const customCommands = __CUSTOM_COMMANDS__;
+
+// MARK: - Compute and report TextAttributes
 
 function reportSelectedTextAttributesIfNecessary() {
     const newTextAttributes = getSelectedTextAttributes();
@@ -28,6 +36,8 @@ function getSelectedTextAttributes() {
 
     return textAttributes;
 }
+
+// MARK: - Utils
 
 function getFormatAttributes(textAttributes) {
     const format = {
