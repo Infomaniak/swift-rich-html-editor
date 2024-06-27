@@ -23,6 +23,7 @@ public typealias PlatformView = NSView
 public typealias PlatformColor = NSColor
 #endif
 
+import OSLog
 import WebKit
 
 public class RichEditorView: PlatformView {
@@ -52,19 +53,20 @@ public class RichEditorView: PlatformView {
 
     #if canImport(UIKit)
     /// A Boolean value that indicates whether the responder accepts first responder status.
-    public override var canBecomeFirstResponder: Bool {
+    override public var canBecomeFirstResponder: Bool {
         return true
     }
+
     #elseif canImport(AppKit)
     /// A Boolean value that indicates whether the responder accepts first responder status.
-    public override var acceptsFirstResponder: Bool {
+    override public var acceptsFirstResponder: Bool {
         return true
     }
     #endif
 
     #if canImport(UIKit)
     /// Returns a Boolean value indicating whether this object is the first responder.
-    public override var isFirstResponder: Bool {
+    override public var isFirstResponder: Bool {
         return webView.containsFirstResponder
     }
     #endif
@@ -93,6 +95,8 @@ public class RichEditorView: PlatformView {
     var javaScriptManager: JavaScriptManager!
     var scriptMessageHandler: ScriptMessageHandler!
 
+    let logger = Logger(subsystem: Constants.packageID, category: "ScriptMessageHandler")
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -110,13 +114,13 @@ public class RichEditorView: PlatformView {
     }
 
     /// Notifies the receiver that it’s about to become first responder in its window.
-    public override func becomeFirstResponder() -> Bool {
+    override public func becomeFirstResponder() -> Bool {
         javaScriptManager.focus()
         return true
     }
 
     /// Notifies this object that it has been asked to relinquish its status as first responder in its window.
-    public override func resignFirstResponder() -> Bool {
+    override public func resignFirstResponder() -> Bool {
         javaScriptManager.blur()
         return true
     }
@@ -172,11 +176,11 @@ public extension RichEditorView {
 
     private func loadScripts() {
         for script in UserScript.allCases {
-            webView.configuration.userContentController.addUserScript(
-                named: script.name,
-                injectionTime: script.injectionTime,
-                forMainFrameOnly: true
-            )
+            do {
+                try script.load(to: webView)
+            } catch {
+                logger.error("Error while loading UserScript: \(error)")
+            }
         }
     }
 

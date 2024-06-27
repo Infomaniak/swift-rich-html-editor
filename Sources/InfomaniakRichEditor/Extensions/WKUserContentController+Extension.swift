@@ -18,11 +18,25 @@ extension WKUserContentController {
         add(scriptMessageHandler, name: scriptMessage.rawValue)
     }
 
-    func addUserScript(named filename: String, injectionTime: WKUserScriptInjectionTime, forMainFrameOnly: Bool) {
+    func addUserScript(
+        named filename: String,
+        injectionTime: WKUserScriptInjectionTime,
+        forMainFrameOnly: Bool,
+        withArguments arguments: [String: String]? = nil
+    ) throws {
         guard let url = Bundle.module.url(forResource: filename, withExtension: "js"),
               let document = try? String(contentsOf: url)
-        else { return }
+        else {
+            throw EditorError.impossibleToLoadWKUserScript(filename: filename)
+        }
 
-        addUserScript(WKUserScript(source: document, injectionTime: injectionTime, forMainFrameOnly: forMainFrameOnly))
+        var formattedDocument = document
+        if let arguments {
+            for argument in arguments {
+                formattedDocument = formattedDocument.replacingOccurrences(of: "__\(argument.key)__", with: argument.value)
+            }
+        }
+
+        addUserScript(WKUserScript(source: formattedDocument, injectionTime: injectionTime, forMainFrameOnly: true))
     }
 }
