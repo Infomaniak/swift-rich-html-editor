@@ -100,6 +100,10 @@ extension ToolbarViewController {
             richEditor.toggleSubscript()
         case .toggleSuperscript:
             richEditor.toggleSuperscript()
+        case .orderedList:
+            richEditor.orderedList()
+        case .unorderedList:
+            richEditor.unorderedList()
         case .removeFormat:
             richEditor.removeFormat()
         }

@@ -15,7 +15,7 @@ import InfomaniakRichEditor
 import UIKit
 
 enum ToolbarAction: Int, CaseIterable {
-    case bold, italic, underline, strikethrough, toggleSubscript, toggleSuperscript, removeFormat
+    case bold, italic, underline, strikethrough, toggleSubscript, toggleSuperscript, orderedList, unorderedList, removeFormat
 
     var icon: UIImage? {
         let systemName = switch self {
@@ -27,12 +27,16 @@ enum ToolbarAction: Int, CaseIterable {
             "underline"
         case .strikethrough:
             "strikethrough"
-        case .removeFormat:
-            "xmark.circle"
         case .toggleSubscript:
             "textformat.subscript"
         case .toggleSuperscript:
             "textformat.superscript"
+        case .orderedList:
+            "list.number"
+        case .unorderedList:
+            "list.star"
+        case .removeFormat:
+            "xmark.circle"
         }
 
         return UIImage(systemName: systemName)
@@ -52,6 +56,10 @@ enum ToolbarAction: Int, CaseIterable {
             return textAttributes.hasSubscript
         case .toggleSuperscript:
             return textAttributes.hasSuperscript
+        case .orderedList:
+            return textAttributes.hasOrderedList
+        case .unorderedList:
+            return textAttributes.hasUnorderedList
         case .removeFormat:
             return false
         }
