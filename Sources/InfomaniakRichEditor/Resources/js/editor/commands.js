@@ -9,7 +9,7 @@
  */
 function execCommand(command, argument) {
     document.execCommand(command, false, argument);
-    checkIfSelectedTextAttributesDidChange();
+    reportSelectedTextAttributesIfNecessary();
 }
 
 
