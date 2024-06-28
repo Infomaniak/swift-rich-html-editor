@@ -22,6 +22,8 @@ public struct TextAttributes: Codable {
     public var hasItalic = false
     public var hasUnderline = false
     public var hasStrikeThrough = false
+    public var hasSubscript = false
+    public var hasSuperscript = false
     public var hasOrderedList = false
     public var hasUnorderedList = false
 
