@@ -96,6 +96,10 @@ extension ToolbarViewController {
             richEditor.underline()
         case .strikethrough:
             richEditor.strikethrough()
+        case .toggleSubscript:
+            richEditor.toggleSubscript()
+        case .toggleSuperscript:
+            richEditor.toggleSuperscript()
         case .removeFormat:
             richEditor.removeFormat()
         }
