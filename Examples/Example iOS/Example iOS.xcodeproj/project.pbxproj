@@ -10,6 +10,7 @@
 		F903A5B72C2E8A0D00ABAEA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9792C242C132444007BA48A /* Assets.xcassets */; };
 		F903A5B92C2E8A5600ABAEA0 /* editor.css in Resources */ = {isa = PBXBuildFile; fileRef = F903A5B82C2E8A5600ABAEA0 /* editor.css */; };
 		F91D20092C2ED1CA004A8625 /* ToolbarAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91D20082C2ED1CA004A8625 /* ToolbarAction.swift */; };
+		F91D200B2C2EE6C6004A8625 /* UIDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91D200A2C2EE6C6004A8625 /* UIDivider.swift */; };
 		F9792C1C2C132443007BA48A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9792C1B2C132443007BA48A /* AppDelegate.swift */; };
 		F9792C1E2C132443007BA48A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9792C1D2C132443007BA48A /* SceneDelegate.swift */; };
 		F9792C202C132443007BA48A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9792C1F2C132443007BA48A /* ViewController.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		F903A5B82C2E8A5600ABAEA0 /* editor.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = editor.css; sourceTree = "<group>"; };
 		F91D20082C2ED1CA004A8625 /* ToolbarAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarAction.swift; sourceTree = "<group>"; };
+		F91D200A2C2EE6C6004A8625 /* UIDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDivider.swift; sourceTree = "<group>"; };
 		F9792C182C132443007BA48A /* Example iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9792C1B2C132443007BA48A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9792C1D2C132443007BA48A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,6 +50,7 @@
 			children = (
 				F9792C1F2C132443007BA48A /* ViewController.swift */,
 				F99511DA2C2DC1C300B13AEE /* ToolbarViewController.swift */,
+				F91D200A2C2EE6C6004A8625 /* UIDivider.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 				F99511DC2C2E828800B13AEE /* ToolbarViewController.swift in Sources */,
 				F9792C202C132443007BA48A /* ViewController.swift in Sources */,
 				F9792C1C2C132443007BA48A /* AppDelegate.swift in Sources */,
+				F91D200B2C2EE6C6004A8625 /* UIDivider.swift in Sources */,
 				F9792C1E2C132443007BA48A /* SceneDelegate.swift in Sources */,
 				F91D20092C2ED1CA004A8625 /* ToolbarAction.swift in Sources */,
 			);

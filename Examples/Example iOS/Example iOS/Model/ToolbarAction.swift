@@ -14,8 +14,15 @@
 import InfomaniakRichEditor
 import UIKit
 
-enum ToolbarAction: Int, CaseIterable {
+enum ToolbarAction: Int {
     case bold, italic, underline, strikethrough, toggleSubscript, toggleSuperscript, orderedList, unorderedList, removeFormat
+
+    static let actionGroups: [[Self]] = [
+        [.bold, .italic, .underline, .strikethrough],
+        [.toggleSubscript, .toggleSubscript],
+        [.orderedList, .unorderedList],
+        [.removeFormat]
+    ]
 
     var icon: UIImage? {
         let systemName = switch self {

@@ -18,7 +18,7 @@ final class ToolbarViewController: UIViewController {
     weak var richEditor: RichEditorView!
 
     var scrollView: UIScrollView!
-    var buttons = [UIButton]()
+    var buttons = [UIView]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ final class ToolbarViewController: UIViewController {
     private func setUpScrollView() {
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.delaysContentTouches = false
+        scrollView.delaysContentTouches = true
         view.addSubview(scrollView)
 
         NSLayoutConstraint.activate([
@@ -50,20 +50,32 @@ final class ToolbarViewController: UIViewController {
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.spacing = 8
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        stackView.isLayoutMarginsRelativeArrangement = true
         scrollView.addSubview(stackView)
 
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+            stackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+
+            scrollView.frameLayoutGuide.heightAnchor.constraint(equalTo: stackView.heightAnchor)
         ])
     }
 
     private func setUpAllButtons() {
-        for action in ToolbarAction.allCases {
-            let button = setUpButton(action: action)
-            button.addTarget(self, action: #selector(didTapToolBarButton), for: .touchUpInside)
+        for group in ToolbarAction.actionGroups {
+            for action in group {
+                let button = setUpButton(action: action)
+                button.addTarget(self, action: #selector(didTapToolBarButton), for: .touchUpInside)
+                buttons.append(button)
+            }
+
+            if group != ToolbarAction.actionGroups.last {
+                let divider = setUpDivider()
+                buttons.append(divider)
+            }
         }
     }
 
@@ -71,13 +83,24 @@ final class ToolbarViewController: UIViewController {
         let button = UIButton(configuration: .borderedTinted())
         button.setImage(action.icon, for: .normal)
         button.tag = action.rawValue
-        buttons.append(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             button.heightAnchor.constraint(equalToConstant: 40),
             button.widthAnchor.constraint(equalTo: button.heightAnchor)
         ])
         return button
+    }
+
+    private func setUpDivider() -> UIDivider {
+        let divider = UIDivider()
+        divider.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            divider.widthAnchor.constraint(equalToConstant: 1),
+            divider.heightAnchor.constraint(equalToConstant: 30)
+        ])
+        return divider
     }
 }
 
@@ -112,8 +135,8 @@ extension ToolbarViewController {
 
 extension ToolbarViewController: RichEditorViewDelegate {
     func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: TextAttributes) {
-        for button in buttons {
-            guard let action = ToolbarAction(rawValue: button.tag) else {
+        for element in buttons {
+            guard let button = element as? UIButton, let action = ToolbarAction(rawValue: button.tag) else {
                 continue
             }
             button.isSelected = action.isSelected(textAttributes)
