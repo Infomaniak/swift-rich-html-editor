@@ -139,6 +139,10 @@ extension ViewController {
             editor.justify(.center)
         case .justifyRight:
             editor.justify(.right)
+        case .outdent:
+            editor.outdent()
+        case .indent:
+            editor.indent()
         case .removeFormat:
             editor.removeFormat()
         }
