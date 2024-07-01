@@ -63,10 +63,10 @@ function getTextAttributesFromValueCommands(textAttributes) {
 
 function getTextAttributesFromCustomCommands(textAttributes) {
     textAttributes["hasLink"] = hasLink();
-    textAttributes["justifiedSide"] = getJustifiedSide();
+    textAttributes["textJustification"] = computeTextJustification();
 }
 
-function getJustifiedSide() {
+function computeTextJustification() {
     const sides = {
         "left": "justifyLeft",
         "center": "justifyCenter",

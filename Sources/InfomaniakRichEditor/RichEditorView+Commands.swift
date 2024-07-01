@@ -87,7 +87,7 @@ public extension RichEditorView {
     /// Justifies the selection or the insertion point to the `RECommandJustifySide` side.
     /// - Parameters:
     ///   - side: The side to align the text to.
-    func justify(_ side: JustifyTextSide) {
+    func justify(_ side: TextJustification) {
         execCommand(side.command)
     }
 

@@ -28,6 +28,7 @@ public struct TextAttributes: Codable {
     public var hasUnorderedList = false
 
     public var hasLink = false
+    public var textJustification: TextJustification?
 
     public var fontName = ""
     public var fontSize: Int? {

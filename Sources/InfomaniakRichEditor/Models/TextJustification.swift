@@ -11,7 +11,7 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-public enum JustifyTextSide {
+public enum TextJustification: String, Codable {
     case full
     case left
     case center
