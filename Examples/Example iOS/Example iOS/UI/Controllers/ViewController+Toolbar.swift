@@ -131,6 +131,14 @@ extension ViewController {
             editor.orderedList()
         case .unorderedList:
             editor.unorderedList()
+        case .justifyFull:
+            editor.justify(.full)
+        case .justifyLeft:
+            editor.justify(.left)
+        case .justifyCenter:
+            editor.justify(.center)
+        case .justifyRight:
+            editor.justify(.right)
         case .removeFormat:
             editor.removeFormat()
         }

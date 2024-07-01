@@ -15,13 +15,15 @@ import InfomaniakRichEditor
 import UIKit
 
 enum ToolbarAction: Int {
-    case dismissKeyboard, bold, italic, underline, strikethrough, toggleSubscript, toggleSuperscript, orderedList, unorderedList, removeFormat
+    case dismissKeyboard, bold, italic, underline, strikethrough, toggleSubscript, toggleSuperscript, orderedList, unorderedList,
+         justifyFull, justifyLeft, justifyCenter, justifyRight, removeFormat
 
     static let actionGroups: [[Self]] = [
         [.dismissKeyboard],
         [.bold, .italic, .underline, .strikethrough],
         [.toggleSubscript, .toggleSuperscript],
         [.orderedList, .unorderedList],
+        [.justifyFull, .justifyLeft, .justifyCenter, .justifyRight],
         [.removeFormat]
     ]
 
@@ -45,6 +47,14 @@ enum ToolbarAction: Int {
             "list.number"
         case .unorderedList:
             "list.star"
+        case .justifyFull:
+            "text.justify"
+        case .justifyLeft:
+            "text.justify.left"
+        case .justifyCenter:
+            "text.aligncenter"
+        case .justifyRight:
+            "text.justify.right"
         case .removeFormat:
             "xmark.circle"
         }
@@ -70,6 +80,14 @@ enum ToolbarAction: Int {
             return textAttributes.hasOrderedList
         case .unorderedList:
             return textAttributes.hasUnorderedList
+        case .justifyFull:
+            return textAttributes.textJustification == .full
+        case .justifyLeft:
+            return textAttributes.textJustification == .left
+        case .justifyCenter:
+            return textAttributes.textJustification == .center
+        case .justifyRight:
+            return textAttributes.textJustification == .right
         case .dismissKeyboard, .removeFormat:
             return false
         }
