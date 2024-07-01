@@ -18,6 +18,8 @@ final class ViewController: UIViewController {
     var editor: RichEditorView!
     var toolbarButtons = [UIView]()
 
+    var toolbarCurrentColorPicker: ToolbarAction?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

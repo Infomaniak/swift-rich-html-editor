@@ -16,7 +16,8 @@ import UIKit
 
 enum ToolbarAction: Int {
     case dismissKeyboard, bold, italic, underline, strikethrough, toggleSubscript, toggleSuperscript, orderedList, unorderedList,
-         justifyFull, justifyLeft, justifyCenter, justifyRight, fontName, fontSize, outdent, indent, undo, redo, removeFormat
+         justifyFull, justifyLeft, justifyCenter, justifyRight, fontName, fontSize, foregroundColor, backgroundColor, outdent,
+         indent, undo, redo, removeFormat
 
     static let actionGroups: [[Self]] = [
         [.dismissKeyboard],
@@ -25,6 +26,7 @@ enum ToolbarAction: Int {
         [.orderedList, .unorderedList],
         [.justifyFull, .justifyLeft, .justifyCenter, .justifyRight],
         [.fontName, .fontSize],
+        [.foregroundColor, .backgroundColor],
         [.outdent, .indent],
         [.undo, .redo],
         [.removeFormat]
@@ -62,6 +64,10 @@ enum ToolbarAction: Int {
             "textformat.alt"
         case .fontSize:
             "textformat.size"
+        case .foregroundColor:
+            "scribble.variable"
+        case .backgroundColor:
+            "paintbrush"
         case .outdent:
             "decrease.indent"
         case .indent:
@@ -103,7 +109,8 @@ enum ToolbarAction: Int {
             return textAttributes.textJustification == .center
         case .justifyRight:
             return textAttributes.textJustification == .right
-        case .dismissKeyboard, .fontName, .fontSize, .outdent, .indent, .undo, .redo, .removeFormat:
+        case .dismissKeyboard, .fontName, .fontSize, .foregroundColor, .backgroundColor, .outdent, .indent, .undo, .redo,
+             .removeFormat:
             return false
         }
     }

@@ -143,6 +143,10 @@ extension ViewController {
             presentFontNameAlert()
         case .fontSize:
             presentFontSizeAlert()
+        case .foregroundColor:
+            presentColorPicker(title: "Text Color", action: .foregroundColor)
+        case .backgroundColor:
+            presentColorPicker(title: "Background Color", action: .backgroundColor)
         case .outdent:
             editor.outdent()
         case .indent:
@@ -191,5 +195,36 @@ extension ViewController {
         alertViewController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 
         present(alertViewController, animated: true)
+    }
+
+    private func presentColorPicker(title: String, action: ToolbarAction) {
+        let colorPicker = UIColorPickerViewController()
+        colorPicker.title = title
+        colorPicker.supportsAlpha = false
+        colorPicker.delegate = self
+        colorPicker.modalPresentationStyle = .pageSheet
+        colorPicker.popoverPresentationController?.sourceItem = toolbarButtons[action.rawValue]
+        
+        toolbarCurrentColorPicker = action
+
+        self.present(colorPicker, animated: true)
+    }
+}
+
+extension ViewController: UIColorPickerViewControllerDelegate {
+    func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
+        guard let toolbarCurrentColorPicker else {
+            return
+        }
+
+        if toolbarCurrentColorPicker == .foregroundColor {
+            editor.setForegroundColor(viewController.selectedColor)
+        } else if toolbarCurrentColorPicker == .backgroundColor {
+            editor.setBackgroundColor(viewController.selectedColor)
+        }
+    }
+
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        toolbarCurrentColorPicker = nil
     }
 }
