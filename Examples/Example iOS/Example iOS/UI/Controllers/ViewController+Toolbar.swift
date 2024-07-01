@@ -68,7 +68,7 @@ extension ViewController {
         for group in ToolbarAction.actionGroups {
             for action in group {
                 let button = setUpButton(action: action)
-                button.addTarget(self, action: #selector(didTapToolBarButton), for: .touchUpInside)
+                button.addTarget(self, action: #selector(didTapToolbarButton), for: .touchUpInside)
                 toolbarButtons.append(button)
             }
 
@@ -107,7 +107,7 @@ extension ViewController {
 // MARK: - Handle toolbar buttons
 
 extension ViewController {
-    @objc func didTapToolBarButton(_ sender: UIButton) {
+    @objc func didTapToolbarButton(_ sender: UIButton) {
         guard let action = ToolbarAction(rawValue: sender.tag) else {
             return
         }
@@ -139,6 +139,10 @@ extension ViewController {
             editor.justify(.center)
         case .justifyRight:
             editor.justify(.right)
+        case .fontName:
+            presentFontNameAlert()
+        case .fontSize:
+            presentFontSizeAlert()
         case .outdent:
             editor.outdent()
         case .indent:
@@ -151,17 +155,41 @@ extension ViewController {
             editor.removeFormat()
         }
     }
-}
 
-// MARK: - RichEditorViewDelegate
+    private func presentFontNameAlert() {
+        let alertViewController = UIAlertController(title: "Choose Font", message: nil, preferredStyle: .actionSheet)
 
-extension ViewController: RichEditorViewDelegate {
-    func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: TextAttributes) {
-        for element in toolbarButtons {
-            guard let button = element as? UIButton, let action = ToolbarAction(rawValue: button.tag) else {
-                continue
-            }
-            button.isSelected = action.isSelected(textAttributes)
+        let fontOptions = ["-apple-system", "serif", "sans-serif", "Savoye Let"]
+        for fontOption in fontOptions {
+            alertViewController.addAction(UIAlertAction(title: fontOption, style: .default) { _ in
+                self.editor.setFontName(fontOption)
+            })
         }
+        alertViewController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+
+        present(alertViewController, animated: true)
+    }
+
+    private func presentFontSizeAlert() {
+        let alertViewController = UIAlertController(
+            title: "Choose Font Size",
+            message: "Choose a font size between 1 and 7",
+            preferredStyle: .alert
+        )
+
+        alertViewController.addTextField { textField in
+            textField.keyboardType = .numberPad
+            if let fontSize = self.editor.selectedTextAttributes.fontSize {
+                textField.text = "\(fontSize)"
+            }
+        }
+
+        alertViewController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            guard let text = alertViewController.textFields?[0].text, let newSize = Int(text) else { return }
+            self.editor.setFontSize(newSize)
+        })
+        alertViewController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+
+        present(alertViewController, animated: true)
     }
 }
