@@ -18,7 +18,8 @@ final class UIDivider: UIView {
         super.init(frame: .zero)
         backgroundColor = .systemGray4
     }
-    
+
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

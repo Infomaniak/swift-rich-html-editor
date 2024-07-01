@@ -19,7 +19,7 @@ enum ToolbarAction: Int {
 
     static let actionGroups: [[Self]] = [
         [.bold, .italic, .underline, .strikethrough],
-        [.toggleSubscript, .toggleSubscript],
+        [.toggleSubscript, .toggleSuperscript],
         [.orderedList, .unorderedList],
         [.removeFormat]
     ]

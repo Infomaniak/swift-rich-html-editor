@@ -14,24 +14,22 @@
 import InfomaniakRichEditor
 import UIKit
 
-final class ToolbarViewController: UIViewController {
-    weak var richEditor: RichEditorView!
+// MARK: - Set up toolbar
 
-    var scrollView: UIScrollView!
-    var buttons = [UIView]()
+extension ViewController {
+    func setUpToolbar() {
+        let toolbarView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 56))
+        toolbarView.backgroundColor = .systemGray6
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        view.backgroundColor = .systemGray6
-
-        setUpScrollView()
+        let scrollView = setUpScrollView(to: toolbarView)
         setUpAllButtons()
-        setUpStackView()
+        setUpStackView(to: scrollView)
+
+        editor.inputAccessoryView = toolbarView
     }
 
-    private func setUpScrollView() {
-        scrollView = UIScrollView()
+    private func setUpScrollView(to view: UIView) -> UIScrollView {
+        let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.delaysContentTouches = true
         view.addSubview(scrollView)
@@ -42,10 +40,12 @@ final class ToolbarViewController: UIViewController {
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+
+        return scrollView
     }
 
-    private func setUpStackView() {
-        let stackView = UIStackView(arrangedSubviews: buttons)
+    private func setUpStackView(to scrollView: UIScrollView) {
+        let stackView = UIStackView(arrangedSubviews: toolbarButtons)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -69,12 +69,12 @@ final class ToolbarViewController: UIViewController {
             for action in group {
                 let button = setUpButton(action: action)
                 button.addTarget(self, action: #selector(didTapToolBarButton), for: .touchUpInside)
-                buttons.append(button)
+                toolbarButtons.append(button)
             }
 
             if group != ToolbarAction.actionGroups.last {
                 let divider = setUpDivider()
-                buttons.append(divider)
+                toolbarButtons.append(divider)
             }
         }
     }
@@ -104,7 +104,9 @@ final class ToolbarViewController: UIViewController {
     }
 }
 
-extension ToolbarViewController {
+// MARK: - Handle toolbar buttons
+
+extension ViewController {
     @objc func didTapToolBarButton(_ sender: UIButton) {
         guard let action = ToolbarAction(rawValue: sender.tag) else {
             return
@@ -112,38 +114,36 @@ extension ToolbarViewController {
 
         switch action {
         case .bold:
-            richEditor.bold()
+            editor.bold()
         case .italic:
-            richEditor.italic()
+            editor.italic()
         case .underline:
-            richEditor.underline()
+            editor.underline()
         case .strikethrough:
-            richEditor.strikethrough()
+            editor.strikethrough()
         case .toggleSubscript:
-            richEditor.toggleSubscript()
+            editor.toggleSubscript()
         case .toggleSuperscript:
-            richEditor.toggleSuperscript()
+            editor.toggleSuperscript()
         case .orderedList:
-            richEditor.orderedList()
+            editor.orderedList()
         case .unorderedList:
-            richEditor.unorderedList()
+            editor.unorderedList()
         case .removeFormat:
-            richEditor.removeFormat()
+            editor.removeFormat()
         }
     }
 }
 
-extension ToolbarViewController: RichEditorViewDelegate {
+// MARK: - RichEditorViewDelegate
+
+extension ViewController: RichEditorViewDelegate {
     func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: TextAttributes) {
-        for element in buttons {
+        for element in toolbarButtons {
             guard let button = element as? UIButton, let action = ToolbarAction(rawValue: button.tag) else {
                 continue
             }
             button.isSelected = action.isSelected(textAttributes)
         }
     }
-}
-
-#Preview {
-    ToolbarViewController()
 }

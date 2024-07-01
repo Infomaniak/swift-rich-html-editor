@@ -15,7 +15,8 @@ import InfomaniakRichEditor
 import UIKit
 
 final class ViewController: UIViewController {
-    private var editor: RichEditorView!
+    var editor: RichEditorView!
+    var toolbarButtons = [UIView]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,19 +24,18 @@ final class ViewController: UIViewController {
         title = "Infomaniak - Rich Text Editor (iOS)"
         view.backgroundColor = .systemBackground
 
+        setUpEditor()
+        setUpToolbar()
+    }
+
+    private func setUpEditor() {
         editor = RichEditorView()
         if let cssURL = Bundle.main.url(forResource: "editor", withExtension: "css"), let css = try? String(contentsOf: cssURL) {
             editor.injectAdditionalCSS(css)
         }
         editor.translatesAutoresizingMaskIntoConstraints = false
+        editor.delegate = self
         view.addSubview(editor)
-
-        let toolbarViewController = ToolbarViewController()
-        toolbarViewController.richEditor = editor
-        toolbarViewController.view.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 56)
-        editor.inputAccessoryView = toolbarViewController.view
-        editor.delegate = toolbarViewController
-        addChild(toolbarViewController)
 
         NSLayoutConstraint.activate([
             editor.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -49,16 +49,4 @@ final class ViewController: UIViewController {
         let viewController = ViewController()
         return UINavigationController(rootViewController: viewController)
     }
-}
-
-// MARK: - RichEditorViewDelegate
-
-extension ViewController: RichEditorViewDelegate {
-    func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: TextAttributes) {
-
-    }
-}
-
-#Preview {
-    ViewController.instantiateInNavigation()
 }
