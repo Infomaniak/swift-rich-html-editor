@@ -113,6 +113,8 @@ extension ViewController {
         }
 
         switch action {
+        case .dismissKeyboard:
+            editor.resignFirstResponder()
         case .bold:
             editor.bold()
         case .italic:

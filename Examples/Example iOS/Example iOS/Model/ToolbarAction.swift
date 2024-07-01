@@ -15,9 +15,10 @@ import InfomaniakRichEditor
 import UIKit
 
 enum ToolbarAction: Int {
-    case bold, italic, underline, strikethrough, toggleSubscript, toggleSuperscript, orderedList, unorderedList, removeFormat
+    case dismissKeyboard, bold, italic, underline, strikethrough, toggleSubscript, toggleSuperscript, orderedList, unorderedList, removeFormat
 
     static let actionGroups: [[Self]] = [
+        [.dismissKeyboard],
         [.bold, .italic, .underline, .strikethrough],
         [.toggleSubscript, .toggleSuperscript],
         [.orderedList, .unorderedList],
@@ -26,6 +27,8 @@ enum ToolbarAction: Int {
 
     var icon: UIImage? {
         let systemName = switch self {
+        case .dismissKeyboard:
+            "keyboard.chevron.compact.down"
         case .bold:
             "bold"
         case .italic:
@@ -67,7 +70,7 @@ enum ToolbarAction: Int {
             return textAttributes.hasOrderedList
         case .unorderedList:
             return textAttributes.hasUnorderedList
-        case .removeFormat:
+        case .dismissKeyboard, .removeFormat:
             return false
         }
     }
