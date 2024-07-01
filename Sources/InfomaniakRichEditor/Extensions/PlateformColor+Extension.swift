@@ -27,7 +27,7 @@ extension PlatformColor {
         let green = colorComponents[1] * 255
         let blue = colorComponents[2] * 255
 
-        return String(format: "#%02lX%02lX%02lX", red, green, blue)
+        return String(format: "#%02lX%02lX%02lX", lroundf(Float(red)), lroundf(Float(green)), lroundf(Float(blue)))
     }
 
     convenience init?(rgba: String) {
