@@ -16,7 +16,7 @@ import UIKit
 
 enum ToolbarAction: Int {
     case dismissKeyboard, bold, italic, underline, strikethrough, toggleSubscript, toggleSuperscript, orderedList, unorderedList,
-         justifyFull, justifyLeft, justifyCenter, justifyRight, outdent, indent, removeFormat
+         justifyFull, justifyLeft, justifyCenter, justifyRight, outdent, indent, undo, redo, removeFormat
 
     static let actionGroups: [[Self]] = [
         [.dismissKeyboard],
@@ -25,6 +25,7 @@ enum ToolbarAction: Int {
         [.orderedList, .unorderedList],
         [.justifyFull, .justifyLeft, .justifyCenter, .justifyRight],
         [.outdent, .indent],
+        [.undo, .redo],
         [.removeFormat]
     ]
 
@@ -60,6 +61,10 @@ enum ToolbarAction: Int {
             "decrease.indent"
         case .indent:
             "increase.indent"
+        case .undo:
+            "arrow.uturn.backward"
+        case .redo:
+            "arrow.uturn.forward"
         case .removeFormat:
             "xmark.circle"
         }
@@ -93,7 +98,7 @@ enum ToolbarAction: Int {
             return textAttributes.textJustification == .center
         case .justifyRight:
             return textAttributes.textJustification == .right
-        case .dismissKeyboard, .outdent, .indent, .removeFormat:
+        case .dismissKeyboard, .outdent, .indent, .undo, .redo, .removeFormat:
             return false
         }
     }

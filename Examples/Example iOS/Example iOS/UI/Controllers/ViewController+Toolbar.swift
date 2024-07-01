@@ -114,7 +114,7 @@ extension ViewController {
 
         switch action {
         case .dismissKeyboard:
-            editor.resignFirstResponder()
+            _ = editor.resignFirstResponder()
         case .bold:
             editor.bold()
         case .italic:
@@ -143,6 +143,10 @@ extension ViewController {
             editor.outdent()
         case .indent:
             editor.indent()
+        case .undo:
+            editor.undo()
+        case .redo:
+            editor.redo()
         case .removeFormat:
             editor.removeFormat()
         }
