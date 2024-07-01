@@ -90,6 +90,13 @@ public extension RichEditorView {
     func justify(_ side: TextJustification) {
         execCommand(side.command)
     }
+    
+    /// Sets the font for the selection or at the insertion point.
+    /// The font must be available on the platform, you can refer to https://developer.apple.com/fonts/system-fonts/
+    /// - Parameter name: Font name.
+    func setFontName(_ name: String) {
+        execCommand(.fontName, argument: name)
+    }
 
     /// Sets the foreground color for the selection or at the insertion point.
     /// - Parameters:
@@ -123,6 +130,6 @@ public extension RichEditorView {
     }
 
     private func execCommand(_ command: ExecCommand, argument: Any? = nil) {
-        javaScriptManager.execCommand(command)
+        javaScriptManager.execCommand(command, argument: argument)
     }
 }
