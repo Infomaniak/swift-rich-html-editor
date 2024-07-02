@@ -35,6 +35,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F91D20122C342642004A8625 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F9FBB6A72C1326BB007CC5A5 /* Assets.xcassets */,
+				F9FBB6A92C1326BB007CC5A5 /* Main.storyboard */,
+				F9FBB6AC2C1326BB007CC5A5 /* Example_macOS.entitlements */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F91D20132C342687004A8625 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				F9FBB6A52C1326B9007CC5A5 /* ViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		F9FBB6972C1326B9007CC5A5 = {
 			isa = PBXGroup;
 			children = (
@@ -55,10 +73,8 @@
 			isa = PBXGroup;
 			children = (
 				F9FBB6A32C1326B9007CC5A5 /* AppDelegate.swift */,
-				F9FBB6A52C1326B9007CC5A5 /* ViewController.swift */,
-				F9FBB6A72C1326BB007CC5A5 /* Assets.xcassets */,
-				F9FBB6A92C1326BB007CC5A5 /* Main.storyboard */,
-				F9FBB6AC2C1326BB007CC5A5 /* Example_macOS.entitlements */,
+				F91D20132C342687004A8625 /* UI */,
+				F91D20122C342642004A8625 /* Resources */,
 			);
 			path = "Example macOS";
 			sourceTree = "<group>";
@@ -281,7 +297,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Example macOS/Example_macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Example macOS/Resources/Example_macOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -308,7 +324,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Example macOS/Example_macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Example macOS/Resources/Example_macOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
