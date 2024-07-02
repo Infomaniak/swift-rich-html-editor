@@ -29,7 +29,7 @@ import WebKit
 public class RichEditorView: PlatformView {
     // MARK: - Public Properties
 
-    /// The HTML that the editor view displays.
+    /// The HTML that the editor view contains.
     public var html: String {
         get {
             return internalHTMLContent
@@ -70,6 +70,18 @@ public class RichEditorView: PlatformView {
     }
     #endif
 
+    #if os(iOS)
+    /// A Boolean value that indicates whether the editor view can scroll
+    public var isScrollable: Bool {
+        get {
+            internalIsScrollable
+        }
+        set {
+            setScrollableBehavior(newValue)
+        }
+    }
+    #endif
+
     /// A Boolean value that indicates whether the DOM of the underlying WKWebView is loaded.
     public var isEditorLoaded: Bool {
         return javaScriptManager.isDOMContentLoaded
@@ -90,6 +102,7 @@ public class RichEditorView: PlatformView {
     // MARK: - Private properties
 
     var internalHTMLContent = ""
+    var internalIsScrollable = true
 
     var javaScriptManager: JavaScriptManager!
     var scriptMessageHandler: ScriptMessageHandler!
@@ -142,7 +155,6 @@ public extension RichEditorView {
         webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
         webView.translatesAutoresizingMaskIntoConstraints = false
         #if os(iOS)
-        webView.scrollView.isScrollEnabled = false
         webView.scrollView.delegate = self
         #endif
         addSubview(webView)
@@ -203,6 +215,13 @@ public extension RichEditorView {
     private func setHTMLContent(_ newContent: String) {
         javaScriptManager.setHTMLContent(newContent)
     }
+
+    #if os(iOS)
+    private func setScrollableBehavior(_ isScrollable: Bool) {
+        internalIsScrollable = isScrollable
+        webView.scrollView.isScrollEnabled = isScrollable
+    }
+    #endif
 }
 
 // MARK: - UIScrollViewDelegate
@@ -214,6 +233,7 @@ extension RichEditorView: UIScrollViewDelegate {
     // Disabling the scrollview is not enough to completely prevent scrolling.
     // It is necessary to reset the scrollOffset when it changes (when the focus is under the keyboard for example).
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard !isScrollable else { return }
         scrollView.contentOffset = .zero
     }
 }
