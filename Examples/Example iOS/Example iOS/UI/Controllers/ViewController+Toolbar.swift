@@ -30,8 +30,8 @@ extension ViewController {
 
     private func setUpScrollView(to view: UIView) -> UIScrollView {
         let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.delaysContentTouches = true
         view.addSubview(scrollView)
 
         NSLayoutConstraint.activate([
@@ -87,7 +87,7 @@ extension ViewController {
 
         NSLayoutConstraint.activate([
             button.heightAnchor.constraint(equalToConstant: 40),
-            button.widthAnchor.constraint(equalTo: button.heightAnchor)
+            button.widthAnchor.constraint(equalToConstant: 40)
         ])
         return button
     }

@@ -37,6 +37,7 @@ final class ViewController: UIViewController {
         }
         editor.translatesAutoresizingMaskIntoConstraints = false
         editor.delegate = self
+        editor.webView.scrollView.keyboardDismissMode = .interactive
         view.addSubview(editor)
 
         NSLayoutConstraint.activate([
