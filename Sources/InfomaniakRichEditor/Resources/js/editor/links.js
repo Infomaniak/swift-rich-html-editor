@@ -67,7 +67,7 @@ function createLinkForRange(url, text) {
 // MARK: - Remove link
 
 function unlink() {
-    let anchorNodes = getAllAnchorsOfSelection();
+    const anchorNodes = getAllAnchorsOfSelection();
     anchorNodes.forEach(unlinkAnchorNode);
 }
 
