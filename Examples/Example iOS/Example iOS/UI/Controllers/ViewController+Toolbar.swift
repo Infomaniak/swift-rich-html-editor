@@ -80,7 +80,7 @@ extension ViewController {
     }
 
     private func setUpButton(action: ToolbarAction) -> UIButton {
-        let button = UIButton(configuration: .borderedTinted())
+        let button = UIButton(configuration: .borderless())
         button.setImage(action.icon, for: .normal)
         button.tag = action.rawValue
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -123,6 +123,8 @@ extension ViewController {
             editor.underline()
         case .strikethrough:
             editor.strikethrough()
+        case .link:
+            handleLink()
         case .toggleSubscript:
             editor.toggleSubscript()
         case .toggleSuperscript:
@@ -160,41 +162,74 @@ extension ViewController {
         }
     }
 
+    private func handleLink() {
+        if editor.selectedTextAttributes.hasLink {
+            editor.unlink()
+        } else {
+            presentCreateLinkAlert()
+        }
+    }
+
+    private func presentCreateLinkAlert() {
+        let alertController = UIAlertController(title: "Create Link", message: nil, preferredStyle: .alert)
+
+        alertController.addTextField { nameTextField in
+            nameTextField.placeholder = "Label (Optional)"
+        }
+        alertController.addTextField { urlTextField in
+            urlTextField.placeholder = "URL"
+            urlTextField.keyboardType = .URL
+        }
+
+        alertController.addAction(UIAlertAction(title: "Add", style: .default) { _ in
+            guard let rawURL = alertController.textFields?[1].text,
+                  let url = URL(string: rawURL)
+            else { return }
+
+            self.editor.addLink(url: url, text: alertController.textFields?[0].text)
+        })
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            _ = self.editor.becomeFirstResponder()
+        })
+
+        present(alertController, animated: true)
+    }
+
     private func presentFontNameAlert() {
-        let alertViewController = UIAlertController(title: "Choose Font", message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: "Choose Font", message: nil, preferredStyle: .actionSheet)
 
         let fontOptions = ["-apple-system", "serif", "sans-serif", "Savoye Let"]
         for fontOption in fontOptions {
-            alertViewController.addAction(UIAlertAction(title: fontOption, style: .default) { _ in
+            alertController.addAction(UIAlertAction(title: fontOption, style: .default) { _ in
                 self.editor.setFontName(fontOption)
             })
         }
-        alertViewController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 
-        present(alertViewController, animated: true)
+        present(alertController, animated: true)
     }
 
     private func presentFontSizeAlert() {
-        let alertViewController = UIAlertController(
+        let alertController = UIAlertController(
             title: "Choose Font Size",
             message: "Choose a font size between 1 and 7",
             preferredStyle: .alert
         )
 
-        alertViewController.addTextField { textField in
+        alertController.addTextField { textField in
             textField.keyboardType = .numberPad
             if let fontSize = self.editor.selectedTextAttributes.fontSize {
                 textField.text = "\(fontSize)"
             }
         }
 
-        alertViewController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-            guard let text = alertViewController.textFields?[0].text, let newSize = Int(text) else { return }
+        alertController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            guard let text = alertController.textFields?[0].text, let newSize = Int(text) else { return }
             self.editor.setFontSize(newSize)
         })
-        alertViewController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 
-        present(alertViewController, animated: true)
+        present(alertController, animated: true)
     }
 
     private func presentColorPicker(title: String, action: ToolbarAction) {
@@ -204,12 +239,14 @@ extension ViewController {
         colorPicker.delegate = self
         colorPicker.modalPresentationStyle = .pageSheet
         colorPicker.popoverPresentationController?.sourceItem = toolbarButtons[action.rawValue]
-        
+
         toolbarCurrentColorPicker = action
 
-        self.present(colorPicker, animated: true)
+        present(colorPicker, animated: true)
     }
 }
+
+// MARK: - UIColorPickerViewControllerDelegate
 
 extension ViewController: UIColorPickerViewControllerDelegate {
     func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {

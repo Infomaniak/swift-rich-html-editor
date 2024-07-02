@@ -15,6 +15,10 @@ import InfomaniakRichEditor
 import UIKit
 
 extension ViewController: RichEditorViewDelegate {
+    func richEditorViewDidLoad(_ richEditorView: RichEditorView) {
+        _ = richEditorView.becomeFirstResponder()
+    }
+
     func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: TextAttributes) {
         for element in toolbarButtons {
             guard let button = element as? UIButton, let action = ToolbarAction(rawValue: button.tag) else {

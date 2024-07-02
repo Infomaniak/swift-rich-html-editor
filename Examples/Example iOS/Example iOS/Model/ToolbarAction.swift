@@ -15,13 +15,14 @@ import InfomaniakRichEditor
 import UIKit
 
 enum ToolbarAction: Int {
-    case dismissKeyboard, bold, italic, underline, strikethrough, toggleSubscript, toggleSuperscript, orderedList, unorderedList,
+    case dismissKeyboard, bold, italic, underline, strikethrough, link, toggleSubscript, toggleSuperscript, orderedList, unorderedList,
          justifyFull, justifyLeft, justifyCenter, justifyRight, fontName, fontSize, foregroundColor, backgroundColor, outdent,
          indent, undo, redo, removeFormat
 
     static let actionGroups: [[Self]] = [
         [.dismissKeyboard],
         [.bold, .italic, .underline, .strikethrough],
+        [.link],
         [.toggleSubscript, .toggleSuperscript],
         [.orderedList, .unorderedList],
         [.justifyFull, .justifyLeft, .justifyCenter, .justifyRight],
@@ -44,6 +45,8 @@ enum ToolbarAction: Int {
             "underline"
         case .strikethrough:
             "strikethrough"
+        case .link:
+            "link"
         case .toggleSubscript:
             "textformat.subscript"
         case .toggleSuperscript:
@@ -93,6 +96,8 @@ enum ToolbarAction: Int {
             return textAttributes.hasUnderline
         case .strikethrough:
             return textAttributes.hasStrikeThrough
+        case .link:
+            return textAttributes.hasLink
         case .toggleSubscript:
             return textAttributes.hasSubscript
         case .toggleSuperscript:
