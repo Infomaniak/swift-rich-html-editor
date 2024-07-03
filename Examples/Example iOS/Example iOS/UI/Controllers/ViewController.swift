@@ -27,7 +27,7 @@ final class ViewController: UIViewController {
         view.backgroundColor = .systemBackground
 
         setUpEditor()
-        setUpToolbar()
+        setupToolbar()
     }
 
     private func setUpEditor() {

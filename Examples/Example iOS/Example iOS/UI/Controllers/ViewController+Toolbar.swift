@@ -17,18 +17,18 @@ import UIKit
 // MARK: - Set up toolbar
 
 extension ViewController {
-    func setUpToolbar() {
+    func setupToolbar() {
         let toolbarView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 56))
         toolbarView.backgroundColor = .systemGray6
 
-        let scrollView = setUpScrollView(to: toolbarView)
-        setUpAllButtons()
-        setUpStackView(to: scrollView)
+        let scrollView = setupScrollView(to: toolbarView)
+        setupAllButtons()
+        setupStackView(to: scrollView)
 
         editor.inputAccessoryView = toolbarView
     }
 
-    private func setUpScrollView(to view: UIView) -> UIScrollView {
+    private func setupScrollView(to view: UIView) -> UIScrollView {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +44,7 @@ extension ViewController {
         return scrollView
     }
 
-    private func setUpStackView(to scrollView: UIScrollView) {
+    private func setupStackView(to scrollView: UIScrollView) {
         let stackView = UIStackView(arrangedSubviews: toolbarButtons)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -64,22 +64,22 @@ extension ViewController {
         ])
     }
 
-    private func setUpAllButtons() {
+    private func setupAllButtons() {
         for group in ToolbarAction.actionGroups {
             for action in group {
-                let button = setUpButton(action: action)
+                let button = createButton(action: action)
                 button.addTarget(self, action: #selector(didTapToolbarButton), for: .touchUpInside)
                 toolbarButtons.append(button)
             }
 
             if group != ToolbarAction.actionGroups.last {
-                let divider = setUpDivider()
+                let divider = createDivider()
                 toolbarButtons.append(divider)
             }
         }
     }
 
-    private func setUpButton(action: ToolbarAction) -> UIButton {
+    private func createButton(action: ToolbarAction) -> UIButton {
         let button = UIButton(configuration: .borderless())
         button.setImage(action.icon, for: .normal)
         button.tag = action.rawValue
@@ -92,7 +92,7 @@ extension ViewController {
         return button
     }
 
-    private func setUpDivider() -> UIDivider {
+    private func createDivider() -> UIDivider {
         let divider = UIDivider()
         divider.translatesAutoresizingMaskIntoConstraints = false
 
