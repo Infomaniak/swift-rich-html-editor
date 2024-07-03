@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		F99CE4C92C132D7900949F40 /* InfomaniakRichEditor in Frameworks */ = {isa = PBXBuildFile; productRef = F99CE4C82C132D7900949F40 /* InfomaniakRichEditor */; };
+		F9BACEA22C3435DF002FB720 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BACEA12C3435DF002FB720 /* WindowController.swift */; };
+		F9BACEA42C352CB0002FB720 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = F9BACEA32C352CB0002FB720 /* style.css */; };
 		F9FBB6A42C1326B9007CC5A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9FBB6A32C1326B9007CC5A5 /* AppDelegate.swift */; };
 		F9FBB6A62C1326B9007CC5A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9FBB6A52C1326B9007CC5A5 /* ViewController.swift */; };
 		F9FBB6A82C1326BB007CC5A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9FBB6A72C1326BB007CC5A5 /* Assets.xcassets */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F9BACEA12C3435DF002FB720 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		F9BACEA32C352CB0002FB720 /* style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		F9FBB6A02C1326B9007CC5A5 /* Example macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9FBB6A32C1326B9007CC5A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9FBB6A52C1326B9007CC5A5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -39,8 +43,8 @@
 			isa = PBXGroup;
 			children = (
 				F9FBB6A72C1326BB007CC5A5 /* Assets.xcassets */,
-				F9FBB6A92C1326BB007CC5A5 /* Main.storyboard */,
 				F9FBB6AC2C1326BB007CC5A5 /* Example_macOS.entitlements */,
+				F9BACEA32C352CB0002FB720 /* style.css */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -48,7 +52,9 @@
 		F91D20132C342687004A8625 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				F9FBB6A92C1326BB007CC5A5 /* Main.storyboard */,
 				F9FBB6A52C1326B9007CC5A5 /* ViewController.swift */,
+				F9BACEA12C3435DF002FB720 /* WindowController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -144,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9FBB6A82C1326BB007CC5A5 /* Assets.xcassets in Resources */,
+				F9BACEA42C352CB0002FB720 /* style.css in Resources */,
 				F9FBB6AB2C1326BB007CC5A5 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9FBB6A62C1326B9007CC5A5 /* ViewController.swift in Sources */,
+				F9BACEA22C3435DF002FB720 /* WindowController.swift in Sources */,
 				F9FBB6A42C1326B9007CC5A5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

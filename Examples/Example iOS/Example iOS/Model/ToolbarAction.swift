@@ -15,9 +15,9 @@ import InfomaniakRichEditor
 import UIKit
 
 enum ToolbarAction: Int {
-    case dismissKeyboard, bold, italic, underline, strikethrough, link, toggleSubscript, toggleSuperscript, orderedList, unorderedList,
-         justifyFull, justifyLeft, justifyCenter, justifyRight, fontName, fontSize, foregroundColor, backgroundColor, outdent,
-         indent, undo, redo, removeFormat
+    case dismissKeyboard, bold, italic, underline, strikethrough, link, toggleSubscript, toggleSuperscript, orderedList,
+         unorderedList, justifyFull, justifyLeft, justifyCenter, justifyRight, fontName, fontSize, foregroundColor,
+         backgroundColor, outdent, indent, undo, redo, removeFormat
 
     static let actionGroups: [[Self]] = [
         [.dismissKeyboard],

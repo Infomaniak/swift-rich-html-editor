@@ -20,7 +20,13 @@ final class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.window?.title = "Infomaniak - Rich Text Editor (macOS)"
+
         editor = RichEditorView()
+        if let cssURL = Bundle.main.url(forResource: "style", withExtension: "css"),
+           let styleCSS = try? String(contentsOf: cssURL) {
+            editor.injectAdditionalCSS(styleCSS)
+        }
         editor.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(editor)
 
@@ -30,5 +36,24 @@ final class ViewController: NSViewController {
             editor.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             editor.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         ])
+
+        NotificationCenter.default.addObserver(self, selector: #selector(didTapToolbarItem), name: .didTapToolbar, object: nil)
+    }
+
+    @objc func didTapToolbarItem(notification: Notification) {
+        guard let item = notification.object as? NSToolbarItem.Identifier else {
+            return
+        }
+
+        switch item {
+        case .bold:
+            editor.bold()
+        case .italic:
+            editor.italic()
+        case .underline:
+            editor.underline()
+        default:
+            print("Action not handled.")
+        }
     }
 }
