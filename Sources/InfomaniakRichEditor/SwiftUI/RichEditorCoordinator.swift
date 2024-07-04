@@ -20,11 +20,23 @@ public class RichEditorCoordinator: RichEditorViewDelegate {
         self.parent = parent
     }
 
+    public func richEditorViewDidLoad(_ richEditorView: RichEditorView) {
+        parent.onEditorLoaded?()
+    }
+
     public func richEditorView(_ richEditorView: RichEditorView, cursorPositionDidChange cursorPosition: CGRect) {
         parent.onCursorPositionChange?(cursorPosition)
     }
 
+    public func richEditorView(_ richEditorView: RichEditorView, contentHeightDidChange contentHeight: CGFloat) {
+        parent.onContentHeightChange?(contentHeight)
+    }
+
     public func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: TextAttributes) {
         parent.onTextAttributesChange?(textAttributes)
+    }
+
+    public func richEditorView(_ richEditorView: RichEditorView, javascriptFunctionDidFail: any Error) {
+        parent.onJavaScriptFunctionFail?()
     }
 }

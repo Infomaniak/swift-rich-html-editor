@@ -14,11 +14,14 @@
 import SwiftUI
 
 public struct RichEditor: UIViewRepresentable {
-    @Environment(\.isEditorScrollable) private var isEditorScrollable
+    @Environment(\.editorScrollable) private var isEditorScrollable
     @Environment(\.editorInputAccessoryView) private var editorInputAccessoryView
 
+    @Environment(\.onEditorLoaded) var onEditorLoaded
     @Environment(\.onCursorPositionChange) var onCursorPositionChange
+    @Environment(\.onContentHeightChange) var onContentHeightChange
     @Environment(\.onTextAttributesChange) var onTextAttributesChange
+    @Environment(\.onJavaScriptFunctionFail) var onJavaScriptFunctionFail
 
     @Binding public var html: String
 
