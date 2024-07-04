@@ -70,6 +70,11 @@ public class RichEditorView: PlatformView {
     }
     #endif
 
+    /// The natural size for the receiving view, considering only properties of the view itself.
+    public override var intrinsicContentSize: CGSize {
+        CGSize(width: UIView.noIntrinsicMetric, height: contentHeight)
+    }
+
     #if os(iOS)
     /// A Boolean value that indicates whether the editor view can scroll
     public var isScrollable: Bool {
@@ -145,6 +150,13 @@ public extension RichEditorView {
     /// - Parameter css: CSS code.
     func injectAdditionalCSS(_ css: String) {
         javaScriptManager.injectCSS(css)
+    }
+
+    /// Injects CSS code to customize the appearance of the editor view.
+    /// - Parameter cssURL: URL to the CSS file.
+    func injectAdditionalCSS(_ cssURL: URL) {
+        guard let css = try? String(contentsOf: cssURL) else { return }
+        injectAdditionalCSS(css)
     }
 }
 
@@ -254,6 +266,7 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
 
     func contentHeightDidChange(_ contentHeight: CGFloat) {
         self.contentHeight = contentHeight
+        invalidateIntrinsicContentSize()
         delegate?.richEditorView(self, contentHeightDidChange: contentHeight)
     }
 
