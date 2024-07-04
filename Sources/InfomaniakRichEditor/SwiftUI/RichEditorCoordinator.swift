@@ -14,23 +14,17 @@
 import SwiftUI
 
 public class RichEditorCoordinator: RichEditorViewDelegate {
-    var parent: RichEditor
-
-    var lastAppendedCSS: String?
+    private let parent: RichEditor
 
     init(parent: RichEditor) {
         self.parent = parent
     }
 
-    public func richEditorView(_ richEditorView: RichEditorView, contentHeightDidChange contentHeight: CGFloat) {
-        parent.configuration.onContentHeightChange?(contentHeight)
-    }
-
     public func richEditorView(_ richEditorView: RichEditorView, cursorPositionDidChange cursorPosition: CGRect) {
-        parent.configuration.onCursorPositionChange?(cursorPosition)
+        parent.editorOnCursorPositionChange?(cursorPosition)
     }
 
     public func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: TextAttributes) {
-        parent.configuration.onTextAttributesChange?(textAttributes)
+        parent.editorOnTextAttributesChange?(textAttributes)
     }
 }

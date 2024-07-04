@@ -14,13 +14,16 @@
 import SwiftUI
 
 public struct RichEditor: UIViewRepresentable {
-    var configuration: RichEditorConfiguration
+    @Environment(\.isEditorScrollable) private var isEditorScrollable
+    @Environment(\.editorInputAccessoryView) private var editorInputAccessoryView
+
+    @Environment(\.onCursorPositionChange) var editorOnCursorPositionChange
+    @Environment(\.onTextAttributesChange) var editorOnTextAttributesChange
 
     @Binding public var html: String
 
     public init(html: Binding<String>) {
         _html = html
-        configuration = RichEditorConfiguration()
     }
 
     public func makeUIView(context: Context) -> RichEditorView {
@@ -36,38 +39,11 @@ public struct RichEditor: UIViewRepresentable {
             richEditorView.html = html
         }
 
-        richEditorView.isScrollable = configuration.isScrollable
-        richEditorView.inputAccessoryView = configuration.inputAccessoryView
+        richEditorView.isScrollable = isEditorScrollable
+        richEditorView.inputAccessoryView = editorInputAccessoryView
     }
 
     public func makeCoordinator() -> RichEditorCoordinator {
         return RichEditorCoordinator(parent: self)
-    }
-}
-
-public extension RichEditor {
-    func isScrollable(_ isScrollable: Bool) -> Self {
-        configuration.isScrollable = isScrollable
-        return self
-    }
-
-    func inputAccessoryView(_ inputAccessoryView: UIView) -> Self {
-        configuration.inputAccessoryView = inputAccessoryView
-        return self
-    }
-
-    func onContentHeightChange(perform action: @escaping (CGFloat) -> Void) -> Self {
-        configuration.onContentHeightChange = action
-        return self
-    }
-
-    func onCursorPositionChange(perform action: @escaping (CGRect) -> Void) -> Self {
-        configuration.onCursorPositionChange = action
-        return self
-    }
-
-    func onTextAttributesChange(perform action: @escaping (TextAttributes) -> Void) -> Self {
-        configuration.onTextAttributesChange = action
-        return self
     }
 }
