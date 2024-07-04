@@ -285,6 +285,13 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
 
     func cursorPositionDidChange(_ cursorRect: CGRect) {
         delegate?.richEditorView(self, cursorPositionDidChange: cursorRect)
+
+        #if canImport(UIKit)
+        if !isScrollable, let scrollView = findClosestScrollView() {
+            let scrollRect = convert(cursorRect, to: scrollView)
+            scrollView.scrollRectToVisible(scrollRect, animated: true)
+        }
+        #endif
     }
 }
 

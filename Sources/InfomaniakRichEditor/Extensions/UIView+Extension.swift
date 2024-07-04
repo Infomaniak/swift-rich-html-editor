@@ -27,5 +27,15 @@ extension UIView {
         }
         return false
     }
+
+    func findClosestScrollView() -> UIScrollView? {
+        if let scrollView = self as? UIScrollView {
+            return scrollView
+        }
+        if let superview {
+            return superview.findClosestScrollView()
+        }
+        return nil
+    }
 }
 #endif
