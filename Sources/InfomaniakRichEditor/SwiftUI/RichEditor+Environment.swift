@@ -66,11 +66,11 @@ public extension View {
         environment(\.editorInputAccessoryView, value)
     }
 
-    func onCursorPositionChange(_ action: @escaping (CGRect) -> Void) -> some View {
+    func onCursorPositionChange(perform action: @escaping (CGRect) -> Void) -> some View {
         environment(\.onCursorPositionChange, action)
     }
 
-    func onTextAttributesChange(_ action: @escaping (TextAttributes) -> Void) -> some View {
+    func onTextAttributesChange(perform action: @escaping (TextAttributes) -> Void) -> some View {
         environment(\.onTextAttributesChange, action)
     }
 }

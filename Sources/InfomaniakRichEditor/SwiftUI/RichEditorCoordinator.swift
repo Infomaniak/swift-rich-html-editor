@@ -21,10 +21,10 @@ public class RichEditorCoordinator: RichEditorViewDelegate {
     }
 
     public func richEditorView(_ richEditorView: RichEditorView, cursorPositionDidChange cursorPosition: CGRect) {
-        parent.editorOnCursorPositionChange?(cursorPosition)
+        parent.onCursorPositionChange?(cursorPosition)
     }
 
     public func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: TextAttributes) {
-        parent.editorOnTextAttributesChange?(textAttributes)
+        parent.onTextAttributesChange?(textAttributes)
     }
 }

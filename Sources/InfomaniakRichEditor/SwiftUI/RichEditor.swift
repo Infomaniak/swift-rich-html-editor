@@ -17,8 +17,8 @@ public struct RichEditor: UIViewRepresentable {
     @Environment(\.isEditorScrollable) private var isEditorScrollable
     @Environment(\.editorInputAccessoryView) private var editorInputAccessoryView
 
-    @Environment(\.onCursorPositionChange) var editorOnCursorPositionChange
-    @Environment(\.onTextAttributesChange) var editorOnTextAttributesChange
+    @Environment(\.onCursorPositionChange) var onCursorPositionChange
+    @Environment(\.onTextAttributesChange) var onTextAttributesChange
 
     @Binding public var html: String
 
