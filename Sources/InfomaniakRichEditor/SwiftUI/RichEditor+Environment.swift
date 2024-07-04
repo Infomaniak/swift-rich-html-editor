@@ -15,7 +15,7 @@ import SwiftUI
 
 // MARK: - Environment Keys
 
-public struct EditorScrollableKey: EnvironmentKey {
+public struct EditorScrollDisable: EnvironmentKey {
     public static var defaultValue = false
 }
 
@@ -46,9 +46,9 @@ public struct OnJavaScriptFunctionFailKey: EnvironmentKey {
 // MARK: - Environment Values
 
 public extension EnvironmentValues {
-    var editorScrollable: Bool {
-        get { self[EditorScrollableKey.self] }
-        set { self[EditorScrollableKey.self] = newValue }
+    var editorScrollDisabled: Bool {
+        get { self[EditorScrollDisable.self] }
+        set { self[EditorScrollDisable.self] = newValue }
     }
 
     var editorInputAccessoryView: UIView? {
@@ -79,37 +79,5 @@ public extension EnvironmentValues {
     var onJavaScriptFunctionFail: (() -> Void)? {
         get { self[OnJavaScriptFunctionFailKey.self] }
         set { self[OnJavaScriptFunctionFailKey.self] = newValue }
-    }
-}
-
-// MARK:  - Modifiers
-
-public extension View {
-    func editorScrollable(_ value: Bool) -> some View {
-        environment(\.editorScrollable, value)
-    }
-
-    func editorInputAccessoryView(_ value: UIView?) -> some View {
-        environment(\.editorInputAccessoryView, value)
-    }
-
-    func onEditorLoaded(perform action: @escaping () -> Void) -> some View {
-        environment(\.onEditorLoaded, action)
-    }
-
-    func onCursorPositionChange(perform action: @escaping (CGRect) -> Void) -> some View {
-        environment(\.onCursorPositionChange, action)
-    }
-
-    func onContentHeightChange(perform action: @escaping (CGFloat) -> Void) -> some View {
-        environment(\.onContentHeightChange, action)
-    }
-
-    func onTextAttributesChange(perform action: @escaping (TextAttributes) -> Void) -> some View {
-        environment(\.onTextAttributesChange, action)
-    }
-
-    func onJavaScriptFunctionFail(perform action: @escaping () -> Void) -> some View {
-        environment(\.onJavaScriptFunctionFail, action)
     }
 }

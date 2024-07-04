@@ -29,7 +29,7 @@ import WebKit
 public class RichEditorView: PlatformView {
     // MARK: - Public Properties
 
-    /// The HTML that the editor view contains.
+    /// The HTML code that the editor view contains.
     public var html: String {
         get {
             return internalHTMLContent
@@ -76,7 +76,7 @@ public class RichEditorView: PlatformView {
     }
 
     #if os(iOS)
-    /// A Boolean value that indicates whether the editor view can scroll
+    /// A Boolean value that indicates whether the editor view can use its inner scrollview.
     public var isScrollable: Bool {
         get {
             internalIsScrollable
@@ -147,12 +147,14 @@ public class RichEditorView: PlatformView {
 
 public extension RichEditorView {
     /// Injects CSS code to customize the appearance of the editor view.
+    ///
     /// - Parameter css: CSS code.
     func injectAdditionalCSS(_ css: String) {
         javaScriptManager.injectCSS(css)
     }
 
     /// Injects CSS code to customize the appearance of the editor view.
+    ///
     /// - Parameter cssURL: URL to the CSS file.
     func injectAdditionalCSS(_ cssURL: URL) {
         guard let css = try? String(contentsOf: cssURL) else { return }

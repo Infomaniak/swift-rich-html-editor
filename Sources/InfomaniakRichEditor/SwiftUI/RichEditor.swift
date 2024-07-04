@@ -14,7 +14,7 @@
 import SwiftUI
 
 public struct RichEditor: UIViewRepresentable {
-    @Environment(\.editorScrollable) private var isEditorScrollable
+    @Environment(\.editorScrollDisabled) private var isEditorScrollable
     @Environment(\.editorInputAccessoryView) private var editorInputAccessoryView
 
     @Environment(\.onEditorLoaded) var onEditorLoaded
@@ -42,7 +42,7 @@ public struct RichEditor: UIViewRepresentable {
             richEditorView.html = html
         }
 
-        richEditorView.isScrollable = isEditorScrollable
+        richEditorView.isScrollable = !isEditorScrollable
         richEditorView.inputAccessoryView = editorInputAccessoryView
     }
 

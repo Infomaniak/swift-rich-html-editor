@@ -62,6 +62,7 @@ public extension RichEditorView {
     }
 
     /// Creates a new link for the current selection or at the insertion point.
+    ///
     /// - Parameters:
     ///   - url: The destination of the link, it is the value of the `href` attribute.
     ///   - text: The optional label of the link, if nil the url will be used.
@@ -85,6 +86,7 @@ public extension RichEditorView {
     }
 
     /// Justifies the selection or the insertion point to the `RECommandJustifySide` side.
+    ///
     /// - Parameters:
     ///   - side: The side to align the text to.
     func justify(_ side: TextJustification) {
@@ -93,12 +95,14 @@ public extension RichEditorView {
     
     /// Sets the font for the selection or at the insertion point.
     /// The font must be available on the platform, you can refer to https://developer.apple.com/fonts/system-fonts/
+    ///
     /// - Parameter name: Font name.
     func setFontName(_ name: String) {
         execCommand(.fontName, argument: name)
     }
 
     /// Sets the foreground color for the selection or at the insertion point.
+    ///
     /// - Parameters:
     ///   - color: The color of the foreground.
     func setForegroundColor(_ color: PlatformColor) {
@@ -106,6 +110,7 @@ public extension RichEditorView {
     }
 
     /// Sets the background color for the selection or at the insertion point.
+    ///
     /// - Parameters:
     ///   - color: The color of the background.
     func setBackgroundColor(_ color: PlatformColor) {
@@ -113,6 +118,7 @@ public extension RichEditorView {
     }
 
     /// Changes the font size for the selection or at the insertion point.
+    ///
     /// - Parameters:
     ///   - size: The size should be included in the interval [1-7].
     func setFontSize(_ size: Int) {
