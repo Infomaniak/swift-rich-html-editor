@@ -34,8 +34,15 @@ public extension View {
         environment(\.editorInputAccessoryView, inputAccessoryView)
     }
 
-    func editorInputAccessoryView() -> some View {
-        return self
+    /// Appends the specified view as an input accessory view to the editor.
+    ///
+    /// - Parameter inputAccessoryView: A UIView to use as an input accessory
+    ///   view.
+    ///
+    /// - Returns: A view that uses the specified view as an input accessory view.
+    func editorInputAccessoryView<Content: View>(@ViewBuilder _ inputAccessoryView: () -> Content) -> some View {
+        let hostingViewController = UIHostingController(rootView: inputAccessoryView())
+        return environment(\.editorInputAccessoryView, hostingViewController.view)
     }
     #endif
 
@@ -61,18 +68,6 @@ public extension View {
     /// - Returns: A view that fires an action when the position of the cursor changes.
     func onCursorPositionChange(perform action: @escaping (_ newPosition: CGRect) -> Void) -> some View {
         environment(\.onCursorPositionChange, action)
-    }
-
-    /// Performs an action when the text attributes for the current selection or at the insertion point change.
-    ///
-    /// - Parameters:
-    ///   - action: A closure to run when the text attributes change. The
-    ///     closure takes a `newTextAttributes` parameter that
-    ///     indicates the updated text attributes.
-    ///
-    /// - Returns: A view that fires an action when the text attributes changes.
-    func onTextAttributesChange(perform action: @escaping (_ newTextAttributes: UITextAttributes) -> Void) -> some View {
-        environment(\.onTextAttributesChange, action)
     }
 
     /// Performs an action when a JavaScript function executed by the editor fails.
