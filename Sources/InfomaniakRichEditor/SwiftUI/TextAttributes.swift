@@ -13,8 +13,8 @@
 
 import SwiftUI
 
-public class TextAttributes: ObservableObject {
-    @Published public var bold = false
+public struct TextAttributes {
+    public var bold = false
     public var italic = false
     public var underline = false
     public var strikethrough = false
@@ -34,7 +34,7 @@ public class TextAttributes: ObservableObject {
 
     public init() {}
 
-    func update(from uiTextAttributes: UITextAttributes) {
+    init(from uiTextAttributes: UITextAttributes) {
         bold = uiTextAttributes.hasBold
         italic = uiTextAttributes.hasItalic
         underline = uiTextAttributes.hasUnderline

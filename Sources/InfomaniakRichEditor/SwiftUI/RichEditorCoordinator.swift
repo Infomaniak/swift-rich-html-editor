@@ -35,7 +35,7 @@ public class RichEditorCoordinator: RichEditorViewDelegate {
     }
 
     public func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: UITextAttributes) {
-        parent.textAttributes.update(from: textAttributes)
+        parent.textAttributes = TextAttributes(from: textAttributes)
         print("New Text Attributes")
         parent.onTextAttributesChange?(textAttributes)
     }

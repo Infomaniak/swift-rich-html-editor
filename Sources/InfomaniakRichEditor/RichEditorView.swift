@@ -40,18 +40,6 @@ public class RichEditorView: PlatformView {
     }
 
     #if canImport(UIKit)
-    /// The custom accessory view to display when the editor view becomes the first responder.
-    override public var inputAccessoryView: UIView? {
-        get {
-            return webView.richEditorInputAccessoryView
-        }
-        set {
-            webView.richEditorInputAccessoryView = newValue
-        }
-    }
-    #endif
-
-    #if canImport(UIKit)
     /// A Boolean value that indicates whether the responder accepts first responder status.
     override public var canBecomeFirstResponder: Bool {
         return true
@@ -70,6 +58,18 @@ public class RichEditorView: PlatformView {
     }
     #endif
 
+    #if canImport(UIKit)
+    /// The custom accessory view to display when the editor view becomes the first responder.
+    override public var inputAccessoryView: UIView? {
+        get {
+            return webView.richEditorInputAccessoryView
+        }
+        set {
+            webView.richEditorInputAccessoryView = newValue
+        }
+    }
+    #endif
+
     /// The natural size for the receiving view, considering only properties of the view itself.
     public override var intrinsicContentSize: CGSize {
         CGSize(width: PlatformView.noIntrinsicMetric, height: contentHeight)
@@ -77,9 +77,9 @@ public class RichEditorView: PlatformView {
 
     #if canImport(UIKit)
     /// A Boolean value that indicates whether the editor view can use its inner scrollview.
-    public var isScrollable: Bool {
+    public var isScrollEnabled: Bool {
         get {
-            internalIsScrollable
+            internalIsScrollEnabled
         }
         set {
             setScrollableBehavior(newValue)
@@ -107,7 +107,7 @@ public class RichEditorView: PlatformView {
     // MARK: - Private properties
 
     var internalHTMLContent = ""
-    var internalIsScrollable = true
+    var internalIsScrollEnabled = true
 
     var javaScriptManager: JavaScriptManager!
     var scriptMessageHandler: ScriptMessageHandler!
@@ -231,9 +231,9 @@ public extension RichEditorView {
     }
 
     #if canImport(UIKit)
-    private func setScrollableBehavior(_ isScrollable: Bool) {
-        internalIsScrollable = isScrollable
-        webView.scrollView.isScrollEnabled = isScrollable
+    private func setScrollableBehavior(_ isScrollEnabled: Bool) {
+        internalIsScrollEnabled = isScrollEnabled
+        webView.scrollView.isScrollEnabled = isScrollEnabled
     }
     #endif
 }
@@ -247,7 +247,7 @@ extension RichEditorView: UIScrollViewDelegate {
     // Disabling the scrollview is not enough to completely prevent scrolling.
     // It is necessary to reset the scrollOffset when it changes (when the focus is under the keyboard for example).
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard !isScrollable else { return }
+        guard !isScrollEnabled else { return }
         scrollView.contentOffset = .zero
     }
 }
@@ -289,7 +289,7 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
         delegate?.richEditorView(self, cursorPositionDidChange: cursorRect)
 
         #if canImport(UIKit)
-        if !isScrollable, let scrollView = findClosestScrollView() {
+        if !isScrollEnabled, let scrollView = findClosestScrollView() {
             let scrollRect = convert(cursorRect, to: scrollView)
             scrollView.scrollRectToVisible(scrollRect, animated: true)
         }

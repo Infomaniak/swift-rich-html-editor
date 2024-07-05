@@ -33,6 +33,10 @@ public extension View {
     func editorInputAccessoryView(_ inputAccessoryView: UIView) -> some View {
         environment(\.editorInputAccessoryView, inputAccessoryView)
     }
+
+    func editorInputAccessoryView() -> some View {
+        return self
+    }
     #endif
 
     /// Performs an action when the editor is loaded.

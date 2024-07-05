@@ -31,11 +31,11 @@ public struct RichEditor: PlateformViewRepresentable {
     @Environment(\.onJavaScriptFunctionFail) var onJavaScriptFunctionFail
 
     @Binding public var html: String
-    @ObservedObject public var textAttributes: TextAttributes
+    @Binding public var textAttributes: TextAttributes
 
-    public init(html: Binding<String>, textAttributes: TextAttributes) {
+    public init(html: Binding<String>, textAttributes: Binding<TextAttributes>) {
         _html = html
-        self.textAttributes = textAttributes
+        _textAttributes = textAttributes
     }
 
     // MARK: - Platform functions
@@ -56,8 +56,8 @@ public struct RichEditor: PlateformViewRepresentable {
         updateTextAttributes(richEditorView)
 
         #if canImport(UIKit)
-        if richEditorView.isScrollable != !isEditorScrollable {
-            richEditorView.isScrollable = !isEditorScrollable
+        if richEditorView.isScrollEnabled != !isEditorScrollable {
+            richEditorView.isScrollEnabled = !isEditorScrollable
         }
         if richEditorView.inputAccessoryView != editorInputAccessoryView {
             richEditorView.inputAccessoryView = editorInputAccessoryView
