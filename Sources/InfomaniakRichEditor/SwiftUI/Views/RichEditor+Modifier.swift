@@ -33,17 +33,6 @@ public extension View {
     func editorInputAccessoryView(_ inputAccessoryView: UIView) -> some View {
         environment(\.editorInputAccessoryView, inputAccessoryView)
     }
-
-    /// Appends the specified view as an input accessory view to the editor.
-    ///
-    /// - Parameter inputAccessoryView: A UIView to use as an input accessory
-    ///   view.
-    ///
-    /// - Returns: A view that uses the specified view as an input accessory view.
-    func editorInputAccessoryView<Content: View>(@ViewBuilder _ inputAccessoryView: () -> Content) -> some View {
-        let hostingViewController = UIHostingController(rootView: inputAccessoryView())
-        return environment(\.editorInputAccessoryView, hostingViewController.view)
-    }
     #endif
 
     /// Performs an action when the editor is loaded.

@@ -33,28 +33,4 @@ public struct TextAttributes {
     public var backgroundColor: Color?
 
     public init() {}
-
-    init(from uiTextAttributes: UITextAttributes) {
-        bold = uiTextAttributes.hasBold
-        italic = uiTextAttributes.hasItalic
-        underline = uiTextAttributes.hasUnderline
-        strikethrough = uiTextAttributes.hasStrikeThrough
-        hasSubscript = uiTextAttributes.hasSubscript
-        hasSuperscript = uiTextAttributes.hasSuperscript
-        orderedList = uiTextAttributes.hasLink
-        unorderedList = uiTextAttributes.hasUnorderedList
-
-        link = uiTextAttributes.hasLink
-        textJustification = uiTextAttributes.textJustification
-
-        fontName = uiTextAttributes.fontName
-        fontSize = uiTextAttributes.fontSize
-
-        if let uiForegroundColor = uiTextAttributes.foregroundColor {
-            foregroundColor = Color(uiForegroundColor)
-        }
-        if let uiBackgroundColor = uiTextAttributes.backgroundColor {
-            backgroundColor = Color(uiBackgroundColor)
-        }
-    }
 }

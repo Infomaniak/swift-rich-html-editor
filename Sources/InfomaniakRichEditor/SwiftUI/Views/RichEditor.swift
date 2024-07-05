@@ -27,7 +27,6 @@ public struct RichEditor: PlateformViewRepresentable {
 
     @Environment(\.onEditorLoaded) var onEditorLoaded
     @Environment(\.onCursorPositionChange) var onCursorPositionChange
-    @Environment(\.onTextAttributesChange) var onTextAttributesChange
     @Environment(\.onJavaScriptFunctionFail) var onJavaScriptFunctionFail
 
     @Binding public var html: String
