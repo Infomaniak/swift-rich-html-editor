@@ -31,9 +31,11 @@ public struct RichEditor: PlateformViewRepresentable {
     @Environment(\.onJavaScriptFunctionFail) var onJavaScriptFunctionFail
 
     @Binding public var html: String
+    @ObservedObject public var textAttributes: TextAttributes
 
-    public init(html: Binding<String>) {
+    public init(html: Binding<String>, textAttributes: TextAttributes) {
         _html = html
+        self.textAttributes = textAttributes
     }
 
     // MARK: - Platform functions
@@ -51,9 +53,15 @@ public struct RichEditor: PlateformViewRepresentable {
             richEditorView.html = html
         }
 
+        updateTextAttributes(richEditorView)
+
         #if canImport(UIKit)
-        richEditorView.isScrollable = !isEditorScrollable
-        richEditorView.inputAccessoryView = editorInputAccessoryView
+        if richEditorView.isScrollable != !isEditorScrollable {
+            richEditorView.isScrollable = !isEditorScrollable
+        }
+        if richEditorView.inputAccessoryView != editorInputAccessoryView {
+            richEditorView.inputAccessoryView = editorInputAccessoryView
+        }
         #endif
     }
 
@@ -79,5 +87,15 @@ public struct RichEditor: PlateformViewRepresentable {
 
     public func updateNSView(_ richEditorView: RichEditorView, context: Context) {
         updatePlatformView(richEditorView)
+    }
+
+    // MARK: - Private functions
+
+    private func updateTextAttributes(_ richEditorView: RichEditorView) {
+        let uiTextAttributes = richEditorView.selectedTextAttributes
+
+        if textAttributes.bold != uiTextAttributes.hasBold {
+            richEditorView.bold()
+        }
     }
 }

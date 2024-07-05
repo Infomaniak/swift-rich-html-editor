@@ -17,7 +17,7 @@ import UIKit
 import AppKit
 #endif
 
-public struct TextAttributes: Codable {
+public struct UITextAttributes: Codable {
     public var hasBold = false
     public var hasItalic = false
     public var hasUnderline = false

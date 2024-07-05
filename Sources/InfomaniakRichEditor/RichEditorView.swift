@@ -99,7 +99,7 @@ public class RichEditorView: PlatformView {
     public private(set) var contentHeight = CGFloat.zero
 
     /// The style of the text currently selected in the editor view.
-    public private(set) var selectedTextAttributes = TextAttributes()
+    public private(set) var selectedTextAttributes = UITextAttributes()
 
     /// The web view that displays the HTML and handle the input.
     public private(set) var webView: WKWebView!
@@ -272,7 +272,7 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
         delegate?.richEditorView(self, contentHeightDidChange: contentHeight)
     }
 
-    func selectedTextAttributesDidChange(_ selectedTextAttributes: TextAttributes?) {
+    func selectedTextAttributesDidChange(_ selectedTextAttributes: UITextAttributes?) {
         guard let selectedTextAttributes else {
             return
         }

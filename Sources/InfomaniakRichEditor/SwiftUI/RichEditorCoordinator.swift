@@ -24,11 +24,19 @@ public class RichEditorCoordinator: RichEditorViewDelegate {
         parent.onEditorLoaded?()
     }
 
+    public func richEditorViewDidChange(_ richEditorView: RichEditorView) {
+        if parent.html != richEditorView.html {
+            parent.html = richEditorView.html
+        }
+    }
+
     public func richEditorView(_ richEditorView: RichEditorView, cursorPositionDidChange cursorPosition: CGRect) {
         parent.onCursorPositionChange?(cursorPosition)
     }
 
-    public func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: TextAttributes) {
+    public func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: UITextAttributes) {
+        parent.textAttributes.update(from: textAttributes)
+        print("New Text Attributes")
         parent.onTextAttributesChange?(textAttributes)
     }
 

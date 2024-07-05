@@ -67,7 +67,7 @@ public extension View {
     ///     indicates the updated text attributes.
     ///
     /// - Returns: A view that fires an action when the text attributes changes.
-    func onTextAttributesChange(perform action: @escaping (_ newTextAttributes: TextAttributes) -> Void) -> some View {
+    func onTextAttributesChange(perform action: @escaping (_ newTextAttributes: UITextAttributes) -> Void) -> some View {
         environment(\.onTextAttributesChange, action)
     }
 

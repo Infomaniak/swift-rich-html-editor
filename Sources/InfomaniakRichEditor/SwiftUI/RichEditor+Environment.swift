@@ -34,7 +34,7 @@ public struct OnCursorPositionChangeKey: EnvironmentKey {
 }
 
 public struct OnTextAttributesChangeKey: EnvironmentKey {
-    public static var defaultValue: ((TextAttributes) -> Void)?
+    public static var defaultValue: ((UITextAttributes) -> Void)?
 }
 
 public struct OnJavaScriptFunctionFailKey: EnvironmentKey {
@@ -66,7 +66,7 @@ public extension EnvironmentValues {
         set { self[OnCursorPositionChangeKey.self] = newValue }
     }
 
-    var onTextAttributesChange: ((TextAttributes) -> Void)? {
+    var onTextAttributesChange: ((UITextAttributes) -> Void)? {
         get { self[OnTextAttributesChangeKey.self] }
         set { self[OnTextAttributesChangeKey.self] = newValue }
     }
