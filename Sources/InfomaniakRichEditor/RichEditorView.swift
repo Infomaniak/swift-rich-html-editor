@@ -39,7 +39,7 @@ public class RichEditorView: PlatformView {
         }
     }
 
-    #if os(iOS)
+    #if canImport(UIKit)
     /// The custom accessory view to display when the editor view becomes the first responder.
     override public var inputAccessoryView: UIView? {
         get {
@@ -75,7 +75,7 @@ public class RichEditorView: PlatformView {
         CGSize(width: UIView.noIntrinsicMetric, height: contentHeight)
     }
 
-    #if os(iOS)
+    #if canImport(UIKit)
     /// A Boolean value that indicates whether the editor view can use its inner scrollview.
     public var isScrollable: Bool {
         get {
@@ -168,7 +168,7 @@ public extension RichEditorView {
     private func setUpWebView() {
         webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
         webView.translatesAutoresizingMaskIntoConstraints = false
-        #if os(iOS)
+        #if canImport(UIKit)
         webView.scrollView.delegate = self
         #endif
         addSubview(webView)
@@ -230,7 +230,7 @@ public extension RichEditorView {
         javaScriptManager.setHTMLContent(newContent)
     }
 
-    #if os(iOS)
+    #if canImport(UIKit)
     private func setScrollableBehavior(_ isScrollable: Bool) {
         internalIsScrollable = isScrollable
         webView.scrollView.isScrollEnabled = isScrollable
@@ -240,7 +240,7 @@ public extension RichEditorView {
 
 // MARK: - UIScrollViewDelegate
 
-#if os(iOS)
+#if canImport(UIKit)
 extension RichEditorView: UIScrollViewDelegate {
     // The WebView should never scroll.
     //

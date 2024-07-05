@@ -13,7 +13,7 @@
 
 import WebKit
 
-#if os(iOS)
+#if canImport(UIKit)
 extension WKWebView {
     private static let customInputAccessoryViewClassName = "_CustomInputAccessoryView"
     private static var richEditorInputAccessoryViewKey: UInt8 = 0

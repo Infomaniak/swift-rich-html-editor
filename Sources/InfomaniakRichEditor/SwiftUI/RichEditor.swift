@@ -13,7 +13,13 @@
 
 import SwiftUI
 
-public struct RichEditor: UIViewRepresentable {
+#if canImport(UIKit)
+public typealias PlateformViewRepresentable = UIViewRepresentable
+#elseif canImport(AppKit)
+public typealias PlateformViewRepresentable = NSViewRepresentable
+#endif
+
+public struct RichEditor: PlateformViewRepresentable {
     @Environment(\.editorScrollDisabled) private var isEditorScrollable
     @Environment(\.editorInputAccessoryView) private var editorInputAccessoryView
 
@@ -42,7 +48,9 @@ public struct RichEditor: UIViewRepresentable {
             richEditorView.html = html
         }
 
+        #if canImport(UIKit)
         richEditorView.isScrollable = !isEditorScrollable
+        #endif
         richEditorView.inputAccessoryView = editorInputAccessoryView
     }
 
