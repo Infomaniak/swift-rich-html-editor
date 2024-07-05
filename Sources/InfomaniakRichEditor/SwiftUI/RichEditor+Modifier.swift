@@ -14,6 +14,7 @@
 import SwiftUI
 
 public extension View {
+    #if canImport(UIKit)
     /// Configures whether the editor can use its inner scrollview.
     ///
     /// - Parameter disabled: A Boolean that indicates whether scrolling is disabled.
@@ -32,6 +33,7 @@ public extension View {
     func editorInputAccessoryView(_ inputAccessoryView: UIView) -> some View {
         environment(\.editorInputAccessoryView, inputAccessoryView)
     }
+    #endif
 
     /// Performs an action when the editor is loaded.
     ///
@@ -55,18 +57,6 @@ public extension View {
     /// - Returns: A view that fires an action when the position of the cursor changes.
     func onCursorPositionChange(perform action: @escaping (_ newPosition: CGRect) -> Void) -> some View {
         environment(\.onCursorPositionChange, action)
-    }
-
-    /// Performs an action when the height of the editor's content changes.
-    ///
-    /// - Parameters:
-    ///   - action: A closure to run when the content height changes. The
-    ///     closure takes a `newHeight` parameter that indicates the updated
-    ///     height.
-    ///
-    /// - Returns: A view that fires an action when the editor's content changes.
-    func onContentHeightChange(perform action: @escaping (_ newHeight: CGFloat) -> Void) -> some View {
-        environment(\.onContentHeightChange, action)
     }
 
     /// Performs an action when the text attributes for the current selection or at the insertion point change.

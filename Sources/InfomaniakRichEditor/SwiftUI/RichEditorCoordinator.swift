@@ -28,10 +28,6 @@ public class RichEditorCoordinator: RichEditorViewDelegate {
         parent.onCursorPositionChange?(cursorPosition)
     }
 
-    public func richEditorView(_ richEditorView: RichEditorView, contentHeightDidChange contentHeight: CGFloat) {
-        parent.onContentHeightChange?(contentHeight)
-    }
-
     public func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: TextAttributes) {
         parent.onTextAttributesChange?(textAttributes)
     }

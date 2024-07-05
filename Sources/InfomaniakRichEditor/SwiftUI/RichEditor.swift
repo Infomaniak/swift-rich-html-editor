@@ -20,12 +20,13 @@ public typealias PlateformViewRepresentable = NSViewRepresentable
 #endif
 
 public struct RichEditor: PlateformViewRepresentable {
+    #if canImport(UIKit)
     @Environment(\.editorScrollDisabled) private var isEditorScrollable
     @Environment(\.editorInputAccessoryView) private var editorInputAccessoryView
+    #endif
 
     @Environment(\.onEditorLoaded) var onEditorLoaded
     @Environment(\.onCursorPositionChange) var onCursorPositionChange
-    @Environment(\.onContentHeightChange) var onContentHeightChange
     @Environment(\.onTextAttributesChange) var onTextAttributesChange
     @Environment(\.onJavaScriptFunctionFail) var onJavaScriptFunctionFail
 
@@ -35,7 +36,9 @@ public struct RichEditor: PlateformViewRepresentable {
         _html = html
     }
 
-    public func makeUIView(context: Context) -> RichEditorView {
+    // MARK: - Platform functions
+
+    private func createPlatformView(context: Context) -> RichEditorView {
         let richEditor = RichEditorView()
         richEditor.delegate = context.coordinator
         richEditor.html = html
@@ -43,18 +46,38 @@ public struct RichEditor: PlateformViewRepresentable {
         return richEditor
     }
 
-    public func updateUIView(_ richEditorView: RichEditorView, context: Context) {
+    private func updatePlatformView(_ richEditorView: RichEditorView) {
         if richEditorView.html != html {
             richEditorView.html = html
         }
 
         #if canImport(UIKit)
         richEditorView.isScrollable = !isEditorScrollable
-        #endif
         richEditorView.inputAccessoryView = editorInputAccessoryView
+        #endif
     }
 
     public func makeCoordinator() -> RichEditorCoordinator {
         return RichEditorCoordinator(parent: self)
+    }
+
+    // MARK: - UIView
+
+    public func makeUIView(context: Context) -> RichEditorView {
+        return createPlatformView(context: context)
+    }
+
+    public func updateUIView(_ richEditorView: RichEditorView, context: Context) {
+        updatePlatformView(richEditorView)
+    }
+
+    // MARK: - NSView
+
+    public func makeNSView(context: Context) -> RichEditorView {
+        return createPlatformView(context: context)
+    }
+
+    public func updateNSView(_ richEditorView: RichEditorView, context: Context) {
+        updatePlatformView(richEditorView)
     }
 }

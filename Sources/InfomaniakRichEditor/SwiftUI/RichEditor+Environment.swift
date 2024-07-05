@@ -15,6 +15,7 @@ import SwiftUI
 
 // MARK: - Environment Keys
 
+#if canImport(UIKit)
 public struct EditorScrollDisable: EnvironmentKey {
     public static var defaultValue = false
 }
@@ -22,6 +23,7 @@ public struct EditorScrollDisable: EnvironmentKey {
 public struct EditorInputAccessoryViewKey: EnvironmentKey {
     public static var defaultValue: UIView?
 }
+#endif
 
 public struct OnEditorLoadedKey: EnvironmentKey {
     public static var defaultValue: (() -> Void)?
@@ -29,10 +31,6 @@ public struct OnEditorLoadedKey: EnvironmentKey {
 
 public struct OnCursorPositionChangeKey: EnvironmentKey {
     public static var defaultValue: ((CGRect) -> Void)?
-}
-
-public struct OnContentHeightChangeKey: EnvironmentKey {
-    public static var defaultValue: ((CGFloat) -> Void)?
 }
 
 public struct OnTextAttributesChangeKey: EnvironmentKey {
@@ -46,6 +44,7 @@ public struct OnJavaScriptFunctionFailKey: EnvironmentKey {
 // MARK: - Environment Values
 
 public extension EnvironmentValues {
+    #if canImport(UIKit)
     var editorScrollDisabled: Bool {
         get { self[EditorScrollDisable.self] }
         set { self[EditorScrollDisable.self] = newValue }
@@ -55,6 +54,7 @@ public extension EnvironmentValues {
         get { self[EditorInputAccessoryViewKey.self] }
         set { self[EditorInputAccessoryViewKey.self] = newValue }
     }
+    #endif
 
     var onEditorLoaded: (() -> Void)? {
         get { self[OnEditorLoadedKey.self] }
@@ -64,11 +64,6 @@ public extension EnvironmentValues {
     var onCursorPositionChange: ((CGRect) -> Void)? {
         get { self[OnCursorPositionChangeKey.self] }
         set { self[OnCursorPositionChangeKey.self] = newValue }
-    }
-
-    var onContentHeightChange: ((CGFloat) -> Void)? {
-        get { self[OnContentHeightChangeKey.self] }
-        set { self[OnContentHeightChangeKey.self] = newValue }
     }
 
     var onTextAttributesChange: ((TextAttributes) -> Void)? {

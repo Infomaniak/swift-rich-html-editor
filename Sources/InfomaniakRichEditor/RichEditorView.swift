@@ -72,7 +72,7 @@ public class RichEditorView: PlatformView {
 
     /// The natural size for the receiving view, considering only properties of the view itself.
     public override var intrinsicContentSize: CGSize {
-        CGSize(width: UIView.noIntrinsicMetric, height: contentHeight)
+        CGSize(width: PlatformView.noIntrinsicMetric, height: contentHeight)
     }
 
     #if canImport(UIKit)
