@@ -29,6 +29,8 @@ public struct RichEditor: PlateformViewRepresentable {
     @Environment(\.onCursorPositionChange) var onCursorPositionChange
     @Environment(\.onJavaScriptFunctionFail) var onJavaScriptFunctionFail
 
+    @Environment(\.isFocused) private var isFocused
+
     @Binding public var html: String
     @Binding public var textAttributes: TextAttributes
 
@@ -53,6 +55,8 @@ public struct RichEditor: PlateformViewRepresentable {
         }
 
         updateTextAttributes(richEditorView)
+
+        print("FOCUS:", isFocused)
 
         #if canImport(UIKit)
         if richEditorView.isScrollEnabled != !isEditorScrollable {
