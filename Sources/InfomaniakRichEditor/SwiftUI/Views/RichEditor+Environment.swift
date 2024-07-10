@@ -25,6 +25,10 @@ public struct EditorInputAccessoryViewKey: EnvironmentKey {
 }
 #endif
 
+public struct EditorCSSKey: EnvironmentKey {
+    public static var defaultValue: String?
+}
+
 public struct OnEditorLoadedKey: EnvironmentKey {
     public static var defaultValue: (() -> Void)?
 }
@@ -37,11 +41,15 @@ public struct OnJavaScriptFunctionFailKey: EnvironmentKey {
     public static var defaultValue: (() -> Void)?
 }
 
+public struct IntrospectEditorKey: EnvironmentKey {
+    public static var defaultValue: ((RichEditorView) -> Void)?
+}
+
 // MARK: - Environment Values
 
 public extension EnvironmentValues {
     #if canImport(UIKit)
-    var editorScrollDisabled: Bool {
+    var editorScrollable: Bool {
         get { self[EditorScrollDisable.self] }
         set { self[EditorScrollDisable.self] = newValue }
     }
@@ -51,6 +59,11 @@ public extension EnvironmentValues {
         set { self[EditorInputAccessoryViewKey.self] = newValue }
     }
     #endif
+
+    var editorCSS: String? {
+        get { self[EditorCSSKey.self] }
+        set { self[EditorCSSKey.self] = newValue }
+    }
 
     var onEditorLoaded: (() -> Void)? {
         get { self[OnEditorLoadedKey.self] }
@@ -65,5 +78,10 @@ public extension EnvironmentValues {
     var onJavaScriptFunctionFail: (() -> Void)? {
         get { self[OnJavaScriptFunctionFailKey.self] }
         set { self[OnJavaScriptFunctionFailKey.self] = newValue }
+    }
+
+    var introspectEditor: ((RichEditorView) -> Void)? {
+        get { self[IntrospectEditorKey.self] }
+        set { self[IntrospectEditorKey.self] = newValue }
     }
 }

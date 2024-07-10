@@ -21,15 +21,15 @@ public typealias PlateformViewRepresentable = NSViewRepresentable
 
 public struct RichEditor: PlateformViewRepresentable {
     #if canImport(UIKit)
-    @Environment(\.editorScrollDisabled) private var isEditorScrollable
+    @Environment(\.editorScrollable) private var isEditorScrollable
     @Environment(\.editorInputAccessoryView) private var editorInputAccessoryView
     #endif
 
+    @Environment(\.editorCSS) var editorCSS
     @Environment(\.onEditorLoaded) var onEditorLoaded
     @Environment(\.onCursorPositionChange) var onCursorPositionChange
     @Environment(\.onJavaScriptFunctionFail) var onJavaScriptFunctionFail
-
-    @Environment(\.isFocused) private var isFocused
+    @Environment(\.introspectEditor) var introspectEditor
 
     @Binding public var html: String
     @Binding public var textAttributes: TextAttributes
@@ -46,6 +46,11 @@ public struct RichEditor: PlateformViewRepresentable {
         richEditor.delegate = context.coordinator
         richEditor.html = html
 
+        if let css = editorCSS {
+            richEditor.injectAdditionalCSS(css)
+        }
+        introspectEditor?(richEditor)
+
         return richEditor
     }
 
@@ -56,11 +61,9 @@ public struct RichEditor: PlateformViewRepresentable {
 
         updateTextAttributes(richEditorView)
 
-        print("FOCUS:", isFocused)
-
         #if canImport(UIKit)
-        if richEditorView.isScrollEnabled != !isEditorScrollable {
-            richEditorView.isScrollEnabled = !isEditorScrollable
+        if richEditorView.isScrollEnabled != isEditorScrollable {
+            richEditorView.isScrollEnabled = isEditorScrollable
         }
         if richEditorView.inputAccessoryView != editorInputAccessoryView {
             richEditorView.inputAccessoryView = editorInputAccessoryView

@@ -17,11 +17,11 @@ public extension View {
     #if canImport(UIKit)
     /// Configures whether the editor can use its inner scrollview.
     ///
-    /// - Parameter disabled: A Boolean that indicates whether scrolling is disabled.
+    /// - Parameter scrollable: A Boolean that indicates whether scrolling is enabled or not.
     ///
-    /// - Returns: A view that disables or enables the inner scroll of `RichEditor`
-    func editorScrollDisabled(_ disabled: Bool) -> some View {
-        environment(\.editorScrollDisabled, disabled)
+    /// - Returns: A view that disables or enables the inner scroll of the `RichEditor` view.
+    func editorScrollable(_ scrollable: Bool) -> some View {
+        environment(\.editorScrollable, scrollable)
     }
 
     /// Appends the specified view as an input accessory view to the editor.
@@ -34,6 +34,10 @@ public extension View {
         environment(\.editorInputAccessoryView, inputAccessoryView)
     }
     #endif
+
+    func editorCSS(_ css: String) -> some View {
+        environment(\.editorCSS, css)
+    }
 
     /// Performs an action when the editor is loaded.
     ///
@@ -67,5 +71,9 @@ public extension View {
     /// - Returns: A view that fires an action when a JavaScript function fails.
     func onJavaScriptFunctionFail(perform action: @escaping () -> Void) -> some View {
         environment(\.onJavaScriptFunctionFail, action)
+    }
+
+    func introspectEditor(perform action: @escaping (RichEditorView) -> Void) -> some View {
+        environment(\.introspectEditor, action)
     }
 }

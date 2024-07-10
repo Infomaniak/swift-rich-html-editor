@@ -72,11 +72,20 @@ public class RichEditorView: PlatformView {
 
     /// The natural size for the receiving view, considering only properties of the view itself.
     public override var intrinsicContentSize: CGSize {
-        CGSize(width: PlatformView.noIntrinsicMetric, height: contentHeight)
+        CGSize(width: PlatformView.noIntrinsicMetric, height: internalContentHeight)
     }
 
     #if canImport(UIKit)
-    /// A Boolean value that indicates whether the editor view can use its inner scrollview.
+    /// A Boolean value that indicates whether the editor view use its inner scrollview.
+    ///
+    /// When the Boolean is `false`, the editor will use the first parent 
+    /// `UIScrollView` to keep the cursor always visible when the
+    /// cursor moves below the keyboard or off the screen.
+    /// However, when the Boolean is `true`, the editor will use the
+    /// `UIScrollView` of the inner ``WebKit/WKWebView``
+    /// to keep the cursor visible.
+    ///
+    /// The default value is `false`.
     public var isScrollEnabled: Bool {
         get {
             internalIsScrollEnabled
@@ -87,16 +96,16 @@ public class RichEditorView: PlatformView {
     }
     #endif
 
-    /// A Boolean value that indicates whether the DOM of the underlying WKWebView is loaded.
+    /// A Boolean value that indicates whether the DOM of the underlying ``WebKit/WKWebView``
+    /// is loaded.
+    ///
+    /// If an initial content has been set to the editor, it will be displayed once the editor is loaded.
     public var isEditorLoaded: Bool {
         return javaScriptManager.isDOMContentLoaded
     }
 
     /// The object you use to react to editor's events.
     public weak var delegate: RichEditorViewDelegate?
-
-    /// The content height of the editor view.
-    public private(set) var contentHeight = CGFloat.zero
 
     /// The style of the text currently selected in the editor view.
     public private(set) var selectedTextAttributes = UITextAttributes()
@@ -107,7 +116,8 @@ public class RichEditorView: PlatformView {
     // MARK: - Private properties
 
     var internalHTMLContent = ""
-    var internalIsScrollEnabled = true
+    var internalIsScrollEnabled = false
+    var internalContentHeight = CGFloat.zero
 
     var javaScriptManager: JavaScriptManager!
     var scriptMessageHandler: ScriptMessageHandler!
@@ -148,12 +158,18 @@ public class RichEditorView: PlatformView {
 public extension RichEditorView {
     /// Injects CSS code to customize the appearance of the editor view.
     ///
-    /// - Parameter css: CSS code.
+    /// This method is additive. Each call adds the CSS to the editor and does not replace
+    /// previously added code.
+    ///
+    /// - Parameter css: CSS code to append to the editor.
     func injectAdditionalCSS(_ css: String) {
         javaScriptManager.injectCSS(css)
     }
 
     /// Injects CSS code to customize the appearance of the editor view.
+    ///
+    /// This method is additive. Each call adds the CSS to the editor and does not replace
+    /// previously added code.
     ///
     /// - Parameter cssURL: URL to the CSS file.
     func injectAdditionalCSS(_ cssURL: URL) {
@@ -182,6 +198,8 @@ public extension RichEditorView {
 
         configureWebView()
         enableWebViewDebug()
+
+        setScrollableBehavior(false)
 
         loadWebViewPage()
         loadScripts()
@@ -242,10 +260,12 @@ public extension RichEditorView {
 
 #if canImport(UIKit)
 extension RichEditorView: UIScrollViewDelegate {
-    // The WebView should never scroll.
-    //
-    // Disabling the scrollview is not enough to completely prevent scrolling.
-    // It is necessary to reset the scrollOffset when it changes (when the focus is under the keyboard for example).
+    /// When the editor is not scrollable, the WebView should not scroll.
+    ///
+    /// Disabling the scrollview is not enough to completely prevent
+    /// scrolling.
+    /// It is necessary to reset the scrollOffset each time it changes
+    /// (when the cursor is under the keyboard for example).
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard !isScrollEnabled else { return }
         scrollView.contentOffset = .zero
@@ -267,9 +287,8 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
     }
 
     func contentHeightDidChange(_ contentHeight: CGFloat) {
-        self.contentHeight = contentHeight
+        self.internalContentHeight = contentHeight
         invalidateIntrinsicContentSize()
-        delegate?.richEditorView(self, contentHeightDidChange: contentHeight)
     }
 
     func selectedTextAttributesDidChange(_ selectedTextAttributes: UITextAttributes?) {
