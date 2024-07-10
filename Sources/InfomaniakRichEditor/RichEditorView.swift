@@ -199,7 +199,9 @@ public extension RichEditorView {
         configureWebView()
         enableWebViewDebug()
 
+        #if canImport(UIKit)
         setScrollableBehavior(false)
+        #endif
 
         loadWebViewPage()
         loadScripts()
