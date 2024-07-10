@@ -43,7 +43,6 @@ final class ViewController: UIViewController {
         NSLayoutConstraint.activate([
             editor.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             editor.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            editor.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             editor.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         ])
     }

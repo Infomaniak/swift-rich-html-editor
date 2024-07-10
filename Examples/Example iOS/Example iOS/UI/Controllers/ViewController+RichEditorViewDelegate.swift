@@ -19,7 +19,7 @@ extension ViewController: RichEditorViewDelegate {
         _ = richEditorView.becomeFirstResponder()
     }
 
-    func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: TextAttributes) {
+    func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: UITextAttributes) {
         for element in toolbarButtons {
             guard let button = element as? UIButton, let action = ToolbarAction(rawValue: button.tag) else {
                 continue

@@ -86,7 +86,7 @@ enum ToolbarAction: Int {
         return UIImage(systemName: systemName)
     }
 
-    func isSelected(_ textAttributes: TextAttributes) -> Bool {
+    func isSelected(_ textAttributes: UITextAttributes) -> Bool {
         switch self {
         case .bold:
             return textAttributes.hasBold
