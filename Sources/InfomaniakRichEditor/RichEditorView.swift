@@ -32,7 +32,7 @@ public class RichEditorView: PlatformView {
     /// The HTML code that the editor view contains.
     public var html: String {
         get {
-            return internalHTMLContent
+            return rawHTMLContent
         }
         set {
             setHTMLContent(newValue)
@@ -72,7 +72,7 @@ public class RichEditorView: PlatformView {
 
     /// The natural size for the receiving view, considering only properties of the view itself.
     public override var intrinsicContentSize: CGSize {
-        CGSize(width: PlatformView.noIntrinsicMetric, height: internalContentHeight)
+        CGSize(width: PlatformView.noIntrinsicMetric, height: rawContentHeight)
     }
 
     #if canImport(UIKit)
@@ -88,7 +88,7 @@ public class RichEditorView: PlatformView {
     /// The default value is `false`.
     public var isScrollEnabled: Bool {
         get {
-            internalIsScrollEnabled
+            rawIsScrollEnabled
         }
         set {
             setScrollableBehavior(newValue)
@@ -115,9 +115,9 @@ public class RichEditorView: PlatformView {
 
     // MARK: - Private properties
 
-    var internalHTMLContent = ""
-    var internalIsScrollEnabled = false
-    var internalContentHeight = CGFloat.zero
+    var rawHTMLContent = ""
+    var rawIsScrollEnabled = false
+    var rawContentHeight = CGFloat.zero
 
     var javaScriptManager: JavaScriptManager!
     var scriptMessageHandler: ScriptMessageHandler!
@@ -250,7 +250,7 @@ public extension RichEditorView {
 
     #if canImport(UIKit)
     private func setScrollableBehavior(_ isScrollEnabled: Bool) {
-        internalIsScrollEnabled = isScrollEnabled
+        rawIsScrollEnabled = isScrollEnabled
         webView.scrollView.isScrollEnabled = isScrollEnabled
     }
     #endif
@@ -282,12 +282,12 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
     }
 
     func contentDidChange(_ text: String) {
-        internalHTMLContent = text
+        rawHTMLContent = text
         delegate?.richEditorViewDidChange(self)
     }
 
     func contentHeightDidChange(_ contentHeight: CGFloat) {
-        self.internalContentHeight = contentHeight
+        self.rawContentHeight = contentHeight
         invalidateIntrinsicContentSize()
     }
 
