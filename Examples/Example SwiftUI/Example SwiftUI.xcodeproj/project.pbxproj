@@ -11,8 +11,21 @@
 		F91EA24B2C3D12B7007489BD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91EA24A2C3D12B7007489BD /* ContentView.swift */; };
 		F91EA24D2C3D12B8007489BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F91EA24C2C3D12B8007489BD /* Assets.xcassets */; };
 		F91EA2512C3D12B8007489BD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F91EA2502C3D12B8007489BD /* Preview Assets.xcassets */; };
-		F91EA2592C3D1301007489BD /* InfomaniakRichEditor in Frameworks */ = {isa = PBXBuildFile; productRef = F91EA2582C3D1301007489BD /* InfomaniakRichEditor */; };
+		F98F1E3D2C3E8F77007845A8 /* InfomaniakRichEditor in Frameworks */ = {isa = PBXBuildFile; productRef = F98F1E3C2C3E8F77007845A8 /* InfomaniakRichEditor */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F98909AF2C3FAFC300A594B8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F91EA2452C3D12B7007489BD /* Example SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -28,7 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F91EA2592C3D1301007489BD /* InfomaniakRichEditor in Frameworks */,
+				F98F1E3D2C3E8F77007845A8 /* InfomaniakRichEditor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +94,7 @@
 				F91EA2412C3D12B7007489BD /* Sources */,
 				F91EA2422C3D12B7007489BD /* Frameworks */,
 				F91EA2432C3D12B7007489BD /* Resources */,
+				F98909AF2C3FAFC300A594B8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -88,7 +102,7 @@
 			);
 			name = "Example SwiftUI";
 			packageProductDependencies = (
-				F91EA2582C3D1301007489BD /* InfomaniakRichEditor */,
+				F98F1E3C2C3E8F77007845A8 /* InfomaniakRichEditor */,
 			);
 			productName = "Example SwiftUI";
 			productReference = F91EA2452C3D12B7007489BD /* Example SwiftUI.app */;
@@ -119,7 +133,7 @@
 			);
 			mainGroup = F91EA23C2C3D12B7007489BD;
 			packageReferences = (
-				F91EA2572C3D1301007489BD /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */,
+				F98F1E3B2C3E8F77007845A8 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */,
 			);
 			productRefGroup = F91EA2462C3D12B7007489BD /* Products */;
 			projectDirPath = "";
@@ -369,20 +383,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F91EA2572C3D1301007489BD /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */ = {
+		F98F1E3B2C3E8F77007845A8 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:Infomaniak/swift-rich-html-editor.git";
+			repositoryURL = "https://github.com/Infomaniak/swift-rich-html-editor";
 			requirement = {
-				branch = "create-swiftui-textattributes";
+				branch = main;
 				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F91EA2582C3D1301007489BD /* InfomaniakRichEditor */ = {
+		F98F1E3C2C3E8F77007845A8 /* InfomaniakRichEditor */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F91EA2572C3D1301007489BD /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */;
+			package = F98F1E3B2C3E8F77007845A8 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */;
 			productName = InfomaniakRichEditor;
 		};
 /* End XCSwiftPackageProductDependency section */

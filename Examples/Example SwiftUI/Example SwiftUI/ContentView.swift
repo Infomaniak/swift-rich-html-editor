@@ -23,9 +23,11 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             RichEditor(html: $html, textAttributes: $textAttributes)
-                .focused($isFocused)
                 .navigationTitle("Infomaniak - Rich Text Editor (SwiftUI)")
                 .toolbarTitleDisplayMode(.inline)
+                .onAppear {
+                    isFocused = true
+                }
         }
     }
 }
