@@ -38,7 +38,7 @@ public struct OnCursorPositionChangeKey: EnvironmentKey {
 }
 
 public struct OnJavaScriptFunctionFailKey: EnvironmentKey {
-    public static var defaultValue: (() -> Void)?
+    public static var defaultValue: ((any Error) -> Void)?
 }
 
 public struct IntrospectEditorKey: EnvironmentKey {
@@ -75,7 +75,7 @@ public extension EnvironmentValues {
         set { self[OnCursorPositionChangeKey.self] = newValue }
     }
 
-    var onJavaScriptFunctionFail: (() -> Void)? {
+    var onJavaScriptFunctionFail: ((any Error) -> Void)? {
         get { self[OnJavaScriptFunctionFailKey.self] }
         set { self[OnJavaScriptFunctionFailKey.self] = newValue }
     }

@@ -32,11 +32,11 @@ public struct RichEditor: PlateformViewRepresentable {
     @Environment(\.introspectEditor) var introspectEditor
 
     @Binding public var html: String
-    @Binding public var textAttributes: TextAttributes
+    @ObservedObject public var textAttributes: TextAttributes
 
-    public init(html: Binding<String>, textAttributes: Binding<TextAttributes>) {
+    public init(html: Binding<String>, textAttributes: TextAttributes) {
         _html = html
-        _textAttributes = textAttributes
+        _textAttributes = ObservedObject(wrappedValue: textAttributes)
     }
 
     // MARK: - Platform functions
@@ -51,6 +51,8 @@ public struct RichEditor: PlateformViewRepresentable {
         }
         introspectEditor?(richEditor)
 
+        textAttributes.editor = richEditor
+
         return richEditor
     }
 
@@ -58,8 +60,6 @@ public struct RichEditor: PlateformViewRepresentable {
         if richEditorView.html != html {
             richEditorView.html = html
         }
-
-        updateTextAttributes(richEditorView)
 
         #if canImport(UIKit)
         if richEditorView.isScrollEnabled != isEditorScrollable {
@@ -93,15 +93,5 @@ public struct RichEditor: PlateformViewRepresentable {
 
     public func updateNSView(_ richEditorView: RichEditorView, context: Context) {
         updatePlatformView(richEditorView)
-    }
-
-    // MARK: - Private functions
-
-    private func updateTextAttributes(_ richEditorView: RichEditorView) {
-        let uiTextAttributes = richEditorView.selectedTextAttributes
-
-        if textAttributes.bold != uiTextAttributes.hasBold {
-            richEditorView.bold()
-        }
     }
 }

@@ -41,10 +41,8 @@ public extension View {
 
     /// Performs an action when the editor is loaded.
     ///
-    /// - Parameters:
-    ///   - action: A closure to run when the editor is loaded. The closure
-    ///     takes a `newValue` parameter that indicates the updated
-    ///     value.
+    /// - Parameter action: A closure to run when the editor is loaded. The closure
+    ///   takes a `newValue` parameter that indicates the updated value.
     ///
     /// - Returns: A view that fires an action when the editor is loaded.
     func onEditorLoaded(perform action: @escaping () -> Void) -> some View {
@@ -53,10 +51,8 @@ public extension View {
 
     /// Performs an action when the position of the cursor in the editor changes.
     ///
-    /// - Parameters:
-    ///   - action: A closure to run when the cursor moves. The closure
-    ///     takes a `newPosition` parameter that indicates the updated
-    ///     position.
+    /// - Parameters action: A closure to run when the cursor moves. The closure
+    ///   takes a `newPosition` parameter that indicates the updated position.
     ///
     /// - Returns: A view that fires an action when the position of the cursor changes.
     func onCursorPositionChange(perform action: @escaping (_ newPosition: CGRect) -> Void) -> some View {
@@ -65,14 +61,19 @@ public extension View {
 
     /// Performs an action when a JavaScript function executed by the editor fails.
     ///
-    /// - Parameters:
-    ///   - action: A closure to run when a JavaScript function fails.
+    /// - Parameter action: A closure to run when a JavaScript function fails.
     ///
     /// - Returns: A view that fires an action when a JavaScript function fails.
-    func onJavaScriptFunctionFail(perform action: @escaping () -> Void) -> some View {
+    func onJavaScriptFunctionFail(perform action: @escaping (any Error) -> Void) -> some View {
         environment(\.onJavaScriptFunctionFail, action)
     }
 
+    /// Performs an action when the editor is initialized, to customize the underlying ``RichEditorView``.
+    ///
+    /// - Parameter action: A closure to run when the view is initialized, to customize 
+    ///   the editor.
+    ///
+    /// - Returns: A view with the customizations applied to editor.
     func introspectEditor(perform action: @escaping (RichEditorView) -> Void) -> some View {
         environment(\.introspectEditor, action)
     }

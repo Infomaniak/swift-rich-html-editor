@@ -13,7 +13,7 @@
 
 import SwiftUI
 
-public class RichEditorCoordinator: RichEditorViewDelegate {
+public final class RichEditorCoordinator: RichEditorViewDelegate {
     private let parent: RichEditor
 
     init(parent: RichEditor) {
@@ -35,10 +35,10 @@ public class RichEditorCoordinator: RichEditorViewDelegate {
     }
 
     public func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: UITextAttributes) {
-        parent.textAttributes = TextAttributes(from: textAttributes)
+        parent.textAttributes.update(from: textAttributes)
     }
 
-    public func richEditorView(_ richEditorView: RichEditorView, javascriptFunctionDidFail: any Error) {
-        parent.onJavaScriptFunctionFail?()
+    public func richEditorView(_ richEditorView: RichEditorView, javascriptFunctionDidFail javascriptError: any Error) {
+        parent.onJavaScriptFunctionFail?(javascriptError)
     }
 }
