@@ -65,6 +65,18 @@ final class JavaScriptManager {
         evaluate(function: .blur)
     }
 
+    func setCaretAtBeginningOfDocument() {
+        evaluate(function: .setCaretAtEndOfDocument)
+    }
+
+    func setCaretAtEndOfDocument() {
+        evaluate(function: .setCaretAtEndOfDocument)
+    }
+
+    func setCaretAtSelector(selector: String) {
+        evaluate(function: .setCaretAtSelector(selector: selector))
+    }
+
     private func evaluateWaitingFunctions() {
         guard isDOMContentLoaded else {
             return

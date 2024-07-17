@@ -135,6 +135,17 @@ public extension RichHTMLEditorView {
         execCommand(.redo)
     }
 
+    func setCaretAt(_ position: CaretPosition) {
+        switch position {
+        case .beginningOfDocument:
+            javaScriptManager.setCaretAtBeginningOfDocument()
+        case .endOfDocument:
+            javaScriptManager.setCaretAtEndOfDocument()
+        case .selector(let selector):
+            javaScriptManager.setCaretAtSelector(selector: selector)
+        }
+    }
+
     private func execCommand(_ command: ExecCommand, argument: Any? = nil) {
         javaScriptManager.execCommand(command, argument: argument)
     }

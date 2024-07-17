@@ -19,6 +19,9 @@ enum JavaScriptFunction {
     case unlink
     case focus
     case blur
+    case setCaretAtBeginningOfDocument
+    case setCaretAtEndOfDocument
+    case setCaretAtSelector(selector: String)
 
     var identifier: String {
         switch self {
@@ -36,6 +39,12 @@ enum JavaScriptFunction {
             return "focus"
         case .blur:
             return "blur"
+        case .setCaretAtBeginningOfDocument:
+            return "setCaretAtBeginningOfDocument"
+        case .setCaretAtEndOfDocument:
+            return "setCaretAtEndOfDocument"
+        case .setCaretAtSelector:
+            return "setCaretAtSelector"
         }
     }
 
@@ -49,7 +58,9 @@ enum JavaScriptFunction {
             return [content]
         case .createLink(let url, let text):
             return [url, text]
-        case .unlink, .focus, .blur:
+        case .setCaretAtSelector(let selector):
+            return [selector]
+        case .unlink, .focus, .blur, .setCaretAtBeginningOfDocument, .setCaretAtEndOfDocument:
             return []
         }
     }

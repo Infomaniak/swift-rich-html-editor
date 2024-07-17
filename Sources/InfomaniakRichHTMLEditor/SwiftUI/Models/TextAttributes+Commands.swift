@@ -89,4 +89,8 @@ public extension TextAttributes {
     func redo() {
         editor?.redo()
     }
+
+    func setCaretAt(_ position: CaretPosition) {
+        editor?.setCaretAt(position)
+    }
 }

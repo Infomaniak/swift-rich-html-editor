@@ -39,6 +39,7 @@ extension UserScript {
         UserScript(name: "selection", injectionTime: .atDocumentStart),
         UserScript(name: "links", injectionTime: .atDocumentStart),
         UserScript(name: "observer", injectionTime: .atDocumentStart),
+        UserScript(name: "focus", injectionTime: .atDocumentStart),
 
         // Main
         UserScript(name: "main", injectionTime: .atDocumentStart)

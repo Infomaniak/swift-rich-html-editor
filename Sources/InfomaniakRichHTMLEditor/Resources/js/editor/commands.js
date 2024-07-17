@@ -33,17 +33,3 @@ function injectCSS(content) {
     styleElement.textContent = content;
     document.head.appendChild(styleElement);
 }
-
-/**
- * Sets focus on the editor.
- */
-function focus() {
-    getEditor().focus();
-}
-
-/**
- * Removes focus from the editor.
- */
-function blur() {
-    getEditor().blur();
-}
