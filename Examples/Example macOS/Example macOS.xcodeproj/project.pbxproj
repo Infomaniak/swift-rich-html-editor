@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F99CE4C92C132D7900949F40 /* InfomaniakRichEditor in Frameworks */ = {isa = PBXBuildFile; productRef = F99CE4C82C132D7900949F40 /* InfomaniakRichEditor */; };
+		F90560E52C47B8020015E813 /* InfomaniakRichHTMLEditor in Frameworks */ = {isa = PBXBuildFile; productRef = F90560E42C47B8020015E813 /* InfomaniakRichHTMLEditor */; };
 		F9BACEA22C3435DF002FB720 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BACEA12C3435DF002FB720 /* WindowController.swift */; };
 		F9BACEA42C352CB0002FB720 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = F9BACEA32C352CB0002FB720 /* style.css */; };
 		F9FBB6A42C1326B9007CC5A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9FBB6A32C1326B9007CC5A5 /* AppDelegate.swift */; };
@@ -32,13 +32,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F99CE4C92C132D7900949F40 /* InfomaniakRichEditor in Frameworks */,
+				F90560E52C47B8020015E813 /* InfomaniakRichHTMLEditor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F90560E32C47B8020015E813 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F91D20122C342642004A8625 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +71,7 @@
 			children = (
 				F9FBB6A22C1326B9007CC5A5 /* Example macOS */,
 				F9FBB6A12C1326B9007CC5A5 /* Products */,
+				F90560E32C47B8020015E813 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,7 +110,7 @@
 			);
 			name = "Example macOS";
 			packageProductDependencies = (
-				F99CE4C82C132D7900949F40 /* InfomaniakRichEditor */,
+				F90560E42C47B8020015E813 /* InfomaniakRichHTMLEditor */,
 			);
 			productName = "Example macOS";
 			productReference = F9FBB6A02C1326B9007CC5A5 /* Example macOS.app */;
@@ -389,10 +397,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F99CE4C82C132D7900949F40 /* InfomaniakRichEditor */ = {
+		F90560E42C47B8020015E813 /* InfomaniakRichHTMLEditor */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F99CE4C72C132D7900949F40 /* XCRemoteSwiftPackageReference "swift-rich-html-editor" */;
-			productName = InfomaniakRichEditor;
+			productName = InfomaniakRichHTMLEditor;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

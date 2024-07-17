@@ -12,17 +12,17 @@
 //  under the License.
 
 import Cocoa
-import InfomaniakRichEditor
+import InfomaniakRichHTMLEditor
 
 final class ViewController: NSViewController {
-    private var editor: RichEditorView!
+    private var editor: RichHTMLEditorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.window?.title = "Infomaniak - Rich Text Editor (macOS)"
 
-        editor = RichEditorView()
+        editor = RichHTMLEditorView()
         if let cssURL = Bundle.main.url(forResource: "style", withExtension: "css"),
            let styleCSS = try? String(contentsOf: cssURL) {
             editor.injectAdditionalCSS(styleCSS)
