@@ -11,7 +11,7 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-import InfomaniakRichEditor
+import InfomaniakRichHTMLEditor
 import UIKit
 
 enum ToolbarAction: Int {

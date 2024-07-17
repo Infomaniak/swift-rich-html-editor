@@ -11,11 +11,11 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-import InfomaniakRichEditor
+import InfomaniakRichHTMLEditor
 import UIKit
 
 final class ViewController: UIViewController {
-    var editor: RichEditorView!
+    var editor: RichHTMLEditorView!
     var toolbarButtons = [UIView]()
 
     var toolbarCurrentColorPicker: ToolbarAction?
@@ -31,7 +31,7 @@ final class ViewController: UIViewController {
     }
 
     private func setUpEditor() {
-        editor = RichEditorView()
+        editor = RichHTMLEditorView()
         if let cssURL = Bundle.main.url(forResource: "editor", withExtension: "css"), let css = try? String(contentsOf: cssURL) {
             editor.injectAdditionalCSS(css)
         }
