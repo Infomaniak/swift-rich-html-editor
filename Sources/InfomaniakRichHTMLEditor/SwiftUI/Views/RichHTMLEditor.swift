@@ -27,7 +27,7 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
 
     @Environment(\.editorCSS) var editorCSS
     @Environment(\.onEditorLoaded) var onEditorLoaded
-    @Environment(\.onCursorPositionChange) var onCursorPositionChange
+    @Environment(\.onCaretPositionChange) var onCaretPositionChange
     @Environment(\.onJavaScriptFunctionFail) var onJavaScriptFunctionFail
     @Environment(\.introspectEditor) var introspectEditor
 

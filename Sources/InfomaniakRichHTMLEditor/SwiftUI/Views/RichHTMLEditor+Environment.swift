@@ -33,7 +33,7 @@ public struct OnEditorLoadedKey: EnvironmentKey {
     public static var defaultValue: (() -> Void)?
 }
 
-public struct OnCursorPositionChangeKey: EnvironmentKey {
+public struct OnCaretPositionChangeKey: EnvironmentKey {
     public static var defaultValue: ((CGRect) -> Void)?
 }
 
@@ -70,9 +70,9 @@ public extension EnvironmentValues {
         set { self[OnEditorLoadedKey.self] = newValue }
     }
 
-    var onCursorPositionChange: ((CGRect) -> Void)? {
-        get { self[OnCursorPositionChangeKey.self] }
-        set { self[OnCursorPositionChangeKey.self] = newValue }
+    var onCaretPositionChange: ((CGRect) -> Void)? {
+        get { self[OnCaretPositionChangeKey.self] }
+        set { self[OnCaretPositionChangeKey.self] = newValue }
     }
 
     var onJavaScriptFunctionFail: ((any Error, String) -> Void)? {

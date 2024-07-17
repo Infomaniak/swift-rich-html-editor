@@ -17,6 +17,6 @@ function reportSelectedTextAttributesDidChange(textAttributes) {
     window.webkit.messageHandlers.selectedTextAttributesDidChange.postMessage(json);
 }
 
-function reportCursorPositionDidChange(cursorRect) {
-    window.webkit.messageHandlers.cursorPositionDidChange.postMessage([cursorRect.x, cursorRect.y, cursorRect.width, cursorRect.height]);
+function reportCaretPositionDidChange(caretRect) {
+    window.webkit.messageHandlers.caretPositionDidChange.postMessage([caretRect.x, caretRect.y, caretRect.width, caretRect.height]);
 }

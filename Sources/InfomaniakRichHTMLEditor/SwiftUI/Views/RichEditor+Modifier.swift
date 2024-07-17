@@ -49,14 +49,14 @@ public extension View {
         environment(\.onEditorLoaded, action)
     }
 
-    /// Performs an action when the position of the cursor in the editor changes.
+    /// Performs an action when the position of the caret in the editor changes.
     ///
-    /// - Parameters action: A closure to run when the cursor moves. The closure
+    /// - Parameters action: A closure to run when the caret moves. The closure
     ///   takes a `newPosition` parameter that indicates the updated position.
     ///
-    /// - Returns: A view that fires an action when the position of the cursor changes.
-    func onCursorPositionChange(perform action: @escaping (_ newPosition: CGRect) -> Void) -> some View {
-        environment(\.onCursorPositionChange, action)
+    /// - Returns: A view that fires an action when the position of the caret changes.
+    func onCaretPositionChange(perform action: @escaping (_ newPosition: CGRect) -> Void) -> some View {
+        environment(\.onCaretPositionChange, action)
     }
 
     /// Performs an action when a JavaScript function executed by the editor fails.

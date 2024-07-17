@@ -30,8 +30,8 @@ public final class RichHTMLEditorCoordinator: RichHTMLEditorViewDelegate {
         }
     }
 
-    public func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, cursorPositionDidChange cursorPosition: CGRect) {
-        parent.onCursorPositionChange?(cursorPosition)
+    public func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, caretPositionDidChange caretPosition: CGRect) {
+        parent.onCaretPositionChange?(caretPosition)
     }
 
     public func richHTMLEditorView(

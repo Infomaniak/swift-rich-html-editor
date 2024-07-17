@@ -79,11 +79,11 @@ public class RichHTMLEditorView: PlatformView {
     /// A Boolean value that indicates whether the editor view use its inner scrollview.
     ///
     /// When the Boolean is `false`, the editor will use the first parent
-    /// `UIScrollView` to keep the cursor always visible when the
-    /// cursor moves below the keyboard or off the screen.
+    /// `UIScrollView` to keep the caret always visible when the
+    /// caret moves below the keyboard or off the screen.
     /// However, when the Boolean is `true`, the editor will use the
     /// `UIScrollView` of the inner ``WebKit/WKWebView``
-    /// to keep the cursor visible.
+    /// to keep the caret visible.
     ///
     /// The default value is `false`.
     public var isScrollEnabled: Bool {
@@ -267,7 +267,7 @@ extension RichHTMLEditorView: UIScrollViewDelegate {
     /// Disabling the scrollview is not enough to completely prevent
     /// scrolling.
     /// It is necessary to reset the scrollOffset each time it changes
-    /// (when the cursor is under the keyboard for example).
+    /// (when the caret is under the keyboard for example).
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard !isScrollEnabled else { return }
         scrollView.contentOffset = .zero
@@ -303,15 +303,15 @@ extension RichHTMLEditorView: ScriptMessageHandlerDelegate {
     }
 
     func caretRectDidChange(_ position: CGRect) {
-        delegate?.richHTMLEditorView(self, cursorPositionDidChange: position)
+        delegate?.richHTMLEditorView(self, caretPositionDidChange: position)
     }
 
-    func cursorPositionDidChange(_ cursorRect: CGRect) {
-        delegate?.richHTMLEditorView(self, cursorPositionDidChange: cursorRect)
+    func caretPositionDidChange(_ caretRect: CGRect) {
+        delegate?.richHTMLEditorView(self, caretPositionDidChange: caretRect)
 
         #if canImport(UIKit)
         if !isScrollEnabled, let scrollView = findClosestScrollView() {
-            let scrollRect = convert(cursorRect, to: scrollView)
+            let scrollRect = convert(caretRect, to: scrollView)
             scrollView.scrollRectToVisible(scrollRect, animated: true)
         }
         #endif

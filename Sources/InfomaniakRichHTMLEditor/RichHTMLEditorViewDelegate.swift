@@ -37,19 +37,19 @@ public protocol RichHTMLEditorViewDelegate: AnyObject {
     /// - Parameter richHTMLEditorView: The editor which is loaded.
     func richHTMLEditorViewDidChange(_ richHTMLEditorView: RichHTMLEditorView)
 
-    /// Tells the delegate when the position of the cursor or the selection range of the specified
+    /// Tells the delegate when the position of the carte or the selection range of the specified
     /// editor moves.
     ///
     /// Implementation of this method is optional.
     ///
     /// - Parameters:
     ///   - richHTMLEditorView: The editor which is loaded.
-    ///   - cursorPosition: The new position of the cursor or of the selection range.
-    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, cursorPositionDidChange cursorPosition: CGRect)
+    ///   - caretPosition: The new position of the caret or of the selection range.
+    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, caretPositionDidChange caretPosition: CGRect)
 
     /// Tells the delegate when the attributes of the selected text changes in the specified editor view.
     ///
-    /// When the cursor moves, the editor calls this method if the attributes of the selected text is
+    /// When the carte moves, the editor calls this method if the attributes of the selected text is
     /// different from the old one.
     /// For example, the method will be called if the newly selected text is bold but the previous one
     /// was not.
@@ -87,7 +87,7 @@ public protocol RichHTMLEditorViewDelegate: AnyObject {
 public extension RichHTMLEditorViewDelegate {
     func richHTMLEditorViewDidLoad(_ richHTMLEditorView: RichHTMLEditorView) {}
     func richHTMLEditorViewDidChange(_ richHTMLEditorView: RichHTMLEditorView) {}
-    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, cursorPositionDidChange cursorPosition: CGRect) {}
+    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, caretPositionDidChange caretPosition: CGRect) {}
     func richHTMLEditorView(
         _ richHTMLEditorView: RichHTMLEditorView,
         selectedTextAttributesDidChange textAttributes: UITextAttributes

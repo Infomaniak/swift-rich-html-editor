@@ -11,7 +11,7 @@ function computeAndReportCaretPosition() {
         return;
     }
 
-    reportCursorPositionDidChange(caretRect);
+    reportCaretPositionDidChange(caretRect);
 }
 
 function computeCaretRect() {
