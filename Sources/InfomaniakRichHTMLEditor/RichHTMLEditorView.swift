@@ -321,7 +321,7 @@ extension RichHTMLEditorView: ScriptMessageHandlerDelegate {
 // MARK: - JavaScriptManagerDelegate
 
 extension RichHTMLEditorView: JavaScriptManagerDelegate {
-    func javascriptFunctionDidFail(error: any Error) {
-        delegate?.richHTMLEditorView(self, javascriptFunctionDidFail: error)
+    func javascriptFunctionDidFail(error: any Error, function: String) {
+        delegate?.richHTMLEditorView(self, javascriptFunctionDidFail: error, whileExecuting: function)
     }
 }

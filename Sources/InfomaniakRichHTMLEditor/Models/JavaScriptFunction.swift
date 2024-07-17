@@ -20,12 +20,7 @@ enum JavaScriptFunction {
     case focus
     case blur
 
-    func call() -> String {
-        let formattedArgs = formatArgs(args)
-        return "\(identifier)(\(formattedArgs));"
-    }
-
-    private var identifier: String {
+    var identifier: String {
         switch self {
         case .execCommand:
             return "execCommand"
@@ -57,6 +52,11 @@ enum JavaScriptFunction {
         case .unlink, .focus, .blur:
             return []
         }
+    }
+
+    func call() -> String {
+        let formattedArgs = formatArgs(args)
+        return "\(identifier)(\(formattedArgs));"
     }
 
     private func formatArgs(_ args: [Any?]) -> String {

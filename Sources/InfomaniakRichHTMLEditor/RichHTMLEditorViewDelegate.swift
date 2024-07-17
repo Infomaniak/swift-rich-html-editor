@@ -75,7 +75,12 @@ public protocol RichHTMLEditorViewDelegate: AnyObject {
     /// - Parameters:
     ///   - richHTMLEditorView: The editor which is loaded.
     ///   - javascriptError: The `Error` containing information about the error raised by JavaScript.
-    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, javascriptFunctionDidFail javascriptError: any Error)
+    ///   - function: The name of the failing function.
+    func richHTMLEditorView(
+        _ richHTMLEditorView: RichHTMLEditorView,
+        javascriptFunctionDidFail javascriptError: any Error,
+        whileExecuting function: String
+    )
 }
 
 // Default implementation for optional functions
@@ -87,5 +92,9 @@ public extension RichHTMLEditorViewDelegate {
         _ richHTMLEditorView: RichHTMLEditorView,
         selectedTextAttributesDidChange textAttributes: UITextAttributes
     ) {}
-    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, javascriptFunctionDidFail javascriptError: any Error) {}
+    func richHTMLEditorView(
+        _ richHTMLEditorView: RichHTMLEditorView,
+        javascriptFunctionDidFail javascriptError: any Error,
+        whileExecuting function: String
+    ) {}
 }

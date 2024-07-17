@@ -20,7 +20,7 @@ enum JavaScriptFormatterHelper {
             return "[\(formattedValues.joined(separator: ", "))]"
         } else if let value = arg as? String {
             let escapedStringIfNeeded = mustEscapeString ? value.escapedForJavaScript : value
-            return "\"\(escapedStringIfNeeded)\""
+            return "`\(escapedStringIfNeeded)`"
         } else if let value = arg as? LosslessStringConvertible {
             return String(value)
         } else {

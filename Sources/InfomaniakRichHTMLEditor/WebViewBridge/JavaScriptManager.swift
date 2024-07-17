@@ -14,7 +14,7 @@
 import WebKit
 
 protocol JavaScriptManagerDelegate: AnyObject {
-    func javascriptFunctionDidFail(error: any Error)
+    func javascriptFunctionDidFail(error: any Error, function: String)
 }
 
 final class JavaScriptManager {
@@ -87,7 +87,7 @@ final class JavaScriptManager {
     private func evaluate(function: JavaScriptFunction) {
         webView?.evaluateJavaScript(function.call()) { [weak self] _, error in
             if let error {
-                self?.delegate?.javascriptFunctionDidFail(error: error)
+                self?.delegate?.javascriptFunctionDidFail(error: error, function: function.identifier)
             }
         }
     }

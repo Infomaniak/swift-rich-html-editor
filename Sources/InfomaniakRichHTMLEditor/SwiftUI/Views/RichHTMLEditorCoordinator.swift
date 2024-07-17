@@ -43,8 +43,9 @@ public final class RichHTMLEditorCoordinator: RichHTMLEditorViewDelegate {
 
     public func richHTMLEditorView(
         _ richHTMLEditorView: RichHTMLEditorView,
-        javascriptFunctionDidFail javascriptError: any Error
+        javascriptFunctionDidFail javascriptError: any Error,
+        whileExecutingFunction function: String
     ) {
-        parent.onJavaScriptFunctionFail?(javascriptError)
+        parent.onJavaScriptFunctionFail?(javascriptError, function)
     }
 }

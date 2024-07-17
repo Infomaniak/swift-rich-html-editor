@@ -64,7 +64,7 @@ public extension View {
     /// - Parameter action: A closure to run when a JavaScript function fails.
     ///
     /// - Returns: A view that fires an action when a JavaScript function fails.
-    func onJavaScriptFunctionFail(perform action: @escaping (any Error) -> Void) -> some View {
+    func onJavaScriptFunctionFail(perform action: @escaping (any Error, String) -> Void) -> some View {
         environment(\.onJavaScriptFunctionFail, action)
     }
 

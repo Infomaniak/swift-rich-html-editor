@@ -13,21 +13,22 @@
 
 extension String {
     /// When we include a string as an argument of a JavaScript function,
-    /// we must escape it, so it won't break 
+    /// we must escape it, so it won't be broken.
+    ///
+    /// We include our string between backticks so it can includes a wide range of
+    /// characters, including line breaks.
+    /// We should escape the following characters: backtick, backslash and dollar.
+    /// JavaScript documentation: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
     var escapedForJavaScript: String {
         var escapedString = ""
         for letter in self {
             switch letter {
             case "\\":
                 escapedString.append("\\\\")
-            case "\"":
-                escapedString.append("\\\"")
-            case "'":
-                escapedString.append("\'")
-            case "\n":
-                escapedString.append("\\n")
-            case "\r":
-                escapedString.append("\\r")
+            case "`":
+                escapedString.append("\\`")
+            case "$":
+                escapedString.append("\\$")
             default:
                 escapedString.append(letter)
             }
