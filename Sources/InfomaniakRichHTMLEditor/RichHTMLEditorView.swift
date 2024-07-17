@@ -58,7 +58,7 @@ public class RichHTMLEditorView: PlatformView {
     }
     #endif
 
-    #if canImport(UIKit)
+    #if canImport(UIKit) && !os(visionOS)
     /// The custom accessory view to display when the editor view becomes the first responder.
     override public var inputAccessoryView: UIView? {
         get {
@@ -217,6 +217,9 @@ public extension RichHTMLEditorView {
         for scriptMessage in ScriptMessageHandler.ScriptMessage.allCases {
             webView.configuration.userContentController.add(scriptMessageHandler, scriptMessage: scriptMessage)
         }
+
+        webView.backgroundColor = .clear
+        webView.isOpaque = false
     }
 
     private func loadScripts() {

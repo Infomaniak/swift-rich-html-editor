@@ -23,7 +23,9 @@ public extension View {
     func editorScrollable(_ scrollable: Bool) -> some View {
         environment(\.editorScrollable, scrollable)
     }
+    #endif
 
+    #if canImport(UIKit) && !os(visionOS)
     /// Appends the specified view as an input accessory view to the editor.
     ///
     /// - Parameter inputAccessoryView: A UIView to use as an input accessory

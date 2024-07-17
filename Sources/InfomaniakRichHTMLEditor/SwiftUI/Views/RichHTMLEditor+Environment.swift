@@ -19,7 +19,9 @@ import SwiftUI
 public struct EditorScrollDisable: EnvironmentKey {
     public static var defaultValue = false
 }
+#endif
 
+#if canImport(UIKit) && !os(visionOS)
 public struct EditorInputAccessoryViewKey: EnvironmentKey {
     public static var defaultValue: UIView?
 }
@@ -53,7 +55,9 @@ public extension EnvironmentValues {
         get { self[EditorScrollDisable.self] }
         set { self[EditorScrollDisable.self] = newValue }
     }
+    #endif
 
+    #if canImport(UIKit) && !os(visionOS)
     var editorInputAccessoryView: UIView? {
         get { self[EditorInputAccessoryViewKey.self] }
         set { self[EditorInputAccessoryViewKey.self] = newValue }

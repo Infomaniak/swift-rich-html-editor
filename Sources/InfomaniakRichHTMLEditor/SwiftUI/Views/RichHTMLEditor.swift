@@ -22,6 +22,8 @@ public typealias PlateformViewRepresentable = NSViewRepresentable
 public struct RichHTMLEditor: PlateformViewRepresentable {
     #if canImport(UIKit)
     @Environment(\.editorScrollable) private var isEditorScrollable
+    #endif
+    #if canImport(UIKit) && !os(visionOS)
     @Environment(\.editorInputAccessoryView) private var editorInputAccessoryView
     #endif
 
@@ -65,6 +67,8 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
         if richHTMLEditorView.isScrollEnabled != isEditorScrollable {
             richHTMLEditorView.isScrollEnabled = isEditorScrollable
         }
+        #endif
+        #if canImport(UIKit) && !os(visionOS)
         if richHTMLEditorView.inputAccessoryView != editorInputAccessoryView {
             richHTMLEditorView.inputAccessoryView = editorInputAccessoryView
         }

@@ -7,6 +7,7 @@ let package = Package(
     name: "InfomaniakRichHTMLEditor",
     platforms: [
         .iOS(.v14),
+        .visionOS(.v1),
         .macOS(.v11),
     ],
     products: [
