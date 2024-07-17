@@ -13,32 +13,38 @@
 
 import SwiftUI
 
-public final class RichEditorCoordinator: RichEditorViewDelegate {
-    private let parent: RichEditor
+public final class RichHTMLEditorCoordinator: RichHTMLEditorViewDelegate {
+    private let parent: RichHTMLEditor
 
-    init(parent: RichEditor) {
+    init(parent: RichHTMLEditor) {
         self.parent = parent
     }
 
-    public func richEditorViewDidLoad(_ richEditorView: RichEditorView) {
+    public func richHTMLEditorViewDidLoad(_ richHTMLEditorView: RichHTMLEditorView) {
         parent.onEditorLoaded?()
     }
 
-    public func richEditorViewDidChange(_ richEditorView: RichEditorView) {
-        if parent.html != richEditorView.html {
-            parent.html = richEditorView.html
+    public func richHTMLEditorViewDidChange(_ richHTMLEditorView: RichHTMLEditorView) {
+        if parent.html != richHTMLEditorView.html {
+            parent.html = richHTMLEditorView.html
         }
     }
 
-    public func richEditorView(_ richEditorView: RichEditorView, cursorPositionDidChange cursorPosition: CGRect) {
+    public func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, cursorPositionDidChange cursorPosition: CGRect) {
         parent.onCursorPositionChange?(cursorPosition)
     }
 
-    public func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: UITextAttributes) {
+    public func richHTMLEditorView(
+        _ richHTMLEditorView: RichHTMLEditorView,
+        selectedTextAttributesDidChange textAttributes: UITextAttributes
+    ) {
         parent.textAttributes.update(from: textAttributes)
     }
 
-    public func richEditorView(_ richEditorView: RichEditorView, javascriptFunctionDidFail javascriptError: any Error) {
+    public func richHTMLEditorView(
+        _ richHTMLEditorView: RichHTMLEditorView,
+        javascriptFunctionDidFail javascriptError: any Error
+    ) {
         parent.onJavaScriptFunctionFail?(javascriptError)
     }
 }

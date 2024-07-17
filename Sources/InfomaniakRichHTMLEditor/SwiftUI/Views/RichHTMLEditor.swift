@@ -19,7 +19,7 @@ public typealias PlateformViewRepresentable = UIViewRepresentable
 public typealias PlateformViewRepresentable = NSViewRepresentable
 #endif
 
-public struct RichEditor: PlateformViewRepresentable {
+public struct RichHTMLEditor: PlateformViewRepresentable {
     #if canImport(UIKit)
     @Environment(\.editorScrollable) private var isEditorScrollable
     @Environment(\.editorInputAccessoryView) private var editorInputAccessoryView
@@ -41,57 +41,57 @@ public struct RichEditor: PlateformViewRepresentable {
 
     // MARK: - Platform functions
 
-    private func createPlatformView(context: Context) -> RichEditorView {
-        let richEditor = RichEditorView()
-        richEditor.delegate = context.coordinator
-        richEditor.html = html
+    private func createPlatformView(context: Context) -> RichHTMLEditorView {
+        let richHTMLEditorView = RichHTMLEditorView()
+        richHTMLEditorView.delegate = context.coordinator
+        richHTMLEditorView.html = html
 
         if let css = editorCSS {
-            richEditor.injectAdditionalCSS(css)
+            richHTMLEditorView.injectAdditionalCSS(css)
         }
-        introspectEditor?(richEditor)
+        introspectEditor?(richHTMLEditorView)
 
-        textAttributes.editor = richEditor
+        textAttributes.editor = richHTMLEditorView
 
-        return richEditor
+        return richHTMLEditorView
     }
 
-    private func updatePlatformView(_ richEditorView: RichEditorView) {
-        if richEditorView.html != html {
-            richEditorView.html = html
+    private func updatePlatformView(_ richHTMLEditorView: RichHTMLEditorView) {
+        if richHTMLEditorView.html != html {
+            richHTMLEditorView.html = html
         }
 
         #if canImport(UIKit)
-        if richEditorView.isScrollEnabled != isEditorScrollable {
-            richEditorView.isScrollEnabled = isEditorScrollable
+        if richHTMLEditorView.isScrollEnabled != isEditorScrollable {
+            richHTMLEditorView.isScrollEnabled = isEditorScrollable
         }
-        if richEditorView.inputAccessoryView != editorInputAccessoryView {
-            richEditorView.inputAccessoryView = editorInputAccessoryView
+        if richHTMLEditorView.inputAccessoryView != editorInputAccessoryView {
+            richHTMLEditorView.inputAccessoryView = editorInputAccessoryView
         }
         #endif
     }
 
-    public func makeCoordinator() -> RichEditorCoordinator {
-        return RichEditorCoordinator(parent: self)
+    public func makeCoordinator() -> RichHTMLEditorCoordinator {
+        return RichHTMLEditorCoordinator(parent: self)
     }
 
     // MARK: - UIView
 
-    public func makeUIView(context: Context) -> RichEditorView {
+    public func makeUIView(context: Context) -> RichHTMLEditorView {
         return createPlatformView(context: context)
     }
 
-    public func updateUIView(_ richEditorView: RichEditorView, context: Context) {
-        updatePlatformView(richEditorView)
+    public func updateUIView(_ richHTMLEditorView: RichHTMLEditorView, context: Context) {
+        updatePlatformView(richHTMLEditorView)
     }
 
     // MARK: - NSView
 
-    public func makeNSView(context: Context) -> RichEditorView {
+    public func makeNSView(context: Context) -> RichHTMLEditorView {
         return createPlatformView(context: context)
     }
 
-    public func updateNSView(_ richEditorView: RichEditorView, context: Context) {
-        updatePlatformView(richEditorView)
+    public func updateNSView(_ richHTMLEditorView: RichHTMLEditorView, context: Context) {
+        updatePlatformView(richHTMLEditorView)
     }
 }

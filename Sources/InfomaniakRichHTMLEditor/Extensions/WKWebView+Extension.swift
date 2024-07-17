@@ -16,11 +16,11 @@ import WebKit
 #if canImport(UIKit)
 extension WKWebView {
     private static let customInputAccessoryViewClassName = "_CustomInputAccessoryView"
-    private static var richEditorInputAccessoryViewKey: UInt8 = 0
+    private static var richHTMLEditorInputAccessoryViewKey: UInt8 = 0
 
-    public var richEditorInputAccessoryView: UIView? {
+    public var richHTMLEditorInputAccessoryView: UIView? {
         get {
-            return objc_getAssociatedObject(self, &Self.richEditorInputAccessoryViewKey) as? UIView
+            return objc_getAssociatedObject(self, &Self.richHTMLEditorInputAccessoryViewKey) as? UIView
         }
         set {
             setInputAccessoryView(newValue)
@@ -31,7 +31,7 @@ extension WKWebView {
         guard let view else { return }
         objc_setAssociatedObject(
             self,
-            &Self.richEditorInputAccessoryViewKey,
+            &Self.richHTMLEditorInputAccessoryViewKey,
             view,
             objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC
         )
@@ -85,7 +85,7 @@ extension WKWebView {
 
         guard let superWebView else { return nil }
 
-        let customInputAccessory = objc_getAssociatedObject(superWebView, &Self.richEditorInputAccessoryViewKey)
+        let customInputAccessory = objc_getAssociatedObject(superWebView, &Self.richHTMLEditorInputAccessoryViewKey)
         return customInputAccessory as? UIView
     }
 }

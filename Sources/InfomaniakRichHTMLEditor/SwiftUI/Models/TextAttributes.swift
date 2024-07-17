@@ -32,7 +32,7 @@ public final class TextAttributes: ObservableObject {
     @Published public private(set) var foregroundColor: Color?
     @Published public private(set) var backgroundColor: Color?
 
-    weak var editor: RichEditorView?
+    weak var editor: RichHTMLEditorView?
 
     public init() {}
 

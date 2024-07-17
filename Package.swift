@@ -4,27 +4,27 @@
 import PackageDescription
 
 let package = Package(
-    name: "InfomaniakRichEditor",
+    name: "InfomaniakRichHTMLEditor",
     platforms: [
         .iOS(.v14),
         .macOS(.v11),
     ],
     products: [
         .library(
-            name: "InfomaniakRichEditor",
-            targets: ["InfomaniakRichEditor"]
+            name: "InfomaniakRichHTMLEditor",
+            targets: ["InfomaniakRichHTMLEditor"]
         ),
     ],
     targets: [
         .target(
-            name: "InfomaniakRichEditor",
+            name: "InfomaniakRichHTMLEditor",
             resources: [
                 .process("Resources/"),
             ]
         ),
         .testTarget(
-            name: "InfomaniakRichEditorTests",
-            dependencies: ["InfomaniakRichEditor"]
+            name: "InfomaniakRichHTMLEditorTests",
+            dependencies: ["InfomaniakRichHTMLEditor"]
         ),
     ]
 )

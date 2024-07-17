@@ -15,7 +15,7 @@ import Foundation
 
 // MARK: - Editor Commands
 
-public extension RichEditorView {
+public extension RichHTMLEditorView {
     /// Removes all formatting from the current selection.
     func removeFormat() {
         execCommand(.removeFormat)
@@ -92,7 +92,7 @@ public extension RichEditorView {
     func justify(_ side: TextJustification) {
         execCommand(side.command)
     }
-    
+
     /// Sets the font for the selection or at the insertion point.
     /// The font must be available on the platform, you can refer to https://developer.apple.com/fonts/system-fonts/
     ///

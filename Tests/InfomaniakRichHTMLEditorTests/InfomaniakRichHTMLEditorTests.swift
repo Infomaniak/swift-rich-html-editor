@@ -1,7 +1,7 @@
 import XCTest
-@testable import InfomaniakRichEditor
+@testable import InfomaniakRichHTMLEditor
 
-final class InfomaniakRichEditorTests: XCTestCase {
+final class InfomaniakRichHTMLEditorTests: XCTestCase {
     func testExample() throws {
         // XCTest Documentation
         // https://developer.apple.com/documentation/xctest

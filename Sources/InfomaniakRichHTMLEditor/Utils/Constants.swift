@@ -12,5 +12,5 @@
 //  under the License.
 
 enum Constants {
-    static let packageID = "com.infomaniak.swift-rich-editor"
+    static let packageID = "com.infomaniak.swift-rich-html-editor"
 }

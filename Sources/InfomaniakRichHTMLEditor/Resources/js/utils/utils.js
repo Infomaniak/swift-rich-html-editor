@@ -5,7 +5,7 @@ const DOCUMENT_POSITION_SAME = 0;
 // MARK: - Editor
 
 function getEditor() {
-    return document.getElementById("swift-rich-editor");
+    return document.getElementById("swift-rich-html-editor");
 }
 
 // MARK: - Current selection

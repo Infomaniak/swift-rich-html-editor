@@ -16,17 +16,17 @@ import Foundation
 /// The methods for receiving editing-related messages for editor view objects.
 ///
 /// All of the methods in this protocol are optional.
-public protocol RichEditorViewDelegate: AnyObject {
+public protocol RichHTMLEditorViewDelegate: AnyObject {
     /// Tells the delegate when the specified editor view is fully loaded and ready to be used.
-    /// 
+    ///
     /// The editor must load a ``WebKit/WKWebView`` prior to be editable.
     /// You can inject CSS or set the initial HTML at any time, but the content will
     /// only be visible once the editor is loaded.
-    /// 
+    ///
     ///  Implementation of this method is optional.
-    /// 
-    /// - Parameter richEditorView: The editor which is loaded.
-    func richEditorViewDidLoad(_ richEditorView: RichEditorView)
+    ///
+    /// - Parameter richHTMLEditorView: The editor which is loaded.
+    func richHTMLEditorViewDidLoad(_ richHTMLEditorView: RichHTMLEditorView)
 
     /// Tells the delegate when the user changes the content or format in the specified editor view.
     ///
@@ -34,8 +34,8 @@ public protocol RichEditorViewDelegate: AnyObject {
     ///
     /// Implementation of this method is optional.
     ///
-    /// - Parameter richEditorView: The editor which is loaded.
-    func richEditorViewDidChange(_ richEditorView: RichEditorView)
+    /// - Parameter richHTMLEditorView: The editor which is loaded.
+    func richHTMLEditorViewDidChange(_ richHTMLEditorView: RichHTMLEditorView)
 
     /// Tells the delegate when the position of the cursor or the selection range of the specified
     /// editor moves.
@@ -43,9 +43,9 @@ public protocol RichEditorViewDelegate: AnyObject {
     /// Implementation of this method is optional.
     ///
     /// - Parameters:
-    ///   - richEditorView: The editor which is loaded.
+    ///   - richHTMLEditorView: The editor which is loaded.
     ///   - cursorPosition: The new position of the cursor or of the selection range.
-    func richEditorView(_ richEditorView: RichEditorView, cursorPositionDidChange cursorPosition: CGRect)
+    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, cursorPositionDidChange cursorPosition: CGRect)
 
     /// Tells the delegate when the attributes of the selected text changes in the specified editor view.
     ///
@@ -58,9 +58,12 @@ public protocol RichEditorViewDelegate: AnyObject {
     /// Implementation of this method is optional.
     ///
     /// - Parameters:
-    ///   - richEditorView: The editor which is loaded.
+    ///   - richHTMLEditorView: The editor which is loaded.
     ///   - textAttributes: The new attributes of the selected text.
-    func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: UITextAttributes)
+    func richHTMLEditorView(
+        _ richHTMLEditorView: RichHTMLEditorView,
+        selectedTextAttributesDidChange textAttributes: UITextAttributes
+    )
 
     /// Tells the delegate when a JavaScript function executed in the specified editor has failed.
     ///
@@ -70,16 +73,19 @@ public protocol RichEditorViewDelegate: AnyObject {
     /// Implementation of this method is optional.
     ///
     /// - Parameters:
-    ///   - richEditorView: The editor which is loaded.
+    ///   - richHTMLEditorView: The editor which is loaded.
     ///   - javascriptError: The `Error` containing information about the error raised by JavaScript.
-    func richEditorView(_ richEditorView: RichEditorView, javascriptFunctionDidFail javascriptError: any Error)
+    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, javascriptFunctionDidFail javascriptError: any Error)
 }
 
 // Default implementation for optional functions
-public extension RichEditorViewDelegate {
-    func richEditorViewDidLoad(_ richEditorView: RichEditorView) {}
-    func richEditorViewDidChange(_ richEditorView: RichEditorView) {}
-    func richEditorView(_ richEditorView: RichEditorView, cursorPositionDidChange cursorPosition: CGRect) {}
-    func richEditorView(_ richEditorView: RichEditorView, selectedTextAttributesDidChange textAttributes: UITextAttributes) {}
-    func richEditorView(_ richEditorView: RichEditorView, javascriptFunctionDidFail javascriptError: any Error) {}
+public extension RichHTMLEditorViewDelegate {
+    func richHTMLEditorViewDidLoad(_ richHTMLEditorView: RichHTMLEditorView) {}
+    func richHTMLEditorViewDidChange(_ richHTMLEditorView: RichHTMLEditorView) {}
+    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, cursorPositionDidChange cursorPosition: CGRect) {}
+    func richHTMLEditorView(
+        _ richHTMLEditorView: RichHTMLEditorView,
+        selectedTextAttributesDidChange textAttributes: UITextAttributes
+    ) {}
+    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, javascriptFunctionDidFail javascriptError: any Error) {}
 }

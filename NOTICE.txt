@@ -1,4 +1,4 @@
-Infomaniak RichEditor
+Infomaniak RichHTMLEditor
 Copyright [2013-2014] Infomaniak Network SA
 
 This product includes software developed at

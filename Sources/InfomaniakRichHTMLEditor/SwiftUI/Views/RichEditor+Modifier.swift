@@ -19,7 +19,7 @@ public extension View {
     ///
     /// - Parameter scrollable: A Boolean that indicates whether scrolling is enabled or not.
     ///
-    /// - Returns: A view that disables or enables the inner scroll of the `RichEditor` view.
+    /// - Returns: A view that disables or enables the inner scroll of the `RichHTMLEditor` view.
     func editorScrollable(_ scrollable: Bool) -> some View {
         environment(\.editorScrollable, scrollable)
     }
@@ -68,13 +68,13 @@ public extension View {
         environment(\.onJavaScriptFunctionFail, action)
     }
 
-    /// Performs an action when the editor is initialized, to customize the underlying ``RichEditorView``.
+    /// Performs an action when the editor is initialized, to customize the underlying ``RichHTMLEditorView``.
     ///
-    /// - Parameter action: A closure to run when the view is initialized, to customize 
+    /// - Parameter action: A closure to run when the view is initialized, to customize
     ///   the editor.
     ///
     /// - Returns: A view with the customizations applied to editor.
-    func introspectEditor(perform action: @escaping (RichEditorView) -> Void) -> some View {
+    func introspectEditor(perform action: @escaping (RichHTMLEditorView) -> Void) -> some View {
         environment(\.introspectEditor, action)
     }
 }

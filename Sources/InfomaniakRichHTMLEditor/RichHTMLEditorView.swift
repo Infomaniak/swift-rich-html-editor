@@ -26,7 +26,7 @@ public typealias PlatformColor = NSColor
 import OSLog
 import WebKit
 
-public class RichEditorView: PlatformView {
+public class RichHTMLEditorView: PlatformView {
     // MARK: - Public Properties
 
     /// The HTML code that the editor view contains.
@@ -62,23 +62,23 @@ public class RichEditorView: PlatformView {
     /// The custom accessory view to display when the editor view becomes the first responder.
     override public var inputAccessoryView: UIView? {
         get {
-            return webView.richEditorInputAccessoryView
+            return webView.richHTMLEditorInputAccessoryView
         }
         set {
-            webView.richEditorInputAccessoryView = newValue
+            webView.richHTMLEditorInputAccessoryView = newValue
         }
     }
     #endif
 
     /// The natural size for the receiving view, considering only properties of the view itself.
-    public override var intrinsicContentSize: CGSize {
+    override public var intrinsicContentSize: CGSize {
         CGSize(width: PlatformView.noIntrinsicMetric, height: rawContentHeight)
     }
 
     #if canImport(UIKit)
     /// A Boolean value that indicates whether the editor view use its inner scrollview.
     ///
-    /// When the Boolean is `false`, the editor will use the first parent 
+    /// When the Boolean is `false`, the editor will use the first parent
     /// `UIScrollView` to keep the cursor always visible when the
     /// cursor moves below the keyboard or off the screen.
     /// However, when the Boolean is `true`, the editor will use the
@@ -105,7 +105,7 @@ public class RichEditorView: PlatformView {
     }
 
     /// The object you use to react to editor's events.
-    public weak var delegate: RichEditorViewDelegate?
+    public weak var delegate: RichHTMLEditorViewDelegate?
 
     /// The style of the text currently selected in the editor view.
     public private(set) var selectedTextAttributes = UITextAttributes()
@@ -155,7 +155,7 @@ public class RichEditorView: PlatformView {
 
 // MARK: - Customize Editor
 
-public extension RichEditorView {
+public extension RichHTMLEditorView {
     /// Injects CSS code to customize the appearance of the editor view.
     ///
     /// This method is additive. Each call adds the CSS to the editor and does not replace
@@ -180,7 +180,7 @@ public extension RichEditorView {
 
 // MARK: - WKWebView
 
-public extension RichEditorView {
+public extension RichHTMLEditorView {
     private func setUpWebView() {
         webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -261,7 +261,7 @@ public extension RichEditorView {
 // MARK: - UIScrollViewDelegate
 
 #if canImport(UIKit)
-extension RichEditorView: UIScrollViewDelegate {
+extension RichHTMLEditorView: UIScrollViewDelegate {
     /// When the editor is not scrollable, the WebView should not scroll.
     ///
     /// Disabling the scrollview is not enough to completely prevent
@@ -277,19 +277,19 @@ extension RichEditorView: UIScrollViewDelegate {
 
 // MARK: - ScriptMessageHandlerDelegate
 
-extension RichEditorView: ScriptMessageHandlerDelegate {
+extension RichHTMLEditorView: ScriptMessageHandlerDelegate {
     func editorDidLoad() {
         javaScriptManager.isDOMContentLoaded = true
-        delegate?.richEditorViewDidLoad(self)
+        delegate?.richHTMLEditorViewDidLoad(self)
     }
 
     func contentDidChange(_ text: String) {
         rawHTMLContent = text
-        delegate?.richEditorViewDidChange(self)
+        delegate?.richHTMLEditorViewDidChange(self)
     }
 
     func contentHeightDidChange(_ contentHeight: CGFloat) {
-        self.rawContentHeight = contentHeight
+        rawContentHeight = contentHeight
         invalidateIntrinsicContentSize()
     }
 
@@ -299,15 +299,15 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
         }
 
         self.selectedTextAttributes = selectedTextAttributes
-        delegate?.richEditorView(self, selectedTextAttributesDidChange: selectedTextAttributes)
+        delegate?.richHTMLEditorView(self, selectedTextAttributesDidChange: selectedTextAttributes)
     }
 
     func caretRectDidChange(_ position: CGRect) {
-        delegate?.richEditorView(self, cursorPositionDidChange: position)
+        delegate?.richHTMLEditorView(self, cursorPositionDidChange: position)
     }
 
     func cursorPositionDidChange(_ cursorRect: CGRect) {
-        delegate?.richEditorView(self, cursorPositionDidChange: cursorRect)
+        delegate?.richHTMLEditorView(self, cursorPositionDidChange: cursorRect)
 
         #if canImport(UIKit)
         if !isScrollEnabled, let scrollView = findClosestScrollView() {
@@ -320,8 +320,8 @@ extension RichEditorView: ScriptMessageHandlerDelegate {
 
 // MARK: - JavaScriptManagerDelegate
 
-extension RichEditorView: JavaScriptManagerDelegate {
+extension RichHTMLEditorView: JavaScriptManagerDelegate {
     func javascriptFunctionDidFail(error: any Error) {
-        delegate?.richEditorView(self, javascriptFunctionDidFail: error)
+        delegate?.richHTMLEditorView(self, javascriptFunctionDidFail: error)
     }
 }

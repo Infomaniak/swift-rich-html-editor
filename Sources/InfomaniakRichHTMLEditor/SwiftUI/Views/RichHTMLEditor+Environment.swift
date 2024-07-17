@@ -42,7 +42,7 @@ public struct OnJavaScriptFunctionFailKey: EnvironmentKey {
 }
 
 public struct IntrospectEditorKey: EnvironmentKey {
-    public static var defaultValue: ((RichEditorView) -> Void)?
+    public static var defaultValue: ((RichHTMLEditorView) -> Void)?
 }
 
 // MARK: - Environment Values
@@ -80,7 +80,7 @@ public extension EnvironmentValues {
         set { self[OnJavaScriptFunctionFailKey.self] = newValue }
     }
 
-    var introspectEditor: ((RichEditorView) -> Void)? {
+    var introspectEditor: ((RichHTMLEditorView) -> Void)? {
         get { self[IntrospectEditorKey.self] }
         set { self[IntrospectEditorKey.self] = newValue }
     }
