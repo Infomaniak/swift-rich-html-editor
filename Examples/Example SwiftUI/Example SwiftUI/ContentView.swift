@@ -12,22 +12,17 @@
 //  under the License.
 
 import SwiftUI
-import InfomaniakRichEditor
+import InfomaniakRichHTMLEditor
 
 struct ContentView: View {
     @State private var html = ""
-    @State private var textAttributes = TextAttributes()
-
-    @FocusState private var isFocused
+    @StateObject private var textAttributes = TextAttributes()
 
     var body: some View {
         NavigationStack {
-            RichEditor(html: $html, textAttributes: $textAttributes)
-                .navigationTitle("Infomaniak - Rich Text Editor (SwiftUI)")
+            RichHTMLEditor(html: $html, textAttributes: textAttributes)
+                .navigationTitle("Infomaniak - RichHTMLEditor (SwiftUI)")
                 .toolbarTitleDisplayMode(.inline)
-                .onAppear {
-                    isFocused = true
-                }
         }
     }
 }

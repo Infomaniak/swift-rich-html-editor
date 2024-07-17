@@ -23,7 +23,7 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Infomaniak - Rich Text Editor (iOS)"
+        title = "Infomaniak - RichHTMLEditor (iOS)"
         view.backgroundColor = .systemBackground
 
         setUpEditor()

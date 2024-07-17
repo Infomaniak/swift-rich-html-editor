@@ -20,8 +20,6 @@ final class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.window?.title = "Infomaniak - Rich Text Editor (macOS)"
-
         editor = RichHTMLEditorView()
         if let cssURL = Bundle.main.url(forResource: "style", withExtension: "css"),
            let styleCSS = try? String(contentsOf: cssURL) {
