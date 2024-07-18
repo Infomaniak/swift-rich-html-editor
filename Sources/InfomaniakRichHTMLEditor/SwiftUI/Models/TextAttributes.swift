@@ -15,7 +15,7 @@ import SwiftUI
 
 /// This object contains the current state of the text selected or at the insertion point.
 ///
-/// The properties are read-only and automatically updated by the editor.
+/// The properties are read-only and are automatically updated by the editor.
 /// If you want to update the style, you should use the available functions.
 public final class TextAttributes: ObservableObject {
     @Published public private(set) var hasBold = false
