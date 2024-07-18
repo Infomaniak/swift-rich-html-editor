@@ -218,8 +218,10 @@ public extension RichHTMLEditorView {
             webView.configuration.userContentController.add(scriptMessageHandler, scriptMessage: scriptMessage)
         }
 
+        #if canImport(UIKit)
         webView.backgroundColor = .clear
         webView.isOpaque = false
+        #endif
     }
 
     private func loadScripts() {
