@@ -13,8 +13,12 @@
 
 import Foundation
 
+/// Describes a position where the caret can be set.
 public enum CaretPosition {
+    /// At the beginning of the document, before any content.
     case beginningOfDocument
+    /// At the beginning of the document, after all content.
     case endOfDocument
+    /// At the beginning of an HTML element.
     case selector(String)
 }

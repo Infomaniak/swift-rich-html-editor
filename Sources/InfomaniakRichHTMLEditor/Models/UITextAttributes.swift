@@ -17,7 +17,7 @@ import UIKit
 import AppKit
 #endif
 
-/// Text attributes are information about a text.
+/// This struct contains the current state of the text selected or at the insertion point.
 public struct UITextAttributes: Codable {
     public var hasBold = false
     public var hasItalic = false

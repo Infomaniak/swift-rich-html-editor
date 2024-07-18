@@ -87,8 +87,7 @@ public extension RichHTMLEditorView {
 
     /// Justifies the selection or the insertion point to the `RECommandJustifySide` side.
     ///
-    /// - Parameters:
-    ///   - side: The side to align the text to.
+    /// - Parameter side: The side to align the text to.
     func justify(_ side: TextJustification) {
         execCommand(side.command)
     }
@@ -103,24 +102,21 @@ public extension RichHTMLEditorView {
 
     /// Sets the foreground color for the selection or at the insertion point.
     ///
-    /// - Parameters:
-    ///   - color: The color of the foreground.
+    /// - Parameter color: The color of the foreground.
     func setForegroundColor(_ color: PlatformColor) {
         execCommand(.foregroundColor, argument: color.hexadecimal)
     }
 
     /// Sets the background color for the selection or at the insertion point.
     ///
-    /// - Parameters:
-    ///   - color: The color of the background.
+    /// - Parameter color: The color of the background.
     func setBackgroundColor(_ color: PlatformColor) {
         execCommand(.backgroundColor, argument: color.hexadecimal)
     }
 
     /// Changes the font size for the selection or at the insertion point.
     ///
-    /// - Parameters:
-    ///   - size: The size should be included in the interval [1-7].
+    /// - Parameter size: The size should be included in the interval [1-7].
     func setFontSize(_ size: Int) {
         execCommand(.fontSize, argument: size)
     }
@@ -135,6 +131,9 @@ public extension RichHTMLEditorView {
         execCommand(.redo)
     }
 
+    /// Position the caret at a precise position.
+    ///
+    /// - Parameter position: The position where the caret should be placed.
     func setCaretAt(_ position: CaretPosition) {
         switch position {
         case .beginningOfDocument:

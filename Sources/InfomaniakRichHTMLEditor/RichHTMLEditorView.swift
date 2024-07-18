@@ -26,6 +26,18 @@ public typealias PlatformColor = NSColor
 import OSLog
 import WebKit
 
+/// An editor to edit HTML content.
+///
+/// `RichHTMLEditorView` supports the display of HTML content using
+/// using custom style and also supports text editing. You typically use an
+/// editor to display multiple lines of text, such as when displaying the body
+/// of an email.
+///
+/// The appearance of the editor can be customized thanks to the ``RichHTMLEditorView/injectAdditionalCSS(_:)-406n9`` method.
+/// The editor provides information about the style of the currently selected text or of
+/// the text at the insertion point in the ``RichHTMLEditorView/selectedTextAttributes``
+/// property.
+/// Many functions are available to update the style, such as ``RichHTMLEditorView/bold()``.
 public class RichHTMLEditorView: PlatformView {
     // MARK: - Public Properties
 
@@ -44,6 +56,7 @@ public class RichHTMLEditorView: PlatformView {
     override public var canBecomeFirstResponder: Bool {
         return true
     }
+
     #elseif canImport(AppKit)
     /// A Boolean value that indicates whether the responder accepts first responder status.
     override public var acceptsFirstResponder: Bool {

@@ -11,10 +11,15 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
+/// Describes how the text is aligned.
 public enum TextJustification: String, Codable {
+    /// Fully justified.
     case full
+    /// Aligned to the left.
     case left
+    /// Centered.
     case center
+    /// Aligned to the right.
     case right
 
     var command: ExecCommand {
