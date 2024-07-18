@@ -1,5 +1,5 @@
-import XCTest
 @testable import InfomaniakRichHTMLEditor
+import XCTest
 
 final class InfomaniakRichHTMLEditorTests: XCTestCase {
     func testExample() throws {

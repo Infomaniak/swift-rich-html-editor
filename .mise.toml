@@ -1,0 +1,3 @@
+[tools]
+swiftformat = "latest"
+swiftlint = "latest"

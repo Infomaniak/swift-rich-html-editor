@@ -11,8 +11,8 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-import SwiftUI
 import InfomaniakRichHTMLEditor
+import SwiftUI
 
 struct ContentView: View {
     @State private var html = ""

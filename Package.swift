@@ -8,24 +8,24 @@ let package = Package(
     platforms: [
         .iOS(.v14),
         .visionOS(.v1),
-        .macOS(.v11),
+        .macOS(.v11)
     ],
     products: [
         .library(
             name: "InfomaniakRichHTMLEditor",
             targets: ["InfomaniakRichHTMLEditor"]
-        ),
+        )
     ],
     targets: [
         .target(
             name: "InfomaniakRichHTMLEditor",
             resources: [
-                .process("Resources/"),
+                .process("Resources/")
             ]
         ),
         .testTarget(
             name: "InfomaniakRichHTMLEditorTests",
             dependencies: ["InfomaniakRichHTMLEditor"]
-        ),
+        )
     ]
 )

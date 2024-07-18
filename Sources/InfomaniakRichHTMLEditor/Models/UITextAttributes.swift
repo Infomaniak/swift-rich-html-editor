@@ -35,9 +35,11 @@ public struct UITextAttributes: Codable {
     public var fontSize: Int? {
         return Int(rawFontSize)
     }
+
     public var foregroundColor: PlatformColor? {
         return PlatformColor(rgba: rawForegroundColor)
     }
+
     public var backgroundColor: PlatformColor? {
         return PlatformColor(rgba: rawBackgroundColor)
     }
