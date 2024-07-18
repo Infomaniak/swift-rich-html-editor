@@ -43,8 +43,8 @@ You can install the package via Swift Package Manager. Add the following line to
 
 You can create the editor view and then add it to the view hierarchy.
 ```swift
-import UIKit
 import InfomaniakRichHTMLEditor
+import UIKit
 
 let editor = RichHTMLEditorView()
 view.addSubview(editor)

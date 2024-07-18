@@ -17,34 +17,34 @@ import SwiftUI
 
 #if canImport(UIKit)
 public struct EditorScrollDisable: EnvironmentKey {
-    public static var defaultValue = false
+    public static let defaultValue = false
 }
 #endif
 
 #if canImport(UIKit) && !os(visionOS)
 public struct EditorInputAccessoryViewKey: EnvironmentKey {
-    public static var defaultValue: UIView?
+    public static let defaultValue: UIView? = nil
 }
 #endif
 
 public struct EditorCSSKey: EnvironmentKey {
-    public static var defaultValue: String?
+    public static let defaultValue: String? = nil
 }
 
 public struct OnEditorLoadedKey: EnvironmentKey {
-    public static var defaultValue: (() -> Void)?
+    public static let defaultValue: (() -> Void)? = nil
 }
 
 public struct OnCaretPositionChangeKey: EnvironmentKey {
-    public static var defaultValue: ((CGRect) -> Void)?
+    public static let defaultValue: ((CGRect) -> Void)? = nil
 }
 
 public struct OnJavaScriptFunctionFailKey: EnvironmentKey {
-    public static var defaultValue: ((any Error, String) -> Void)?
+    public static let defaultValue: ((any Error, String) -> Void)? = nil
 }
 
 public struct IntrospectEditorKey: EnvironmentKey {
-    public static var defaultValue: ((RichHTMLEditorView) -> Void)?
+    public static let defaultValue: ((RichHTMLEditorView) -> Void)? = nil
 }
 
 // MARK: - Environment Values
