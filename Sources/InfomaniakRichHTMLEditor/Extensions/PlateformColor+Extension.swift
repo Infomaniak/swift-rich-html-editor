@@ -31,15 +31,7 @@ extension PlatformColor {
     }
 
     convenience init?(rgba: String) {
-        guard let (red, green, blue, alpha) = Self.extractRGBA(from: rgba) else {
-            return nil
-        }
-
-        self.init(red: red, green: green, blue: blue, alpha: alpha)
-    }
-
-    private static func extractRGBA(from value: String) -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat)? {
-        let rgbValues = value
+        let rgbValues = rgba
             .trimmingCharacters(in: CharacterSet(charactersIn: "rgba()"))
             .split(separator: ",")
             .compactMap { Float($0.trimmingCharacters(in: .whitespaces)) }
@@ -57,6 +49,6 @@ extension PlatformColor {
             alpha = CGFloat(rgbValues[3] / 255)
         }
 
-        return (red, green, blue, alpha)
+        self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 }
