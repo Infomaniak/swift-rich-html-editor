@@ -116,7 +116,7 @@ Public types are documented, and three sample projects are available to help you
 
 You can find 3 sample projects in the [Examples](Examples) folder:
 - A [project built with UIKit](Examples/Example%20iOS/) for iOS
-- A [project built with AppKi](Examples/Example%20macOS/) for macOS
+- A [project built with AppKit](Examples/Example%20macOS/) for macOS
 - A [project built with SwiftUI](Examples/Example%20SwiftUI/) for iOS/macOS/visionOS
 
 ## 📱 Apps using InfomaniakRichHTMLEditor
