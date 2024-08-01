@@ -13,14 +13,14 @@
 
 import SwiftUI
 
-enum EditorState {
-    case scrollable
-    case notScrollable
-    case fixedSize
+enum EditorState: String, CaseIterable {
+    case scrollable = "Scrollable"
+    case notScrollable = "Not Scrollable"
+    case fixedSize = "Fixed Size"
 }
 
 struct RootView: View {
-    let editorState: EditorState = .fixedSize
+    @State private var editorState = EditorState.scrollable
 
     var body: some View {
         NavigationStack {
@@ -36,6 +36,15 @@ struct RootView: View {
             }
             .navigationTitle("Infomaniak - RichHTMLEditor (SwiftUI)")
             .toolbarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Picker("Switch Editor State", selection: $editorState) {
+                        ForEach(EditorState.allCases, id: \.self) { state in
+                            Text(state.rawValue)
+                        }
+                    }
+                }
+            }
         }
     }
 }

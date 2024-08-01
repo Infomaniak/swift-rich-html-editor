@@ -75,6 +75,11 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
         #endif
     }
 
+    @available(iOS 16.0, macOS 13.0, *)
+    private func sizeThatFits(_ proposal: ProposedViewSize, editor: RichHTMLEditorView, context: Context) -> CGSize? {
+        return proposal.replacingUnspecifiedDimensions(by: editor.intrinsicContentSize)
+    }
+
     public func makeCoordinator() -> RichHTMLEditorCoordinator {
         return RichHTMLEditorCoordinator(parent: self)
     }
@@ -89,6 +94,11 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
         updatePlatformView(richHTMLEditorView)
     }
 
+    @available(iOS 16.0, macOS 13.0, *)
+    public func sizeThatFits(_ proposal: ProposedViewSize, uiView: RichHTMLEditorView, context: Context) -> CGSize? {
+        return sizeThatFits(proposal, editor: uiView, context: context)
+    }
+
     // MARK: - NSView
 
     public func makeNSView(context: Context) -> RichHTMLEditorView {
@@ -97,5 +107,10 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
 
     public func updateNSView(_ richHTMLEditorView: RichHTMLEditorView, context: Context) {
         updatePlatformView(richHTMLEditorView)
+    }
+
+    @available(iOS 16.0, macOS 13.0, visionOS 1.0, *)
+    public func sizeThatFits(_ proposal: ProposedViewSize, nsView: RichHTMLEditorView, context: Context) -> CGSize? {
+        return sizeThatFits(proposal, editor: nsView, context: context)
     }
 }
