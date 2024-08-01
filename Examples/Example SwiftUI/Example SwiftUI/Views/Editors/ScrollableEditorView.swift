@@ -11,13 +11,19 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
+import InfomaniakRichHTMLEditor
 import SwiftUI
 
-@main
-struct Example_SwiftUIApp: App {
-    var body: some Scene {
-        WindowGroup {
-            RootView()
-        }
+struct ScrollableEditorView: View {
+    @State private var html = ""
+    @StateObject private var textAttributes = TextAttributes()
+
+    var body: some View {
+        RichHTMLEditor(html: $html, textAttributes: textAttributes)
+            .editorScrollable(true)
     }
+}
+
+#Preview {
+    ScrollableEditorView()
 }

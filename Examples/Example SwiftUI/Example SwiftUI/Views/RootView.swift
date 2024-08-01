@@ -11,22 +11,35 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-import InfomaniakRichHTMLEditor
 import SwiftUI
 
-struct ContentView: View {
-    @State private var html = ""
-    @StateObject private var textAttributes = TextAttributes()
+enum EditorState {
+    case scrollable
+    case notScrollable
+    case fixedSize
+}
+
+struct RootView: View {
+    let editorState: EditorState = .fixedSize
 
     var body: some View {
         NavigationStack {
-            RichHTMLEditor(html: $html, textAttributes: textAttributes)
-                .navigationTitle("Infomaniak - RichHTMLEditor (SwiftUI)")
-                .toolbarTitleDisplayMode(.inline)
+            Group {
+                switch editorState {
+                case .scrollable:
+                    ScrollableEditorView()
+                case .notScrollable:
+                    NotScrollableEditorView()
+                case .fixedSize:
+                    FixedSizeEditorView()
+                }
+            }
+            .navigationTitle("Infomaniak - RichHTMLEditor (SwiftUI)")
+            .toolbarTitleDisplayMode(.inline)
         }
     }
 }
 
 #Preview {
-    ContentView()
+    RootView()
 }

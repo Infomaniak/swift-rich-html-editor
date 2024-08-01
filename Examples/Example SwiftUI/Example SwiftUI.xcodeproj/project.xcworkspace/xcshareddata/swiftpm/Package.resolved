@@ -1,0 +1,15 @@
+{
+  "originHash" : "388ab5b28d94248ac91d70a91ddcf17e4989b657943badfa737a4328b759cd67",
+  "pins" : [
+    {
+      "identity" : "swift-rich-html-editor",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Infomaniak/swift-rich-html-editor",
+      "state" : {
+        "revision" : "0d8f02c669f2a787596e1b84be6f1e172ef5694e",
+        "version" : "1.1.1"
+      }
+    }
+  ],
+  "version" : 3
+}
