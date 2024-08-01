@@ -7,29 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A768AFBD2C5C0B800055519D /* ScrollableEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768AFBC2C5C0B800055519D /* ScrollableEditorViewController.swift */; };
+		A768AFC12C5C0EED0055519D /* NotScrollableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768AFC02C5C0EED0055519D /* NotScrollableViewController.swift */; };
+		A768AFC32C5C32C20055519D /* FixedSizeEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768AFC22C5C32C20055519D /* FixedSizeEditorViewController.swift */; };
 		F903A5B72C2E8A0D00ABAEA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9792C242C132444007BA48A /* Assets.xcassets */; };
 		F903A5B92C2E8A5600ABAEA0 /* editor.css in Resources */ = {isa = PBXBuildFile; fileRef = F903A5B82C2E8A5600ABAEA0 /* editor.css */; };
 		F90560E22C47B32E0015E813 /* InfomaniakRichHTMLEditor in Frameworks */ = {isa = PBXBuildFile; productRef = F90560E12C47B32E0015E813 /* InfomaniakRichHTMLEditor */; };
 		F91D20092C2ED1CA004A8625 /* ToolbarAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91D20082C2ED1CA004A8625 /* ToolbarAction.swift */; };
 		F91D200B2C2EE6C6004A8625 /* UIDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91D200A2C2EE6C6004A8625 /* UIDivider.swift */; };
-		F91D200D2C328A6E004A8625 /* ViewController+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91D200C2C328A6E004A8625 /* ViewController+Toolbar.swift */; };
-		F91D20112C32D044004A8625 /* ViewController+RichEditorViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91D20102C32D044004A8625 /* ViewController+RichEditorViewDelegate.swift */; };
+		F91D200D2C328A6E004A8625 /* EditorViewController+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91D200C2C328A6E004A8625 /* EditorViewController+Toolbar.swift */; };
+		F91D20112C32D044004A8625 /* EditorViewController+RichEditorViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91D20102C32D044004A8625 /* EditorViewController+RichEditorViewDelegate.swift */; };
 		F9792C1C2C132443007BA48A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9792C1B2C132443007BA48A /* AppDelegate.swift */; };
 		F9792C1E2C132443007BA48A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9792C1D2C132443007BA48A /* SceneDelegate.swift */; };
-		F9792C202C132443007BA48A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9792C1F2C132443007BA48A /* ViewController.swift */; };
+		F9792C202C132443007BA48A /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9792C1F2C132443007BA48A /* EditorViewController.swift */; };
 		F9792C282C132444007BA48A /* Base in Resources */ = {isa = PBXBuildFile; fileRef = F9792C272C132444007BA48A /* Base */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A768AFBC2C5C0B800055519D /* ScrollableEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableEditorViewController.swift; sourceTree = "<group>"; };
+		A768AFC02C5C0EED0055519D /* NotScrollableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotScrollableViewController.swift; sourceTree = "<group>"; };
+		A768AFC22C5C32C20055519D /* FixedSizeEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedSizeEditorViewController.swift; sourceTree = "<group>"; };
 		F903A5B82C2E8A5600ABAEA0 /* editor.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = editor.css; sourceTree = "<group>"; };
 		F91D20082C2ED1CA004A8625 /* ToolbarAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarAction.swift; sourceTree = "<group>"; };
 		F91D200A2C2EE6C6004A8625 /* UIDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDivider.swift; sourceTree = "<group>"; };
-		F91D200C2C328A6E004A8625 /* ViewController+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Toolbar.swift"; sourceTree = "<group>"; };
-		F91D20102C32D044004A8625 /* ViewController+RichEditorViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+RichEditorViewDelegate.swift"; sourceTree = "<group>"; };
+		F91D200C2C328A6E004A8625 /* EditorViewController+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorViewController+Toolbar.swift"; sourceTree = "<group>"; };
+		F91D20102C32D044004A8625 /* EditorViewController+RichEditorViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorViewController+RichEditorViewDelegate.swift"; sourceTree = "<group>"; };
 		F9792C182C132443007BA48A /* Example iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9792C1B2C132443007BA48A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9792C1D2C132443007BA48A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F9792C1F2C132443007BA48A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F9792C1F2C132443007BA48A /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		F9792C242C132444007BA48A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9792C272C132444007BA48A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F9792C292C132444007BA48A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,6 +53,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A768AFC42C5C33A20055519D /* EditorViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F9792C1F2C132443007BA48A /* EditorViewController.swift */,
+				F91D200C2C328A6E004A8625 /* EditorViewController+Toolbar.swift */,
+				F91D20102C32D044004A8625 /* EditorViewController+RichEditorViewDelegate.swift */,
+			);
+			path = EditorViewController;
+			sourceTree = "<group>";
+		};
 		F903A5B32C2E836B00ABAEA0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -78,9 +94,10 @@
 		F91D200E2C328E13004A8625 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F9792C1F2C132443007BA48A /* ViewController.swift */,
-				F91D200C2C328A6E004A8625 /* ViewController+Toolbar.swift */,
-				F91D20102C32D044004A8625 /* ViewController+RichEditorViewDelegate.swift */,
+				A768AFC42C5C33A20055519D /* EditorViewController */,
+				A768AFBC2C5C0B800055519D /* ScrollableEditorViewController.swift */,
+				A768AFC02C5C0EED0055519D /* NotScrollableViewController.swift */,
+				A768AFC22C5C32C20055519D /* FixedSizeEditorViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -198,10 +215,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F91D20112C32D044004A8625 /* ViewController+RichEditorViewDelegate.swift in Sources */,
-				F91D200D2C328A6E004A8625 /* ViewController+Toolbar.swift in Sources */,
-				F9792C202C132443007BA48A /* ViewController.swift in Sources */,
+				F91D20112C32D044004A8625 /* EditorViewController+RichEditorViewDelegate.swift in Sources */,
+				A768AFC32C5C32C20055519D /* FixedSizeEditorViewController.swift in Sources */,
+				F91D200D2C328A6E004A8625 /* EditorViewController+Toolbar.swift in Sources */,
+				F9792C202C132443007BA48A /* EditorViewController.swift in Sources */,
+				A768AFC12C5C0EED0055519D /* NotScrollableViewController.swift in Sources */,
 				F9792C1C2C132443007BA48A /* AppDelegate.swift in Sources */,
+				A768AFBD2C5C0B800055519D /* ScrollableEditorViewController.swift in Sources */,
 				F91D200B2C2EE6C6004A8625 /* UIDivider.swift in Sources */,
 				F9792C1E2C132443007BA48A /* SceneDelegate.swift in Sources */,
 				F91D20092C2ED1CA004A8625 /* ToolbarAction.swift in Sources */,
