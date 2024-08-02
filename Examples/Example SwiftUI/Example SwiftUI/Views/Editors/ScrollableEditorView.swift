@@ -14,19 +14,16 @@
 import InfomaniakRichHTMLEditor
 import SwiftUI
 
-struct ContentView: View {
+struct ScrollableEditorView: View {
     @State private var html = ""
     @StateObject private var textAttributes = TextAttributes()
 
     var body: some View {
-        NavigationStack {
-            RichHTMLEditor(html: $html, textAttributes: textAttributes)
-                .navigationTitle("Infomaniak - RichHTMLEditor (SwiftUI)")
-                .toolbarTitleDisplayMode(.inline)
-        }
+        RichHTMLEditor(html: $html, textAttributes: textAttributes)
+            .editorScrollable(true)
     }
 }
 
 #Preview {
-    ContentView()
+    ScrollableEditorView()
 }

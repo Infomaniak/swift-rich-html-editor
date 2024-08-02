@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A768AFC72C5C35500055519D /* ScrollableEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768AFC62C5C35500055519D /* ScrollableEditorView.swift */; };
+		A768AFC92C5C36090055519D /* NotScrollableEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768AFC82C5C36090055519D /* NotScrollableEditorView.swift */; };
+		A768AFCC2C5C37210055519D /* FixedSizeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768AFCB2C5C37210055519D /* FixedSizeEditorView.swift */; };
 		F90560E82C47B8830015E813 /* InfomaniakRichHTMLEditor in Frameworks */ = {isa = PBXBuildFile; productRef = F90560E72C47B8830015E813 /* InfomaniakRichHTMLEditor */; };
 		F91EA2492C3D12B7007489BD /* Example_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91EA2482C3D12B7007489BD /* Example_SwiftUIApp.swift */; };
-		F91EA24B2C3D12B7007489BD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91EA24A2C3D12B7007489BD /* ContentView.swift */; };
+		F91EA24B2C3D12B7007489BD /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91EA24A2C3D12B7007489BD /* RootView.swift */; };
 		F91EA24D2C3D12B8007489BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F91EA24C2C3D12B8007489BD /* Assets.xcassets */; };
-		F91EA2512C3D12B8007489BD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F91EA2502C3D12B8007489BD /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,12 +30,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A768AFC62C5C35500055519D /* ScrollableEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableEditorView.swift; sourceTree = "<group>"; };
+		A768AFC82C5C36090055519D /* NotScrollableEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotScrollableEditorView.swift; sourceTree = "<group>"; };
+		A768AFCB2C5C37210055519D /* FixedSizeEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedSizeEditorView.swift; sourceTree = "<group>"; };
 		F91EA2452C3D12B7007489BD /* Example SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F91EA2482C3D12B7007489BD /* Example_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example_SwiftUIApp.swift; sourceTree = "<group>"; };
-		F91EA24A2C3D12B7007489BD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F91EA24A2C3D12B7007489BD /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		F91EA24C2C3D12B8007489BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F91EA24E2C3D12B8007489BD /* Example_SwiftUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example_SwiftUI.entitlements; sourceTree = "<group>"; };
-		F91EA2502C3D12B8007489BD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +52,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A768AFC52C5C35370055519D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F91EA24A2C3D12B7007489BD /* RootView.swift */,
+				A768AFCA2C5C37100055519D /* Editors */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A768AFCA2C5C37100055519D /* Editors */ = {
+			isa = PBXGroup;
+			children = (
+				A768AFC62C5C35500055519D /* ScrollableEditorView.swift */,
+				A768AFC82C5C36090055519D /* NotScrollableEditorView.swift */,
+				A768AFCB2C5C37210055519D /* FixedSizeEditorView.swift */,
+			);
+			path = Editors;
+			sourceTree = "<group>";
+		};
 		F90560E62C47B8830015E813 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -76,20 +99,11 @@
 			isa = PBXGroup;
 			children = (
 				F91EA2482C3D12B7007489BD /* Example_SwiftUIApp.swift */,
-				F91EA24A2C3D12B7007489BD /* ContentView.swift */,
+				A768AFC52C5C35370055519D /* Views */,
 				F91EA24C2C3D12B8007489BD /* Assets.xcassets */,
 				F91EA24E2C3D12B8007489BD /* Example_SwiftUI.entitlements */,
-				F91EA24F2C3D12B8007489BD /* Preview Content */,
 			);
 			path = "Example SwiftUI";
-			sourceTree = "<group>";
-		};
-		F91EA24F2C3D12B8007489BD /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				F91EA2502C3D12B8007489BD /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,7 +171,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F91EA2512C3D12B8007489BD /* Preview Assets.xcassets in Resources */,
 				F91EA24D2C3D12B8007489BD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -169,8 +182,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F91EA24B2C3D12B7007489BD /* ContentView.swift in Sources */,
+				F91EA24B2C3D12B7007489BD /* RootView.swift in Sources */,
 				F91EA2492C3D12B7007489BD /* Example_SwiftUIApp.swift in Sources */,
+				A768AFCC2C5C37210055519D /* FixedSizeEditorView.swift in Sources */,
+				A768AFC92C5C36090055519D /* NotScrollableEditorView.swift in Sources */,
+				A768AFC72C5C35500055519D /* ScrollableEditorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,7 +315,6 @@
 				CODE_SIGN_ENTITLEMENTS = "Example SwiftUI/Example_SwiftUI.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Example SwiftUI/Preview Content\"";
 				DEVELOPMENT_TEAM = 864VDCS2QY;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -338,7 +353,6 @@
 				CODE_SIGN_ENTITLEMENTS = "Example SwiftUI/Example_SwiftUI.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Example SwiftUI/Preview Content\"";
 				DEVELOPMENT_TEAM = 864VDCS2QY;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;

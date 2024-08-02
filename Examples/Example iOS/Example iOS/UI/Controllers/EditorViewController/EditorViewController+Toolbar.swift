@@ -16,7 +16,7 @@ import UIKit
 
 // MARK: - Set up toolbar
 
-extension ViewController {
+extension EditorViewController {
     func setupToolbar() {
         let toolbarView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 56))
         toolbarView.backgroundColor = .systemGray6
@@ -106,7 +106,7 @@ extension ViewController {
 
 // MARK: - Handle toolbar buttons
 
-extension ViewController {
+extension EditorViewController {
     @objc func didTapToolbarButton(_ sender: UIButton) {
         guard let action = ToolbarAction(rawValue: sender.tag) else {
             return
@@ -248,7 +248,7 @@ extension ViewController {
 
 // MARK: - UIColorPickerViewControllerDelegate
 
-extension ViewController: UIColorPickerViewControllerDelegate {
+extension EditorViewController: UIColorPickerViewControllerDelegate {
     func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
         guard let toolbarCurrentColorPicker else {
             return

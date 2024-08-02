@@ -14,7 +14,7 @@
 import InfomaniakRichHTMLEditor
 import UIKit
 
-final class ViewController: UIViewController {
+class EditorViewController: UIViewController {
     var editor: RichHTMLEditorView!
     var toolbarButtons = [UIView]()
 
@@ -26,29 +26,20 @@ final class ViewController: UIViewController {
         title = "Infomaniak - RichHTMLEditor (iOS)"
         view.backgroundColor = .systemBackground
 
-        setUpEditor()
+        setupEditor()
         setupToolbar()
     }
 
-    private func setUpEditor() {
+    func setupEditor() {
+        createEditor()
+    }
+
+    func createEditor() {
         editor = RichHTMLEditorView()
         if let cssURL = Bundle.main.url(forResource: "editor", withExtension: "css"), let css = try? String(contentsOf: cssURL) {
             editor.injectAdditionalCSS(css)
         }
         editor.translatesAutoresizingMaskIntoConstraints = false
         editor.delegate = self
-        editor.webView.scrollView.keyboardDismissMode = .interactive
-        view.addSubview(editor)
-
-        NSLayoutConstraint.activate([
-            editor.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            editor.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            editor.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
-        ])
-    }
-
-    static func instantiateInNavigation() -> UIViewController {
-        let viewController = ViewController()
-        return UINavigationController(rootViewController: viewController)
     }
 }

@@ -14,7 +14,7 @@
 import InfomaniakRichHTMLEditor
 import UIKit
 
-extension ViewController: RichHTMLEditorViewDelegate {
+extension EditorViewController: RichHTMLEditorViewDelegate {
     func richHTMLEditorViewDidLoad(_ richHTMLEditorView: RichHTMLEditorView) {
         _ = richHTMLEditorView.becomeFirstResponder()
     }

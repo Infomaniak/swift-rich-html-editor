@@ -13,16 +13,34 @@
 
 import UIKit
 
+enum EditorState {
+    case scrollable
+    case notScrollable
+    case fixedSize
+}
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+
+    // Edit this property to test the different implementations of the editor
+    var editorState: EditorState = .fixedSize
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         window = UIWindow(windowScene: windowScene)
 
-        let viewController = ViewController.instantiateInNavigation()
-        window?.rootViewController = viewController
+        let viewController: UIViewController
+        switch editorState {
+        case .scrollable:
+            viewController = ScrollableEditorViewController()
+        case .notScrollable:
+            viewController = NotScrollableEditorViewController()
+        case .fixedSize:
+            viewController = FixedSizeEditorViewController()
+        }
+
+        window?.rootViewController = UINavigationController(rootViewController: viewController)
         window?.makeKeyAndVisible()
     }
 }
