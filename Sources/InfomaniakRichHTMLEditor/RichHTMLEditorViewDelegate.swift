@@ -82,6 +82,20 @@ public protocol RichHTMLEditorViewDelegate: AnyObject {
         whileExecuting function: String
     )
 
+    /// Asks the delegate if the editor should handle opening the link itself.
+    ///
+    /// The user can open the link thanks to the contextual menu. If the editor handles this task itself,
+    /// the link will open in the default browser on iOS but in the editor on macOS.
+    /// You may need to customize this behaviour. If the method returns `true`, the editor won't
+    /// open the link and you will be responsible for doing so.
+    ///
+    /// Implementation of this method is optional. Default return value is `false`.
+    ///
+    /// - Parameters:
+    ///   - richHTMLEditorView: The editor which is loaded.
+    ///   - shouldHandleLink: The URL the user clicked on.
+    ///
+    /// - Returns: `false` if the editor should handle the link opening itself.
     func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, shouldHandleLink link: URL) -> Bool
 }
 

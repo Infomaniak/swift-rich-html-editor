@@ -82,7 +82,7 @@ final class ViewController: NSViewController {
 // MARK: - RichHTMLEditorViewDelegate
 
 extension ViewController: RichHTMLEditorViewDelegate {
-    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, handleLinkOpening link: URL) -> Bool {
+    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, shouldHandleLink link: URL) -> Bool {
         NSWorkspace.shared.open(link)
         return true
     }
