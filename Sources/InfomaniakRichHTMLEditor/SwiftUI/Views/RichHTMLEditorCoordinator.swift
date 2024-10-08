@@ -48,4 +48,8 @@ public final class RichHTMLEditorCoordinator: RichHTMLEditorViewDelegate {
     ) {
         parent.onJavaScriptFunctionFail?(javascriptError, function)
     }
+
+    public func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, shouldHandleLink link: URL) -> Bool {
+        return parent.handleLinkOpening?(link) ?? true
+    }
 }

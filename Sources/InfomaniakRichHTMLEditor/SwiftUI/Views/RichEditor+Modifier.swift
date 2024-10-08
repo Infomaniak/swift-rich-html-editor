@@ -79,4 +79,8 @@ public extension View {
     func introspectEditor(perform action: @escaping (RichHTMLEditorView) -> Void) -> some View {
         environment(\.introspectEditor, action)
     }
+
+    func handleLinkOpening(perform action: @escaping (URL) -> Bool) -> some View {
+        environment(\.handleLinkOpening, action)
+    }
 }

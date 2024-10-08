@@ -81,6 +81,8 @@ public protocol RichHTMLEditorViewDelegate: AnyObject {
         javascriptFunctionDidFail javascriptError: any Error,
         whileExecuting function: String
     )
+
+    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, shouldHandleLink link: URL) -> Bool
 }
 
 // Default implementation for optional functions
@@ -97,4 +99,7 @@ public extension RichHTMLEditorViewDelegate {
         javascriptFunctionDidFail javascriptError: any Error,
         whileExecuting function: String
     ) {}
+    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, shouldHandleLink link: URL) -> Bool {
+        return false
+    }
 }

@@ -21,6 +21,7 @@ final class ViewController: NSViewController {
         super.viewDidLoad()
 
         editor = RichHTMLEditorView()
+        editor.delegate = self
         if let cssURL = Bundle.main.url(forResource: "style", withExtension: "css"),
            let styleCSS = try? String(contentsOf: cssURL) {
             editor.injectAdditionalCSS(styleCSS)
@@ -75,5 +76,14 @@ final class ViewController: NSViewController {
         else { return }
 
         editor.addLink(url: url, text: url.absoluteString)
+    }
+}
+
+// MARK: - RichHTMLEditorViewDelegate
+
+extension ViewController: RichHTMLEditorViewDelegate {
+    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, handleLinkOpening link: URL) -> Bool {
+        NSWorkspace.shared.open(link)
+        return true
     }
 }
