@@ -17,6 +17,7 @@ extension NSToolbarItem.Identifier {
     static let bold = NSToolbarItem.Identifier(rawValue: "Bold")
     static let italic = NSToolbarItem.Identifier(rawValue: "Italic")
     static let underline = NSToolbarItem.Identifier(rawValue: "Underline")
+    static let addLink = NSToolbarItem.Identifier(rawValue: "AddLink")
 }
 
 extension Notification.Name {
@@ -40,7 +41,8 @@ extension WindowController: NSToolbarDelegate {
         return [
             NSToolbarItem.Identifier.bold,
             NSToolbarItem.Identifier.italic,
-            NSToolbarItem.Identifier.underline
+            NSToolbarItem.Identifier.underline,
+            NSToolbarItem.Identifier.addLink
         ]
     }
 
@@ -49,7 +51,8 @@ extension WindowController: NSToolbarDelegate {
             NSToolbarItem.Identifier.flexibleSpace,
             NSToolbarItem.Identifier.bold,
             NSToolbarItem.Identifier.italic,
-            NSToolbarItem.Identifier.underline
+            NSToolbarItem.Identifier.underline,
+            NSToolbarItem.Identifier.addLink
         ]
     }
 
@@ -65,6 +68,8 @@ extension WindowController: NSToolbarDelegate {
             return createToolbarItem(itemIdentifier: itemIdentifier, image: "italic", label: "Italic")
         case .underline:
             return createToolbarItem(itemIdentifier: itemIdentifier, image: "underline", label: "Underline")
+        case .addLink:
+            return createToolbarItem(itemIdentifier: itemIdentifier, image: "link", label: "Link")
         default:
             return nil
         }

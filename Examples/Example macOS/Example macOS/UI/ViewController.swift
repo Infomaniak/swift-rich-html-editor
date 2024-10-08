@@ -50,8 +50,30 @@ final class ViewController: NSViewController {
             editor.italic()
         case .underline:
             editor.underline()
+        case .addLink:
+            presentLinkAlert()
         default:
             print("Action not handled.")
         }
+    }
+
+    private func presentLinkAlert() {
+        let alert = NSAlert()
+        alert.alertStyle = .informational
+        alert.messageText = "Insert a new link"
+        let validateButton = alert.addButton(withTitle: "Validate")
+        alert.addButton(withTitle: "Cancel")
+
+        let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 24))
+        alert.accessoryView = textField
+
+        let response = alert.runModal()
+
+        guard response.rawValue == validateButton.tag,
+              !textField.stringValue.isEmpty,
+              let url = URL(string: textField.stringValue)
+        else { return }
+
+        editor.addLink(url: url, text: url.absoluteString)
     }
 }
