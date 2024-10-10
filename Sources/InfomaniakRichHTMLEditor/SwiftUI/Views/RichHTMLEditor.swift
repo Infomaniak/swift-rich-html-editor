@@ -32,6 +32,7 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
     @Environment(\.onCaretPositionChange) var onCaretPositionChange
     @Environment(\.onJavaScriptFunctionFail) var onJavaScriptFunctionFail
     @Environment(\.introspectEditor) var introspectEditor
+    @Environment(\.handleLinkOpening) var handleLinkOpening
 
     @Binding public var html: String
     @ObservedObject public var textAttributes: TextAttributes

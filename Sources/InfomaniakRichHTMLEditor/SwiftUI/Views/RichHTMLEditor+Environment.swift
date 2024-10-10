@@ -47,6 +47,10 @@ public struct IntrospectEditorKey: EnvironmentKey {
     public static let defaultValue: ((RichHTMLEditorView) -> Void)? = nil
 }
 
+public struct HandleLinkOpeningKey: EnvironmentKey {
+    public static let defaultValue: ((URL) -> Bool)? = nil
+}
+
 // MARK: - Environment Values
 
 public extension EnvironmentValues {
@@ -87,5 +91,10 @@ public extension EnvironmentValues {
     var introspectEditor: ((RichHTMLEditorView) -> Void)? {
         get { self[IntrospectEditorKey.self] }
         set { self[IntrospectEditorKey.self] = newValue }
+    }
+
+    var handleLinkOpening: ((URL) -> Bool)? {
+        get { self[HandleLinkOpeningKey.self] }
+        set { self[HandleLinkOpeningKey.self] = newValue }
     }
 }

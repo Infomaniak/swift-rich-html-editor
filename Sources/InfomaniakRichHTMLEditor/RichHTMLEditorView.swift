@@ -200,6 +200,7 @@ public extension RichHTMLEditorView {
         #if canImport(UIKit)
         webView.scrollView.delegate = self
         #endif
+        webView.navigationDelegate = self
         addSubview(webView)
 
         NSLayoutConstraint.activate([
@@ -274,6 +275,27 @@ public extension RichHTMLEditorView {
         webView.scrollView.isScrollEnabled = isScrollEnabled
     }
     #endif
+}
+
+// MARK: - WKNavigationDelegate
+
+extension RichHTMLEditorView: WKNavigationDelegate {
+    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping @MainActor (WKNavigationActionPolicy) -> Void) {
+        switch navigationAction.navigationType {
+        case .linkActivated:
+            if let url = navigationAction.request.url, delegate?.richHTMLEditorView(self, shouldHandleLink: url) == true {
+                decisionHandler(.cancel)
+            } else {
+                decisionHandler(.allow)
+            }
+        case .backForward, .formSubmitted, .reload, .formResubmitted:
+            decisionHandler(.cancel)
+        case .other:
+            decisionHandler(.allow)
+        @unknown default:
+            decisionHandler(.allow)
+        }
+    }
 }
 
 // MARK: - UIScrollViewDelegate

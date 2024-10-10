@@ -79,4 +79,17 @@ public extension View {
     func introspectEditor(perform action: @escaping (RichHTMLEditorView) -> Void) -> some View {
         environment(\.introspectEditor, action)
     }
+
+    /// Tells the editor whether to handle the opening a link or perform an action to open it.
+    ///
+    /// The default behavior is to let the editor handle opening links.
+    ///
+    /// - Parameter action: A closure to run when the editor tries to open a link. The closure
+    ///     should return `false` if the editor should handle the opening, `true` if you intend to manage
+    ///     this task yourself.
+    ///
+    /// - Returns: A view with the customizations applied to editor.
+    func handleLinkOpening(perform action: @escaping (URL) -> Bool) -> some View {
+        environment(\.handleLinkOpening, action)
+    }
 }
