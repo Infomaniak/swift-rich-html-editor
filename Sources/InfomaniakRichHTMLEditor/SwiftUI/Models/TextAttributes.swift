@@ -47,7 +47,7 @@ public final class TextAttributes: ObservableObject {
         hasStrikethrough = uiTextAttributes.hasStrikeThrough
         hasSubscript = uiTextAttributes.hasSubscript
         hasSuperscript = uiTextAttributes.hasSuperscript
-        hasOrderedList = uiTextAttributes.hasLink
+        hasOrderedList = uiTextAttributes.hasOrderedList
         hasUnorderedList = uiTextAttributes.hasUnorderedList
 
         hasLink = uiTextAttributes.hasLink
