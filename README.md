@@ -21,6 +21,8 @@ Built with **UIKit** and **AppKit** thanks to WebKit, it also includes a **Swift
     </tr>
 </table>
 
+Looking for an Android equivalent? Check out the Kotlin version of the editor here: [Infomaniak/android-rich-html-editor](https://github.com/Infomaniak/android-rich-html-editor)
+
 ## ✍️ About
 
 ### Features
