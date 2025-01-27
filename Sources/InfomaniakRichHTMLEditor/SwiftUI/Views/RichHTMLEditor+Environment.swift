@@ -32,23 +32,23 @@ public struct EditorCSSKey: EnvironmentKey {
 }
 
 public struct OnEditorLoadedKey: EnvironmentKey {
-    public static let defaultValue: (() -> Void)? = nil
+    public static let defaultValue: (@Sendable () -> Void)? = nil
 }
 
 public struct OnCaretPositionChangeKey: EnvironmentKey {
-    public static let defaultValue: ((CGRect) -> Void)? = nil
+    public static let defaultValue: (@Sendable (CGRect) -> Void)? = nil
 }
 
 public struct OnJavaScriptFunctionFailKey: EnvironmentKey {
-    public static let defaultValue: ((any Error, String) -> Void)? = nil
+    public static let defaultValue: (@Sendable (any Error, String) -> Void)? = nil
 }
 
 public struct IntrospectEditorKey: EnvironmentKey {
-    public static let defaultValue: ((RichHTMLEditorView) -> Void)? = nil
+    public static let defaultValue: (@Sendable (RichHTMLEditorView) -> Void)? = nil
 }
 
 public struct HandleLinkOpeningKey: EnvironmentKey {
-    public static let defaultValue: ((URL) -> Bool)? = nil
+    public static let defaultValue: (@Sendable (URL) -> Bool)? = nil
 }
 
 // MARK: - Environment Values
@@ -73,27 +73,27 @@ public extension EnvironmentValues {
         set { self[EditorCSSKey.self] = newValue }
     }
 
-    var onEditorLoaded: (() -> Void)? {
+    var onEditorLoaded: (@Sendable () -> Void)? {
         get { self[OnEditorLoadedKey.self] }
         set { self[OnEditorLoadedKey.self] = newValue }
     }
 
-    var onCaretPositionChange: ((CGRect) -> Void)? {
+    var onCaretPositionChange: (@Sendable (CGRect) -> Void)? {
         get { self[OnCaretPositionChangeKey.self] }
         set { self[OnCaretPositionChangeKey.self] = newValue }
     }
 
-    var onJavaScriptFunctionFail: ((any Error, String) -> Void)? {
+    var onJavaScriptFunctionFail: (@Sendable (any Error, String) -> Void)? {
         get { self[OnJavaScriptFunctionFailKey.self] }
         set { self[OnJavaScriptFunctionFailKey.self] = newValue }
     }
 
-    var introspectEditor: ((RichHTMLEditorView) -> Void)? {
+    var introspectEditor: (@Sendable (RichHTMLEditorView) -> Void)? {
         get { self[IntrospectEditorKey.self] }
         set { self[IntrospectEditorKey.self] = newValue }
     }
 
-    var handleLinkOpening: ((URL) -> Bool)? {
+    var handleLinkOpening: (@Sendable (URL) -> Bool)? {
         get { self[HandleLinkOpeningKey.self] }
         set { self[HandleLinkOpeningKey.self] = newValue }
     }

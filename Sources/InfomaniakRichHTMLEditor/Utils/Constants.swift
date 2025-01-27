@@ -11,6 +11,6 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-enum Constants {
+enum Constants: Sendable {
     static let packageID = "com.infomaniak.swift-rich-html-editor"
 }

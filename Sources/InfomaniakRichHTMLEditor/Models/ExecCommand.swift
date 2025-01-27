@@ -11,7 +11,7 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-enum ExecCommand: String, CaseIterable {
+enum ExecCommand: String, CaseIterable, Sendable {
     // Commands that return a state
     case bold
     case italic
