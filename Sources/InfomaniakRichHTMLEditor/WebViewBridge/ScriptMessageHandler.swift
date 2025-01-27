@@ -14,6 +14,7 @@
 import OSLog
 import WebKit
 
+@MainActor
 protocol ScriptMessageHandlerDelegate: AnyObject {
     func editorDidLoad()
     func contentDidChange(_ text: String)

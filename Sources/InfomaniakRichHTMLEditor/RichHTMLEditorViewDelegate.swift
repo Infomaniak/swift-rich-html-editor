@@ -16,6 +16,7 @@ import Foundation
 /// The methods for receiving editing-related messages for editor view objects.
 ///
 /// All of the methods in this protocol are optional.
+@MainActor
 public protocol RichHTMLEditorViewDelegate: AnyObject {
     /// Tells the delegate when the specified editor view is fully loaded and ready to be used.
     ///

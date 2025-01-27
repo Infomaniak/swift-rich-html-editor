@@ -11,6 +11,6 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-enum EditorError: Error {
+enum EditorError: Error, Sendable {
     case impossibleToLoadWKUserScript(filename: String)
 }

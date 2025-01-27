@@ -145,7 +145,7 @@ public extension RichHTMLEditorView {
         }
     }
 
-    private func execCommand(_ command: ExecCommand, argument: Any? = nil) {
+    private func execCommand(_ command: ExecCommand, argument: Sendable? = nil) {
         javaScriptManager.execCommand(command, argument: argument)
     }
 }

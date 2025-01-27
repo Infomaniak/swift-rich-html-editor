@@ -14,7 +14,7 @@
 import Foundation
 
 /// Describes a position where the caret can be set.
-public enum CaretPosition {
+public enum CaretPosition: Sendable {
     /// At the beginning of the document, before any content.
     case beginningOfDocument
     /// At the beginning of the document, after all content.

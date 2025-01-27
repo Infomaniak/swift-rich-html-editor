@@ -18,7 +18,7 @@ import AppKit
 #endif
 
 /// This struct contains the current state of the text selected or at the insertion point.
-public struct UITextAttributes: Codable {
+public struct UITextAttributes: Codable, Sendable {
     public var hasBold = false
     public var hasItalic = false
     public var hasUnderline = false

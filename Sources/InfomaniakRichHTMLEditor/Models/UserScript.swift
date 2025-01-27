@@ -13,11 +13,11 @@
 
 import WebKit
 
-struct UserScript {
+struct UserScript: Sendable {
     let name: String
     let injectionTime: WKUserScriptInjectionTime
 
-    func load(to webView: WKWebView) throws {
+    @MainActor func load(to webView: WKWebView) throws {
         try webView.configuration.userContentController.addUserScript(
             named: name,
             injectionTime: injectionTime,

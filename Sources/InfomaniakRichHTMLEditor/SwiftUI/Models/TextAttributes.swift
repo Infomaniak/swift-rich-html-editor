@@ -17,6 +17,7 @@ import SwiftUI
 ///
 /// The properties are read-only and are automatically updated by the editor.
 /// If you want to update the style, you should use the available functions.
+@MainActor
 public final class TextAttributes: ObservableObject {
     @Published public private(set) var hasBold = false
     @Published public private(set) var hasItalic = false

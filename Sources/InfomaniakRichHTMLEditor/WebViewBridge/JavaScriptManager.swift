@@ -13,10 +13,12 @@
 
 import WebKit
 
+@MainActor
 protocol JavaScriptManagerDelegate: AnyObject {
     func javascriptFunctionDidFail(error: any Error, function: String)
 }
 
+@MainActor
 final class JavaScriptManager {
     var isDOMContentLoaded = false {
         didSet {
@@ -43,7 +45,7 @@ final class JavaScriptManager {
         evaluateWhenDOMIsReady(function: injectCSS)
     }
 
-    func execCommand(_ command: ExecCommand, argument: Any? = nil) {
+    func execCommand(_ command: ExecCommand, argument: Sendable? = nil) {
         let execCommand = JavaScriptFunction.execCommand(command: command.rawValue, argument: argument)
         evaluate(function: execCommand)
     }

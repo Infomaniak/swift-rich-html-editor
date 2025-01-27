@@ -12,7 +12,7 @@
 //  under the License.
 
 /// Describes how the text is aligned.
-public enum TextJustification: String, Codable {
+public enum TextJustification: String, Codable, Sendable {
     /// Fully justified.
     case full
     /// Aligned to the left.

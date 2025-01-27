@@ -11,8 +11,8 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-enum JavaScriptFunction {
-    case execCommand(command: String, argument: Any? = nil)
+enum JavaScriptFunction: Sendable {
+    case execCommand(command: String, argument: Sendable? = nil)
     case setContent(content: String)
     case injectCSS(content: String)
     case createLink(url: String, text: String?)
