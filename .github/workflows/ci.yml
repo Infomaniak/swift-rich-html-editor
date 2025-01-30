@@ -5,6 +5,22 @@ on:
     branches: [ main ]
 
 jobs:
+  build_and_test_iOS:
+    name: Build and Test project on iOS
+    runs-on: [ self-hosted, iOS ]
+
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        run: xcodebuild -scheme InfomaniakRichHTMLEditor build -destination "platform=iOS Simulator,name=iPhone 16,OS=latest"
+      - name: Test
+        run: xcodebuild -scheme InfomaniakRichHTMLEditor test -destination "platform=iOS Simulator,name=iPhone 16,OS=latest"
+
   build_and_test_macOS:
     name: Build and Test project on macOS
     runs-on: [ self-hosted, macOS ]
