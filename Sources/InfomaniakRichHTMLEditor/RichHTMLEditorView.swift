@@ -26,21 +26,6 @@ public typealias PlatformColor = NSColor
 import OSLog
 import WebKit
 
-public class RichHTMLWebView: WKWebView {
-    #if canImport(UIKit) && !os(visionOS)
-    public override var inputAccessoryView: UIView? {
-        get {
-            return richHTMLEditorInputAccessoryView
-        }
-        set {
-            richHTMLEditorInputAccessoryView = newValue
-        }
-    }
-
-    private var richHTMLEditorInputAccessoryView: UIView?
-    #endif
-}
-
 /// An editor to edit HTML content.
 ///
 /// `RichHTMLEditorView` supports the display of HTML content using
