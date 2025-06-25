@@ -26,6 +26,21 @@ public typealias PlatformColor = NSColor
 import OSLog
 import WebKit
 
+public class RichHTMLWebView: WKWebView {
+    #if canImport(UIKit) && !os(visionOS)
+    public override var inputAccessoryView: UIView? {
+        get {
+            return richHTMLEditorInputAccessoryView
+        }
+        set {
+            richHTMLEditorInputAccessoryView = newValue
+        }
+    }
+
+    private var richHTMLEditorInputAccessoryView: UIView?
+    #endif
+}
+
 /// An editor to edit HTML content.
 ///
 /// `RichHTMLEditorView` supports the display of HTML content using
@@ -75,10 +90,10 @@ public class RichHTMLEditorView: PlatformView {
     /// The custom accessory view to display when the editor view becomes the first responder.
     override public var inputAccessoryView: UIView? {
         get {
-            return webView.richHTMLEditorInputAccessoryView
+            return webView.inputAccessoryView
         }
         set {
-            webView.richHTMLEditorInputAccessoryView = newValue
+            webView.inputAccessoryView = newValue
         }
     }
     #endif
@@ -124,7 +139,7 @@ public class RichHTMLEditorView: PlatformView {
     public private(set) var selectedTextAttributes = UITextAttributes()
 
     /// The web view that displays the HTML and handle the input.
-    public private(set) var webView: WKWebView!
+    public private(set) var webView: RichHTMLWebView!
 
     // MARK: - Private properties
 
@@ -195,7 +210,7 @@ public extension RichHTMLEditorView {
 
 public extension RichHTMLEditorView {
     private func setUpWebView() {
-        webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
+        webView = RichHTMLWebView(frame: .zero, configuration: WKWebViewConfiguration())
         webView.translatesAutoresizingMaskIntoConstraints = false
         #if canImport(UIKit)
         webView.scrollView.delegate = self

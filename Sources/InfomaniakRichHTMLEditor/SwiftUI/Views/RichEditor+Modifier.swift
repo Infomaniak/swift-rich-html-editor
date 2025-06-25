@@ -32,7 +32,7 @@ public extension View {
     ///   view.
     ///
     /// - Returns: A view that uses the specified view as an input accessory view.
-    func editorInputAccessoryView(_ inputAccessoryView: UIView) -> some View {
+    func editorInputAccessoryView(_ inputAccessoryView: UIView?) -> some View {
         environment(\.editorInputAccessoryView, inputAccessoryView)
     }
     #endif
