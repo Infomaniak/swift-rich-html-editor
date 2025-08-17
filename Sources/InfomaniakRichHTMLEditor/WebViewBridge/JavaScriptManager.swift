@@ -79,6 +79,11 @@ final class JavaScriptManager {
         evaluate(function: .setCaretAtSelector(selector: selector))
     }
 
+    func setReadOnly(_ isReadOnly: Bool) {
+        let setReadOnly = JavaScriptFunction.setReadOnly(isReadOnly: isReadOnly)
+        evaluateWhenDOMIsReady(function: setReadOnly)
+    }
+
     private func evaluateWaitingFunctions() {
         guard isDOMContentLoaded else {
             return

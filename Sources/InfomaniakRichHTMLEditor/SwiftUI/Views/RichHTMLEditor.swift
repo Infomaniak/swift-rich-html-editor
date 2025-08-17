@@ -28,6 +28,7 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
     #endif
 
     @Environment(\.editorCSS) var editorCSS
+    @Environment(\.editorReadOnly) var isEditorReadOnly
     @Environment(\.onEditorLoaded) var onEditorLoaded
     @Environment(\.onCaretPositionChange) var onCaretPositionChange
     @Environment(\.onJavaScriptFunctionFail) var onJavaScriptFunctionFail
@@ -62,6 +63,10 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
     private func updatePlatformView(_ richHTMLEditorView: RichHTMLEditorView) {
         if richHTMLEditorView.html != html {
             richHTMLEditorView.html = html
+        }
+
+        if richHTMLEditorView.isReadOnly != isEditorReadOnly {
+            richHTMLEditorView.isReadOnly = isEditorReadOnly
         }
 
         #if canImport(UIKit)

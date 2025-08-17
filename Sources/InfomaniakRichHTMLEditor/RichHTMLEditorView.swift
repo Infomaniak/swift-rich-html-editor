@@ -117,6 +117,19 @@ public class RichHTMLEditorView: PlatformView {
         return javaScriptManager.isDOMContentLoaded
     }
 
+    /// A Boolean value that indicates whether the editor is in read-only mode.
+    ///
+    /// When read-only mode is enabled, users can select text and copy/paste but cannot edit the content.
+    /// The default value is `false`.
+    public var isReadOnly: Bool {
+        get {
+            return rawIsReadOnly
+        }
+        set {
+            setReadOnlyMode(newValue)
+        }
+    }
+
     /// The object you use to react to editor's events.
     public weak var delegate: RichHTMLEditorViewDelegate?
 
@@ -130,6 +143,7 @@ public class RichHTMLEditorView: PlatformView {
 
     var rawHTMLContent = ""
     var rawIsScrollEnabled = false
+    var rawIsReadOnly = false
     var rawContentHeight = CGFloat.zero
 
     var javaScriptManager: JavaScriptManager!
@@ -275,6 +289,11 @@ public extension RichHTMLEditorView {
         webView.scrollView.isScrollEnabled = isScrollEnabled
     }
     #endif
+
+    private func setReadOnlyMode(_ isReadOnly: Bool) {
+        rawIsReadOnly = isReadOnly
+        javaScriptManager.setReadOnly(isReadOnly)
+    }
 }
 
 // MARK: - WKNavigationDelegate

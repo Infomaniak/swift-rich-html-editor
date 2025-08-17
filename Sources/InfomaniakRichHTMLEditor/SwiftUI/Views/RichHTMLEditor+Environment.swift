@@ -51,6 +51,10 @@ public struct HandleLinkOpeningKey: EnvironmentKey {
     public static let defaultValue: (@Sendable (URL) -> Bool)? = nil
 }
 
+public struct EditorReadOnlyKey: EnvironmentKey {
+    public static let defaultValue = false
+}
+
 // MARK: - Environment Values
 
 public extension EnvironmentValues {
@@ -96,5 +100,10 @@ public extension EnvironmentValues {
     var handleLinkOpening: (@Sendable (URL) -> Bool)? {
         get { self[HandleLinkOpeningKey.self] }
         set { self[HandleLinkOpeningKey.self] = newValue }
+    }
+
+    var editorReadOnly: Bool {
+        get { self[EditorReadOnlyKey.self] }
+        set { self[EditorReadOnlyKey.self] = newValue }
     }
 }

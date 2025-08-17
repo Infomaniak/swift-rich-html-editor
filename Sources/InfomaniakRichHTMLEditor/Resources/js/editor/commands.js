@@ -33,3 +33,14 @@ function injectCSS(content) {
     styleElement.textContent = content;
     document.head.appendChild(styleElement);
 }
+
+/**
+ * Sets the read-only state of the editor.
+ * When read-only is enabled, the editor content cannot be modified but text can still be selected and copied.
+ *
+ * @param {boolean} isReadOnly - Whether the editor should be read-only
+ */
+function setReadOnly(isReadOnly) {
+    const editor = getEditor();
+    editor.contentEditable = !isReadOnly;
+}

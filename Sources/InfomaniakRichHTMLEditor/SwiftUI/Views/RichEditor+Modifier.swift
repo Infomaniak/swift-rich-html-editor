@@ -41,6 +41,17 @@ public extension View {
         environment(\.editorCSS, css)
     }
 
+    /// Configures whether the editor is in read-only mode.
+    ///
+    /// When read-only mode is enabled, users can select text and copy/paste but cannot edit the content.
+    ///
+    /// - Parameter readOnly: A Boolean that indicates whether the editor is read-only.
+    ///
+    /// - Returns: A view that sets the read-only state of the `RichHTMLEditor` view.
+    func editorReadOnly(_ readOnly: Bool) -> some View {
+        environment(\.editorReadOnly, readOnly)
+    }
+
     /// Performs an action when the editor is loaded.
     ///
     /// - Parameter action: A closure to run when the editor is loaded. The closure
