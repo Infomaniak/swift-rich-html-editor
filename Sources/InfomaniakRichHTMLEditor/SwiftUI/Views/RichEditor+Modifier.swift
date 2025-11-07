@@ -76,7 +76,7 @@ public extension View {
     ///   the editor.
     ///
     /// - Returns: A view with the customizations applied to editor.
-    func introspectEditor(perform action: @escaping @Sendable (RichHTMLEditorView) -> Void) -> some View {
+    func introspectEditor(perform action: @MainActor @escaping (RichHTMLEditorView) -> Void) -> some View {
         environment(\.introspectEditor, action)
     }
 

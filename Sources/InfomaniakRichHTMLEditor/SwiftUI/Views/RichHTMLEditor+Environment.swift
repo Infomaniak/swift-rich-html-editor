@@ -44,7 +44,7 @@ public struct OnJavaScriptFunctionFailKey: EnvironmentKey {
 }
 
 public struct IntrospectEditorKey: EnvironmentKey {
-    public static let defaultValue: (@Sendable (RichHTMLEditorView) -> Void)? = nil
+    public static let defaultValue: (@MainActor (RichHTMLEditorView) -> Void)? = nil
 }
 
 public struct HandleLinkOpeningKey: EnvironmentKey {
@@ -88,7 +88,7 @@ public extension EnvironmentValues {
         set { self[OnJavaScriptFunctionFailKey.self] = newValue }
     }
 
-    var introspectEditor: (@Sendable (RichHTMLEditorView) -> Void)? {
+    var introspectEditor: (@MainActor (RichHTMLEditorView) -> Void)? {
         get { self[IntrospectEditorKey.self] }
         set { self[IntrospectEditorKey.self] = newValue }
     }
