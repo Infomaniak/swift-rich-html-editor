@@ -4,32 +4,28 @@ on:
   pull_request:
     branches: [ main ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build_and_test_iOS:
     name: Build and Test project on iOS
     runs-on: [ self-hosted, iOS ]
 
     steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build
-        run: xcodebuild -scheme InfomaniakRichHTMLEditor build -destination "platform=iOS Simulator,name=iPhone 16,OS=latest"
+        run: xcodebuild -scheme InfomaniakRichHTMLEditor build -destination "generic/platform=iOS"
       - name: Test
-        run: xcodebuild -scheme InfomaniakRichHTMLEditor test -destination "platform=iOS Simulator,name=iPhone 16,OS=latest"
+        run: xcodebuild -scheme InfomaniakRichHTMLEditor test -destination "platform=iOS Simulator,name=iPhone 17,OS=latest"
 
   build_and_test_macOS:
     name: Build and Test project on macOS
     runs-on: [ self-hosted, macOS ]
 
     steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build
