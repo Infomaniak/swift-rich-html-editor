@@ -44,7 +44,7 @@ public extension View {
     /// Performs an action when the editor is loaded.
     ///
     /// - Parameter action: A closure to run when the editor is loaded. The closure
-    ///   takes a `newValue` parameter that indicates the updated value.
+    ///   receives the `RichHTMLEditorView` instance representing the loaded editor view.
     ///
     /// - Returns: A view that fires an action when the editor is loaded.
     func onEditorLoaded(perform action: @MainActor @escaping (RichHTMLEditorView) -> Void) -> some View {
