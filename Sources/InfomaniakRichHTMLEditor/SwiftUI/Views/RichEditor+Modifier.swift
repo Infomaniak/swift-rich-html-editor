@@ -47,7 +47,7 @@ public extension View {
     ///   takes a `newValue` parameter that indicates the updated value.
     ///
     /// - Returns: A view that fires an action when the editor is loaded.
-    func onEditorLoaded(perform action: @escaping @Sendable () -> Void) -> some View {
+    func onEditorLoaded(perform action: @MainActor @escaping (RichHTMLEditorView) -> Void) -> some View {
         environment(\.onEditorLoaded, action)
     }
 
