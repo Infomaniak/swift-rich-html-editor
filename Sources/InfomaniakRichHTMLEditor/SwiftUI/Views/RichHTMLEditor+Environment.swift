@@ -32,7 +32,7 @@ public struct EditorCSSKey: EnvironmentKey {
 }
 
 public struct OnEditorLoadedKey: EnvironmentKey {
-    public static let defaultValue: (@Sendable () -> Void)? = nil
+    public static let defaultValue: (@MainActor (RichHTMLEditorView) -> Void)? = nil
 }
 
 public struct OnCaretPositionChangeKey: EnvironmentKey {
@@ -73,7 +73,7 @@ public extension EnvironmentValues {
         set { self[EditorCSSKey.self] = newValue }
     }
 
-    var onEditorLoaded: (@Sendable () -> Void)? {
+    var onEditorLoaded: (@MainActor (RichHTMLEditorView) -> Void)? {
         get { self[OnEditorLoadedKey.self] }
         set { self[OnEditorLoadedKey.self] = newValue }
     }
