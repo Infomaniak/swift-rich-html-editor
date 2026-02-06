@@ -10,6 +10,7 @@
 		A768AFC72C5C35500055519D /* ScrollableEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768AFC62C5C35500055519D /* ScrollableEditorView.swift */; };
 		A768AFC92C5C36090055519D /* NotScrollableEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768AFC82C5C36090055519D /* NotScrollableEditorView.swift */; };
 		A768AFCC2C5C37210055519D /* FixedSizeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768AFCB2C5C37210055519D /* FixedSizeEditorView.swift */; };
+		A7C4A2A72F365F2B00AC6033 /* EditorWithToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C4A2A62F365F2B00AC6033 /* EditorWithToolbar.swift */; };
 		F90560E82C47B8830015E813 /* InfomaniakRichHTMLEditor in Frameworks */ = {isa = PBXBuildFile; productRef = F90560E72C47B8830015E813 /* InfomaniakRichHTMLEditor */; };
 		F91EA2492C3D12B7007489BD /* Example_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91EA2482C3D12B7007489BD /* Example_SwiftUIApp.swift */; };
 		F91EA24B2C3D12B7007489BD /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91EA24A2C3D12B7007489BD /* RootView.swift */; };
@@ -33,6 +34,7 @@
 		A768AFC62C5C35500055519D /* ScrollableEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableEditorView.swift; sourceTree = "<group>"; };
 		A768AFC82C5C36090055519D /* NotScrollableEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotScrollableEditorView.swift; sourceTree = "<group>"; };
 		A768AFCB2C5C37210055519D /* FixedSizeEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedSizeEditorView.swift; sourceTree = "<group>"; };
+		A7C4A2A62F365F2B00AC6033 /* EditorWithToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWithToolbar.swift; sourceTree = "<group>"; };
 		F91EA2452C3D12B7007489BD /* Example SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F91EA2482C3D12B7007489BD /* Example_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example_SwiftUIApp.swift; sourceTree = "<group>"; };
 		F91EA24A2C3D12B7007489BD /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				A768AFC62C5C35500055519D /* ScrollableEditorView.swift */,
+				A7C4A2A62F365F2B00AC6033 /* EditorWithToolbar.swift */,
 				A768AFC82C5C36090055519D /* NotScrollableEditorView.swift */,
 				A768AFCB2C5C37210055519D /* FixedSizeEditorView.swift */,
 			);
@@ -186,6 +189,7 @@
 				F91EA2492C3D12B7007489BD /* Example_SwiftUIApp.swift in Sources */,
 				A768AFCC2C5C37210055519D /* FixedSizeEditorView.swift in Sources */,
 				A768AFC92C5C36090055519D /* NotScrollableEditorView.swift in Sources */,
+				A7C4A2A72F365F2B00AC6033 /* EditorWithToolbar.swift in Sources */,
 				A768AFC72C5C35500055519D /* ScrollableEditorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
