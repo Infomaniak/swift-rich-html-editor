@@ -9,7 +9,7 @@ import InfomaniakRichHTMLEditor
 import SwiftUI
 
 struct FixedSizeEditorView: View {
-    @State private var html = ""
+    @State private var html = "<h1>FixedSizeEditorView</h1><p>This editor has a fixed height and is scrollable.</p>"
     @StateObject private var textAttributes = TextAttributes()
 
     var body: some View {
