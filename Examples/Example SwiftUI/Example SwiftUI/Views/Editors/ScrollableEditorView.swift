@@ -15,7 +15,7 @@ import InfomaniakRichHTMLEditor
 import SwiftUI
 
 struct ScrollableEditorView: View {
-    @State private var html = ""
+    @State private var html = "<h1>ScrollableEditorView</h1><p>This editor is scrollable.</p>"
     @StateObject private var textAttributes = TextAttributes()
 
     var body: some View {

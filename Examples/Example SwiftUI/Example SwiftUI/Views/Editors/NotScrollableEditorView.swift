@@ -9,7 +9,7 @@ import InfomaniakRichHTMLEditor
 import SwiftUI
 
 struct NotScrollableEditorView: View {
-    @State private var html = ""
+    @State private var html = "<h1>NotScrollableEditorView</h1><p>This editor is not scrollable and will expand to fit its content.</p>"
     @StateObject private var textAttributes = TextAttributes()
 
     var body: some View {
