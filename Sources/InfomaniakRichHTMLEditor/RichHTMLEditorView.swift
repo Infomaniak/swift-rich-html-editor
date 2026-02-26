@@ -146,6 +146,10 @@ public class RichHTMLEditorView: PlatformView {
         setUpWebView()
         javaScriptManager = JavaScriptManager(webView: webView)
         javaScriptManager.delegate = self
+
+        #if targetEnvironment(macCatalyst)
+        javaScriptManager.setSpellcheck(false)
+        #endif
     }
 
     @available(*, unavailable)

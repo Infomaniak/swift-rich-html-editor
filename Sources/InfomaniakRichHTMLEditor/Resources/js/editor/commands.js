@@ -37,7 +37,6 @@ function injectCSS(content) {
 /**
  * Disables spellcheck on Mac to prevent caret glitching when selecting text.
  */
-function setSpellcheck() {
-    const isEnabled = !(navigator.platform.startsWith("Mac") && navigator.maxTouchPoints <= 1);
+function setSpellcheck(isEnabled) {
     getEditor().spellcheck = isEnabled;
 }
