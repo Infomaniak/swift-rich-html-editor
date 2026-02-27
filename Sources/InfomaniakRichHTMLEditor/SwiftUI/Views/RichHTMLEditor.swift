@@ -36,10 +36,12 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
 
     @Binding public var html: String
     @ObservedObject public var textAttributes: TextAttributes
+    public let spellCheckEnabled: Bool
 
-    public init(html: Binding<String>, textAttributes: TextAttributes) {
+    public init(html: Binding<String>, textAttributes: TextAttributes, spellCheckEnabled: Bool) {
         _html = html
         _textAttributes = ObservedObject(wrappedValue: textAttributes)
+        self.spellCheckEnabled = spellCheckEnabled
     }
 
     // MARK: - Platform functions
@@ -48,6 +50,7 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
         let richHTMLEditorView = RichHTMLEditorView()
         richHTMLEditorView.delegate = context.coordinator
         richHTMLEditorView.html = html
+        richHTMLEditorView.spellCheckEnabled = spellCheckEnabled
 
         if let css = editorCSS {
             richHTMLEditorView.injectAdditionalCSS(css)
