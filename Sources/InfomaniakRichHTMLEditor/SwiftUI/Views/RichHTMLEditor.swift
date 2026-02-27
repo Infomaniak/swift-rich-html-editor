@@ -67,6 +67,10 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
             richHTMLEditorView.html = html
         }
 
+        if richHTMLEditorView.spellCheckEnabled != spellCheckEnabled {
+            richHTMLEditorView.spellCheckEnabled = spellCheckEnabled
+        }
+
         #if canImport(UIKit)
         if richHTMLEditorView.isScrollEnabled != isEditorScrollable {
             richHTMLEditorView.isScrollEnabled = isEditorScrollable
