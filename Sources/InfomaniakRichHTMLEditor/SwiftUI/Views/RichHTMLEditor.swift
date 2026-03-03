@@ -38,7 +38,7 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
     @ObservedObject public var textAttributes: TextAttributes
     public let spellCheckEnabled: Bool
 
-    public init(html: Binding<String>, textAttributes: TextAttributes, spellCheckEnabled: Bool) {
+    public init(html: Binding<String>, textAttributes: TextAttributes, spellCheckEnabled: Bool = true) {
         _html = html
         _textAttributes = ObservedObject(wrappedValue: textAttributes)
         self.spellCheckEnabled = spellCheckEnabled

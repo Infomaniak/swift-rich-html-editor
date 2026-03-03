@@ -280,6 +280,7 @@ public extension RichHTMLEditorView {
     }
 
     private func setSpellCheck(_ isSpellCheckEnabled: Bool) {
+        rawIsSpellCheckEnabled = isSpellCheckEnabled
         javaScriptManager.setSpellcheck(isSpellCheckEnabled)
     }
 
