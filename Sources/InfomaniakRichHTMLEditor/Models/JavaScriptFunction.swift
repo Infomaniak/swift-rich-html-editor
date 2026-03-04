@@ -15,6 +15,7 @@ enum JavaScriptFunction: Sendable {
     case execCommand(command: String, argument: Sendable? = nil)
     case setContent(content: String)
     case injectCSS(content: String)
+    case setSpellcheck(enabled: Bool)
     case createLink(url: String, text: String?)
     case unlink
     case focus
@@ -31,6 +32,8 @@ enum JavaScriptFunction: Sendable {
             return "setContent"
         case .injectCSS:
             return "injectCSS"
+        case .setSpellcheck:
+            return "setSpellcheck"
         case .createLink:
             return "createLink"
         case .unlink:
@@ -56,6 +59,8 @@ enum JavaScriptFunction: Sendable {
             return [content]
         case .injectCSS(let content):
             return [content]
+        case .setSpellcheck(let enabled):
+            return [enabled]
         case .createLink(let url, let text):
             return [url, text]
         case .setCaretAtSelector(let selector):

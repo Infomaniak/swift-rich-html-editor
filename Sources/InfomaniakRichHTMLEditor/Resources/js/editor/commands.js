@@ -33,3 +33,10 @@ function injectCSS(content) {
     styleElement.textContent = content;
     document.head.appendChild(styleElement);
 }
+
+/**
+ * Disables spellcheck on Mac to prevent caret glitching when selecting text.
+ */
+function setSpellcheck(isEnabled) {
+    getEditor().spellcheck = isEnabled;
+}
