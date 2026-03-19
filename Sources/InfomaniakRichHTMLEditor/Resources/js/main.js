@@ -5,5 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     observeResize(document.documentElement);
     observeContentMutation(document, getEditor());
+    observeComposition(getEditor(), getEditor());
     observeSelectionChange(document);
 });
