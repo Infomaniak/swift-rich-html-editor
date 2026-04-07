@@ -35,8 +35,25 @@ function injectCSS(content) {
 }
 
 /**
- * Disables spellcheck on Mac to prevent caret glitching when selecting text.
+ * Enables or disables spell checking for the editor.
+ *
+ * @param {boolean} isEnabled - Whether to enable spell checking
+ *
+ * Note: On Mac Catalyst, enabling spell checking may cause the caret to jump
+ *       during text selection if a word is misspelled.
  */
 function setSpellcheck(isEnabled) {
     getEditor().spellcheck = isEnabled;
+}
+
+/**
+ * Enables or disables autocorrection for the editor.
+ *
+ * @param {boolean} isEnabled - Whether to enable autocorrection
+ *
+ * Note: On Mac Catalyst, enabling autocorrection selects misspelled words on
+ *       single click instead of positioning the caret within them.
+ */
+function setAutocorrect(isEnabled) {
+    getEditor().autocorrect = isEnabled;
 }

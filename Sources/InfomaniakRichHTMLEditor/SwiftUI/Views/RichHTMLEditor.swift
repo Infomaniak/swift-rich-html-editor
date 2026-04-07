@@ -37,11 +37,14 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
     @Binding public var html: String
     @ObservedObject public var textAttributes: TextAttributes
     public let spellCheckEnabled: Bool
+    public let autoCorrectEnabled: Bool
 
-    public init(html: Binding<String>, textAttributes: TextAttributes, spellCheckEnabled: Bool = true) {
+    public init(html: Binding<String>, textAttributes: TextAttributes,
+                spellCheckEnabled: Bool = true, autoCorrectEnabled: Bool = true) {
         _html = html
         _textAttributes = ObservedObject(wrappedValue: textAttributes)
         self.spellCheckEnabled = spellCheckEnabled
+        self.autoCorrectEnabled = autoCorrectEnabled
     }
 
     // MARK: - Platform functions
@@ -51,6 +54,7 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
         richHTMLEditorView.delegate = context.coordinator
         richHTMLEditorView.html = html
         richHTMLEditorView.spellCheckEnabled = spellCheckEnabled
+        richHTMLEditorView.autoCorrectEnabled = autoCorrectEnabled
 
         if let css = editorCSS {
             richHTMLEditorView.injectAdditionalCSS(css)
@@ -69,6 +73,10 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
 
         if richHTMLEditorView.spellCheckEnabled != spellCheckEnabled {
             richHTMLEditorView.spellCheckEnabled = spellCheckEnabled
+        }
+
+        if richHTMLEditorView.autoCorrectEnabled != autoCorrectEnabled {
+            richHTMLEditorView.autoCorrectEnabled = autoCorrectEnabled
         }
 
         #if canImport(UIKit)
