@@ -57,7 +57,24 @@ function getCaretRect(anchorNode) {
         case 0:
             const node = anchorNode || window.getSelection().anchorNode;
             const closestParentElement = getClosestParentNodeElement(node);
-            return closestParentElement.getBoundingClientRect();
+            if (closestParentElement == null) {
+                return null;
+            }
+            const elementRect = closestParentElement.getBoundingClientRect();
+            // Clamp height to line height to prevent unwanted scrolling
+            // when the parent is a large container (e.g. the editor div).
+            const computedStyle = window.getComputedStyle(closestParentElement);
+            const lineHeight = parseFloat(computedStyle.lineHeight);
+            const fontSize = parseFloat(computedStyle.fontSize);
+            const effectiveHeight = !isNaN(lineHeight)
+                ? lineHeight
+                : (fontSize ? fontSize * 1.2 : elementRect.height);
+            return new DOMRect(
+                elementRect.x,
+                elementRect.y,
+                elementRect.width,
+                Math.min(elementRect.height, effectiveHeight)
+            );
         case 1:
             return rangeRects[0];
         default:
