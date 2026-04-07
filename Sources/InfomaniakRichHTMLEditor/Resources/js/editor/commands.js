@@ -40,3 +40,10 @@ function injectCSS(content) {
 function setSpellcheck(isEnabled) {
     getEditor().spellcheck = isEnabled;
 }
+
+/**
+ * Disables autocorrect on Mac to prevent selecting text with a single click.
+ */
+function setAutocorrect(isEnabled) {
+    getEditor().autocorrect = isEnabled;
+}

@@ -60,6 +60,15 @@ public class RichHTMLEditorView: PlatformView {
         }
     }
 
+    public var autoCorrectEnabled: Bool {
+        get {
+            return rawIsAutoCorrectEnabled
+        }
+        set {
+            setAutoCorrect(newValue)
+        }
+    }
+
     #if canImport(UIKit)
     /// A Boolean value that indicates whether the responder accepts first responder status.
     override public var canBecomeFirstResponder: Bool {
@@ -140,6 +149,7 @@ public class RichHTMLEditorView: PlatformView {
     var rawHTMLContent = ""
     var rawIsScrollEnabled = false
     var rawIsSpellCheckEnabled = true
+    var rawIsAutoCorrectEnabled = true
     var rawContentHeight = CGFloat.zero
 
     var javaScriptManager: JavaScriptManager!
@@ -282,6 +292,11 @@ public extension RichHTMLEditorView {
     private func setSpellCheck(_ isSpellCheckEnabled: Bool) {
         rawIsSpellCheckEnabled = isSpellCheckEnabled
         javaScriptManager.setSpellcheck(isSpellCheckEnabled)
+    }
+
+    private func setAutoCorrect(_ isAutoCorrectEnabled: Bool) {
+        rawIsAutoCorrectEnabled = isAutoCorrectEnabled
+        javaScriptManager.setAutocorrect(isAutoCorrectEnabled)
     }
 
     #if canImport(UIKit)
