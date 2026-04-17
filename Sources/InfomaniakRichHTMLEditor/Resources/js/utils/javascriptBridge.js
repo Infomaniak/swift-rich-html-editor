@@ -20,3 +20,7 @@ function reportSelectedTextAttributesDidChange(textAttributes) {
 function reportCaretPositionDidChange(caretRect) {
     window.webkit.messageHandlers.caretPositionDidChange.postMessage([caretRect.x, caretRect.y, caretRect.width, caretRect.height]);
 }
+
+function reportSelectionDidChange(text) {
+    window.webkit.messageHandlers.selectionDidChange.postMessage(text);
+}
