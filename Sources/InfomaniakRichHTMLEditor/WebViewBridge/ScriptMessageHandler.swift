@@ -21,6 +21,7 @@ protocol ScriptMessageHandlerDelegate: AnyObject {
     func contentHeightDidChange(_ contentHeight: CGFloat)
     func selectedTextAttributesDidChange(_ selectedTextAttributes: UITextAttributes?)
     func caretPositionDidChange(_ caretRect: CGRect)
+    func selectionDidChange(_ selection: String)
 }
 
 final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
@@ -31,6 +32,7 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         case caretPositionDidChange
         case selectedTextAttributesDidChange
         case scriptLog
+        case selectionDidChange
     }
 
     weak var delegate: ScriptMessageHandlerDelegate?
@@ -55,6 +57,8 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             caretPositionDidChange(message)
         case .scriptLog:
             scriptLog(message)
+        case .selectionDidChange:
+            selectionDidChange(message)
         }
     }
 
@@ -112,5 +116,12 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             return
         }
         logger.info("[ScriptLog] \(log)")
+    }
+    
+    private func selectionDidChange(_ message: WKScriptMessage) {
+        guard let selection = message.body as? String else {
+            return
+        }
+        delegate?.selectionDidChange(selection)
     }
 }
