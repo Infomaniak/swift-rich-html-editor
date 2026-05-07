@@ -42,7 +42,6 @@ function getSelectedTextAttributes() {
     getTextAttributesFromValueCommands(textAttributes);
     getTextAttributesFromCustomCommands(textAttributes);
     textAttributes["selectedText"] = getSelectedText();
-    console.log(textAttributes["selectedText"]);
 
     return textAttributes;
 }
