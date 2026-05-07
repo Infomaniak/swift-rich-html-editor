@@ -33,6 +33,8 @@ public final class TextAttributes: ObservableObject {
 
     @Published public private(set) var fontName = ""
     @Published public private(set) var fontSize: Int?
+    
+    @Published public private(set) var selectedText = ""
 
     @Published public private(set) var foregroundColor: Color?
     @Published public private(set) var backgroundColor: Color?

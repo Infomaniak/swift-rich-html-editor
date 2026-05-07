@@ -21,7 +21,7 @@ const valueCommands = {
     fontName: "fontName",
     rawFontSize: "fontSize",
     rawForegroundColor: "foreColor",
-    rawBackgroundColor: "backColor"
+    rawBackgroundColor: "backColor",
 };
 
 // MARK: - Compute and report TextAttributes
@@ -41,6 +41,7 @@ function getSelectedTextAttributes() {
     getTextAttributesFromStateCommands(textAttributes);
     getTextAttributesFromValueCommands(textAttributes);
     getTextAttributesFromCustomCommands(textAttributes);
+    textAttributes["selectedText"] = getSelectedText();
 
     return textAttributes;
 }
@@ -64,6 +65,10 @@ function getTextAttributesFromValueCommands(textAttributes) {
 function getTextAttributesFromCustomCommands(textAttributes) {
     textAttributes["hasLink"] = hasLink();
     textAttributes["textJustification"] = computeTextJustification();
+}
+
+function getSelectedText() {
+    return window.getSelection().toString();
 }
 
 function computeTextJustification() {

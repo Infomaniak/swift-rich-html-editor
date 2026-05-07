@@ -14,7 +14,7 @@
 import SwiftUI
 
 public final class RichHTMLEditorCoordinator: RichHTMLEditorViewDelegate {
-    private let parent: RichHTMLEditor
+    private var parent: RichHTMLEditor
 
     init(parent: RichHTMLEditor) {
         self.parent = parent
@@ -51,5 +51,9 @@ public final class RichHTMLEditorCoordinator: RichHTMLEditorViewDelegate {
 
     public func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, shouldHandleLink link: URL) -> Bool {
         return parent.handleLinkOpening?(link) ?? false
+    }
+    
+    public func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, selectionDidChange selection: String) {
+        parent.selection?.wrappedValue = selection
     }
 }

@@ -143,6 +143,8 @@ public class RichHTMLEditorView: PlatformView {
 
     /// The web view that displays the HTML and handle the input.
     public private(set) var webView: RichHTMLWebView!
+    
+    public private(set) var selectedText = ""
 
     // MARK: - Private properties
 
@@ -385,6 +387,11 @@ extension RichHTMLEditorView: ScriptMessageHandlerDelegate {
             scrollView.scrollRectToVisible(scrollRect, animated: true)
         }
         #endif
+    }
+    
+    func selectionDidChange(_ selection: String){
+        selectedText = selection
+        delegate?.richHTMLEditorView(self, selectionDidChange: selection)
     }
 }
 
