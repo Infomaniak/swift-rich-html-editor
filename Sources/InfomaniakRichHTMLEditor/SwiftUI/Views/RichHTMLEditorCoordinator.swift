@@ -52,4 +52,8 @@ public final class RichHTMLEditorCoordinator: RichHTMLEditorViewDelegate {
     public func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, shouldHandleLink link: URL) -> Bool {
         return parent.handleLinkOpening?(link) ?? false
     }
+
+    public func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, selectionDidChange selection: String) {
+        parent.selection?.wrappedValue = selection
+    }
 }

@@ -18,8 +18,15 @@ function observeResize(target) {
 }
 
 function observeSelectionChange(target) {
+    let lastReportedSelection = null;
+    
     target.addEventListener("selectionchange", () => {
         setTimeout(computeAndReportCaretPosition, 120);
+        let selection = document.getSelection().toString();
+        if (selection !== lastReportedSelection) {
+            lastReportedSelection = selection;
+            reportSelectionDidChange(selection);
+        }
         reportSelectedTextAttributesIfNecessary();
     });
 }

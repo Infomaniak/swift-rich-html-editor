@@ -51,6 +51,24 @@ public class RichHTMLEditorView: PlatformView {
         }
     }
 
+    public var spellCheckEnabled: Bool {
+        get {
+            return rawIsSpellCheckEnabled
+        }
+        set {
+            setSpellCheck(newValue)
+        }
+    }
+
+    public var autoCorrectEnabled: Bool {
+        get {
+            return rawIsAutoCorrectEnabled
+        }
+        set {
+            setAutoCorrect(newValue)
+        }
+    }
+
     #if canImport(UIKit)
     /// A Boolean value that indicates whether the responder accepts first responder status.
     override public var canBecomeFirstResponder: Bool {
@@ -123,6 +141,9 @@ public class RichHTMLEditorView: PlatformView {
     /// The style of the text currently selected in the editor view.
     public private(set) var selectedTextAttributes = UITextAttributes()
 
+    /// The text currently selected in the editor view.
+    public private(set) var selectedText = ""
+
     /// The web view that displays the HTML and handle the input.
     public private(set) var webView: RichHTMLWebView!
 
@@ -130,6 +151,8 @@ public class RichHTMLEditorView: PlatformView {
 
     var rawHTMLContent = ""
     var rawIsScrollEnabled = false
+    var rawIsSpellCheckEnabled = true
+    var rawIsAutoCorrectEnabled = true
     var rawContentHeight = CGFloat.zero
 
     var javaScriptManager: JavaScriptManager!
@@ -269,6 +292,16 @@ public extension RichHTMLEditorView {
         javaScriptManager.setHTMLContent(newContent)
     }
 
+    private func setSpellCheck(_ isSpellCheckEnabled: Bool) {
+        rawIsSpellCheckEnabled = isSpellCheckEnabled
+        javaScriptManager.setSpellcheck(isSpellCheckEnabled)
+    }
+
+    private func setAutoCorrect(_ isAutoCorrectEnabled: Bool) {
+        rawIsAutoCorrectEnabled = isAutoCorrectEnabled
+        javaScriptManager.setAutocorrect(isAutoCorrectEnabled)
+    }
+
     #if canImport(UIKit)
     private func setScrollableBehavior(_ isScrollEnabled: Bool) {
         rawIsScrollEnabled = isScrollEnabled
@@ -280,7 +313,11 @@ public extension RichHTMLEditorView {
 // MARK: - WKNavigationDelegate
 
 extension RichHTMLEditorView: WKNavigationDelegate {
-    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping @MainActor (WKNavigationActionPolicy) -> Void) {
+    public func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction,
+        decisionHandler: @escaping @MainActor (WKNavigationActionPolicy) -> Void
+    ) {
         switch navigationAction.navigationType {
         case .linkActivated:
             if let url = navigationAction.request.url, delegate?.richHTMLEditorView(self, shouldHandleLink: url) == true {
@@ -355,6 +392,14 @@ extension RichHTMLEditorView: ScriptMessageHandlerDelegate {
             scrollView.scrollRectToVisible(scrollRect, animated: true)
         }
         #endif
+    }
+
+    func selectionDidChange(_ selection: String) {
+        guard selection != selectedText else {
+            return
+        }
+        selectedText = selection
+        delegate?.richHTMLEditorView(self, selectionDidChange: selection)
     }
 }
 

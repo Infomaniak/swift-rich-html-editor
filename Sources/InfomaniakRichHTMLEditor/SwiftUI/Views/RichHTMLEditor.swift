@@ -35,11 +35,19 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
     @Environment(\.handleLinkOpening) var handleLinkOpening
 
     @Binding public var html: String
-    @ObservedObject public var textAttributes: TextAttributes
+    public var selection: Binding<String>?
 
-    public init(html: Binding<String>, textAttributes: TextAttributes) {
+    @ObservedObject public var textAttributes: TextAttributes
+    public let spellCheckEnabled: Bool
+    public let autoCorrectEnabled: Bool
+
+    public init(html: Binding<String>, selection: Binding<String>? = nil, textAttributes: TextAttributes,
+                spellCheckEnabled: Bool = true, autoCorrectEnabled: Bool = true) {
         _html = html
+        self.selection = selection
         _textAttributes = ObservedObject(wrappedValue: textAttributes)
+        self.spellCheckEnabled = spellCheckEnabled
+        self.autoCorrectEnabled = autoCorrectEnabled
     }
 
     // MARK: - Platform functions
@@ -48,6 +56,8 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
         let richHTMLEditorView = RichHTMLEditorView()
         richHTMLEditorView.delegate = context.coordinator
         richHTMLEditorView.html = html
+        richHTMLEditorView.spellCheckEnabled = spellCheckEnabled
+        richHTMLEditorView.autoCorrectEnabled = autoCorrectEnabled
 
         if let css = editorCSS {
             richHTMLEditorView.injectAdditionalCSS(css)
@@ -62,6 +72,14 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
     private func updatePlatformView(_ richHTMLEditorView: RichHTMLEditorView) {
         if richHTMLEditorView.html != html {
             richHTMLEditorView.html = html
+        }
+
+        if richHTMLEditorView.spellCheckEnabled != spellCheckEnabled {
+            richHTMLEditorView.spellCheckEnabled = spellCheckEnabled
+        }
+
+        if richHTMLEditorView.autoCorrectEnabled != autoCorrectEnabled {
+            richHTMLEditorView.autoCorrectEnabled = autoCorrectEnabled
         }
 
         #if canImport(UIKit)

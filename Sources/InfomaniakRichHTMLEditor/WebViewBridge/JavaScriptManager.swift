@@ -45,6 +45,16 @@ final class JavaScriptManager {
         evaluateWhenDOMIsReady(function: injectCSS)
     }
 
+    func setSpellcheck(_ enabled: Bool) {
+        let setSpellcheck = JavaScriptFunction.setSpellcheck(enabled: enabled)
+        evaluateWhenDOMIsReady(function: setSpellcheck)
+    }
+
+    func setAutocorrect(_ enabled: Bool) {
+        let setAutocorrect = JavaScriptFunction.setAutocorrect(enabled: enabled)
+        evaluateWhenDOMIsReady(function: setAutocorrect)
+    }
+
     func execCommand(_ command: ExecCommand, argument: Sendable? = nil) {
         let execCommand = JavaScriptFunction.execCommand(command: command.rawValue, argument: argument)
         evaluate(function: execCommand)

@@ -98,6 +98,17 @@ public protocol RichHTMLEditorViewDelegate: AnyObject {
     ///
     /// - Returns: `false` if the editor should handle the link opening itself.
     func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, shouldHandleLink link: URL) -> Bool
+
+    /// Tells the delegate when the user's text selection has changed inside the editor.
+    ///
+    /// This method is triggered whenever the user selects or deselects text.
+    ///
+    /// Implementation of this method is optional.
+    ///
+    /// - Parameters:
+    ///   - richHTMLEditorView: The editor which is loaded.
+    ///   - selection: The current text string selected by the user.
+    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, selectionDidChange selection: String)
 }
 
 // Default implementation for optional functions
@@ -117,4 +128,6 @@ public extension RichHTMLEditorViewDelegate {
     func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, shouldHandleLink link: URL) -> Bool {
         return false
     }
+
+    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, selectionDidChange selection: String) {}
 }
