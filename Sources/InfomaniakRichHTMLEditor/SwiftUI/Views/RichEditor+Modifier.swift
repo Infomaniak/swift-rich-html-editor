@@ -92,4 +92,12 @@ public extension View {
     func handleLinkOpening(perform action: @escaping @Sendable (URL) -> Bool) -> some View {
         environment(\.handleLinkOpening, action)
     }
+
+    /// Sets a closure to execute when the mention query changes.
+    ///
+    /// - Parameter action: A closure that receives the current mention query string.
+    /// - Returns: A view with the updated environment action.
+    func onMentionQueryChange(perform action: @escaping @Sendable (String) -> Void) -> some View {
+        environment(\.onMentionQueryChange, action)
+    }
 }

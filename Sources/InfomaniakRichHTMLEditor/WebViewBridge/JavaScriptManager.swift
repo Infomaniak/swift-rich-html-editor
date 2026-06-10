@@ -89,6 +89,10 @@ final class JavaScriptManager {
         evaluate(function: .setCaretAtSelector(selector: selector))
     }
 
+    func insertMention(email: String, name: String) {
+        evaluate(function: .insertMention(email: email, name: name))
+    }
+
     private func evaluateWaitingFunctions() {
         guard isDOMContentLoaded else {
             return

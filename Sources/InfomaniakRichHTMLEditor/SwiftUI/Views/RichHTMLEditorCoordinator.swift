@@ -56,4 +56,8 @@ public final class RichHTMLEditorCoordinator: RichHTMLEditorViewDelegate {
     public func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, selectionDidChange selection: String) {
         parent.selection?.wrappedValue = selection
     }
+
+    public func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, mentionQueryDidChange mention: String) {
+        parent.onMentionQueryChange?(mention)
+    }
 }

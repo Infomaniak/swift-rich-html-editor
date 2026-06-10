@@ -22,6 +22,7 @@ protocol ScriptMessageHandlerDelegate: AnyObject {
     func selectedTextAttributesDidChange(_ selectedTextAttributes: UITextAttributes?)
     func caretPositionDidChange(_ caretRect: CGRect)
     func selectionDidChange(_ selection: String)
+    func mentionQueryDidChange(_ mention: String)
 }
 
 final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
@@ -33,6 +34,7 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         case selectedTextAttributesDidChange
         case scriptLog
         case selectionDidChange
+        case mentionQueryDidChange
     }
 
     weak var delegate: ScriptMessageHandlerDelegate?
@@ -59,6 +61,8 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             scriptLog(message)
         case .selectionDidChange:
             selectionDidChange(message)
+        case .mentionQueryDidChange:
+            mentionQueryDidChange(message)
         }
     }
 
@@ -123,5 +127,12 @@ final class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
             return
         }
         delegate?.selectionDidChange(selection)
+    }
+    
+    private func mentionQueryDidChange(_ message: WKScriptMessage) {
+        guard let mention = message.body as? String else {
+            return
+        }
+        delegate?.mentionQueryDidChange(mention)
     }
 }

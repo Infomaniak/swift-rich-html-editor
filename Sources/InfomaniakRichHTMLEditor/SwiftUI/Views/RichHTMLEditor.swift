@@ -33,6 +33,7 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
     @Environment(\.onJavaScriptFunctionFail) var onJavaScriptFunctionFail
     @Environment(\.introspectEditor) var introspectEditor
     @Environment(\.handleLinkOpening) var handleLinkOpening
+    @Environment(\.onMentionQueryChange) var onMentionQueryChange
 
     @Binding public var html: String
     public var selection: Binding<String>?

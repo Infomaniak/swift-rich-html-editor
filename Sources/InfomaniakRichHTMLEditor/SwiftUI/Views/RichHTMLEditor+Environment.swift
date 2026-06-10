@@ -51,6 +51,10 @@ public struct HandleLinkOpeningKey: EnvironmentKey {
     public static let defaultValue: (@Sendable (URL) -> Bool)? = nil
 }
 
+public struct OnMentionQueryChangeKey: EnvironmentKey {
+    public static let defaultValue: (@Sendable (String) -> Void)? = nil
+}
+
 // MARK: - Environment Values
 
 public extension EnvironmentValues {
@@ -96,5 +100,10 @@ public extension EnvironmentValues {
     var handleLinkOpening: (@Sendable (URL) -> Bool)? {
         get { self[HandleLinkOpeningKey.self] }
         set { self[HandleLinkOpeningKey.self] = newValue }
+    }
+
+    var onMentionQueryChange: (@Sendable (String) -> Void)? {
+        get { self[OnMentionQueryChangeKey.self] }
+        set { self[OnMentionQueryChangeKey.self] = newValue }
     }
 }

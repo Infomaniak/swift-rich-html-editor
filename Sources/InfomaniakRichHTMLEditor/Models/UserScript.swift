@@ -13,7 +13,7 @@
 
 import WebKit
 
-struct UserScript: Sendable {
+struct UserScript {
     let name: String
     let injectionTime: WKUserScriptInjectionTime
 
@@ -40,6 +40,7 @@ extension UserScript {
         UserScript(name: "links", injectionTime: .atDocumentStart),
         UserScript(name: "observer", injectionTime: .atDocumentStart),
         UserScript(name: "focus", injectionTime: .atDocumentStart),
+        UserScript(name: "mentions", injectionTime: .atDocumentStart),
 
         // Main
         UserScript(name: "main", injectionTime: .atDocumentStart)

@@ -145,6 +145,15 @@ public extension RichHTMLEditorView {
         }
     }
 
+    /// Inserts a mention tag when a user is referenced.
+    ///
+    /// - Parameters:
+    ///   - email: The email address of the mentioned user.
+    ///   - name: The name of the mentioned user.
+    func insertMention(email: String, name: String) {
+        javaScriptManager.insertMention(email: email, name: name)
+    }
+
     private func execCommand(_ command: ExecCommand, argument: Sendable? = nil) {
         javaScriptManager.execCommand(command, argument: argument)
     }

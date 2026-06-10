@@ -24,3 +24,7 @@ function reportCaretPositionDidChange(caretRect) {
 function reportSelectionDidChange(text) {
     window.webkit.messageHandlers.selectionDidChange.postMessage(text);
 }
+
+function reportMentionQueryChanged(text) {
+    window.webkit.messageHandlers.mentionQueryChanged.postMessage(text);
+}

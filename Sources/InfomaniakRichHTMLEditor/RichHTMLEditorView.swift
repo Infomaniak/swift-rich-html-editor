@@ -401,6 +401,10 @@ extension RichHTMLEditorView: ScriptMessageHandlerDelegate {
         selectedText = selection
         delegate?.richHTMLEditorView(self, selectionDidChange: selection)
     }
+
+    func mentionQueryDidChange(_ query: String) {
+        delegate?.richHMTLEditorView(self, mentionQueryDidChange: query)
+    }
 }
 
 // MARK: - JavaScriptManagerDelegate

@@ -109,6 +109,13 @@ public protocol RichHTMLEditorViewDelegate: AnyObject {
     ///   - richHTMLEditorView: The editor which is loaded.
     ///   - selection: The current text string selected by the user.
     func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, selectionDidChange selection: String)
+
+    /// Notifies the delegate when the mention text being typed by the user changes.
+    ///
+    /// - Parameters:
+    ///   - richHTMLEditorView: The editor instance where the change occurred.
+    ///   - mention: The current text string of the mention being typed.
+    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, mentionQueryDidChange mention: String)
 }
 
 // Default implementation for optional functions
@@ -130,4 +137,6 @@ public extension RichHTMLEditorViewDelegate {
     }
 
     func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, selectionDidChange selection: String) {}
+
+    func richHMTLEditorView(_ richHTMLEditorView: RichHTMLEditorView, mentionQueryDidChange mention: String) {}
 }
