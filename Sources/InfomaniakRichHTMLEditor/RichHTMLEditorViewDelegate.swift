@@ -138,5 +138,5 @@ public extension RichHTMLEditorViewDelegate {
 
     func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, selectionDidChange selection: String) {}
 
-    func richHMTLEditorView(_ richHTMLEditorView: RichHTMLEditorView, mentionQueryDidChange mention: String) {}
+    func richHTMLEditorView(_ richHTMLEditorView: RichHTMLEditorView, mentionQueryDidChange mention: String) {}
 }

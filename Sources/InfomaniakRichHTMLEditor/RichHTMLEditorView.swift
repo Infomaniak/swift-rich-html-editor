@@ -403,7 +403,7 @@ extension RichHTMLEditorView: ScriptMessageHandlerDelegate {
     }
 
     func mentionQueryDidChange(_ query: String) {
-        delegate?.richHMTLEditorView(self, mentionQueryDidChange: query)
+        delegate?.richHTMLEditorView(self, mentionQueryDidChange: query)
     }
 }
 
