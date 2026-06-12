@@ -1,6 +1,6 @@
 /**
  * Replace the incomplete mention (@query) with a mention anchor.
- * Example output: <a data-ik-tag href="mailto:user@ik.me">User name</a>
+ * Example output: <a data-ik-mention-ref="user@ik.me" href="mailto:user@ik.me">User name</a>
  */
 function insertMention(userMail, userName) {
     if (!userMail || !userName) return;
@@ -65,12 +65,12 @@ function insertMention(userMail, userName) {
     replaceRange.deleteContents();
 
     const anchor = document.createElement("a");
-    anchor.setAttribute("data-ik-tag", "");
+    anchor.setAttribute("data-ik-mention-ref", userMail);
     anchor.setAttribute("href", `mailto:${userMail}`);
     anchor.setAttribute("contenteditable", "false");
     anchor.setAttribute("data-not-clickable", "true");
     anchor.style.pointerEvents = "none";
-    anchor.textContent = userName;
+    anchor.textContent = `@${userName}`;
 
     const trailingSpace = document.createTextNode(" ");
     replaceRange.insertNode(trailingSpace);
