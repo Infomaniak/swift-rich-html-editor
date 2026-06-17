@@ -25,6 +25,6 @@ function reportSelectionDidChange(text) {
     window.webkit.messageHandlers.selectionDidChange.postMessage(text);
 }
 
-function reportMentionQueryChanged(text) {
+function reportMentionQueryDidChange(text) {
     window.webkit.messageHandlers.mentionQueryDidChange.postMessage(text);
 }

@@ -65,7 +65,7 @@ function insertMention(userMail, userName) {
     replaceRange.deleteContents();
 
     const anchor = document.createElement("a");
-    anchor.setAttribute("data-ik-mention-ref", userMail);
+    anchor.dataset.ikMentionRef = userMail;
     anchor.setAttribute("href", `mailto:${userMail}`);
     anchor.setAttribute("contenteditable", "false");
     anchor.textContent = `@${userName}`;
@@ -131,8 +131,9 @@ const isInsideMentionLink = () => {
 };
 
 const resetMentionQuery = () => {
+    if (lastSentValue === null) return;
     lastSentValue = null;
-    reportMentionQueryChanged("");
+    reportMentionQueryDidChange("");
 };
 
 const notifyIfChanged = () => {
@@ -142,6 +143,10 @@ const notifyIfChanged = () => {
     }
 
     const textBeforeCaret = getTextBeforeCaret();
+    const normalizedTextBeforeCaret = textBeforeCaret.replace(zeroWidthCharsRegex, "");
+    if (mentionRestartOffset != null && normalizedTextBeforeCaret.length < mentionRestartOffset) {
+        mentionRestartOffset = null;
+    }
     const query = extractMentionQuery(textBeforeCaret);
 
     if (query != null && mentionRestartOffset != null) mentionRestartOffset = null;
@@ -149,16 +154,16 @@ const notifyIfChanged = () => {
     if (query === lastSentValue) return;
     lastSentValue = query;
 
-    if (query != null) {
-        reportMentionQueryChanged(query);
+    if (query == null) {
+        reportMentionQueryDidChange("");
     } else {
-        reportMentionQueryChanged("");
+        reportMentionQueryDidChange(query);
     }
 };
 
 const setupMentionDetection = () => {
-    if (globalThis.__kmailMentionDetectionInitialized) return;
-    globalThis.__kmailMentionDetectionInitialized = true;
+    if (globalThis.__swiftRichHTMLEditorMentionDetectionInitialized) return;
+    globalThis.__swiftRichHTMLEditorMentionDetectionInitialized = true;
 
     document.addEventListener("selectionchange", notifyIfChanged);
     document.addEventListener("input", notifyIfChanged);
