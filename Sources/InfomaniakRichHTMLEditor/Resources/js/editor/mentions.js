@@ -68,8 +68,6 @@ function insertMention(userMail, userName) {
     anchor.setAttribute("data-ik-mention-ref", userMail);
     anchor.setAttribute("href", `mailto:${userMail}`);
     anchor.setAttribute("contenteditable", "false");
-    anchor.setAttribute("data-not-clickable", "true");
-    anchor.style.pointerEvents = "none";
     anchor.textContent = `@${userName}`;
 
     const trailingSpace = document.createTextNode(" ");
