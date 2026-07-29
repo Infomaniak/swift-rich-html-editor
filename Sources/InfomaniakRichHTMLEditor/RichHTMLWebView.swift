@@ -26,4 +26,41 @@ public class RichHTMLWebView: WKWebView {
 
     private var richHTMLEditorInputAccessoryView: UIView?
     #endif
+    
+    override public func buildMenu(with builder: UIMenuBuilder) {
+           super.buildMenu(with: builder)
+
+           guard builder.system == .context else {
+               return
+           }
+
+           let command = UICommand(
+               title: "Coucou Valentin et Elena",
+               action: #selector(pasteWithoutStyling)
+           )
+
+           builder.insertChild(
+               UIMenu(options: .displayInline, children: [command]),
+               atStartOfMenu: .standardEdit
+           )
+       }
+
+       @objc
+       private func pasteWithoutStyling(_ sender: Any?) {
+           pasteAndMatchStyle(sender)
+       }
+
+       override public func canPerformAction(
+           _ action: Selector,
+           withSender sender: Any?
+       ) -> Bool {
+           if action == #selector(pasteWithoutStyling) {
+               return super.canPerformAction(
+                   #selector(pasteAndMatchStyle(_:)),
+                   withSender: sender
+               )
+           }
+
+           return super.canPerformAction(action, withSender: sender)
+       }
 }
