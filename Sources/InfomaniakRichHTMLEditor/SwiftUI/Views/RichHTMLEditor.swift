@@ -12,6 +12,7 @@
 //  under the License.
 
 import SwiftUI
+import WebKit
 
 #if canImport(UIKit)
 public typealias PlateformViewRepresentable = UIViewRepresentable
@@ -41,6 +42,21 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
     public let spellCheckEnabled: Bool
     public let autoCorrectEnabled: Bool
 
+    #if canImport(UIKit)
+    public let commands: [HTMLEditorCustomAction]
+    #endif
+
+    #if canImport(UIKit)
+    public init(html: Binding<String>, selection: Binding<String>? = nil, textAttributes: TextAttributes,
+                spellCheckEnabled: Bool = true, autoCorrectEnabled: Bool = true, commands: [HTMLEditorCustomAction] = []) {
+        _html = html
+        self.selection = selection
+        _textAttributes = ObservedObject(wrappedValue: textAttributes)
+        self.spellCheckEnabled = spellCheckEnabled
+        self.autoCorrectEnabled = autoCorrectEnabled
+        self.commands = commands
+    }
+    #else
     public init(html: Binding<String>, selection: Binding<String>? = nil, textAttributes: TextAttributes,
                 spellCheckEnabled: Bool = true, autoCorrectEnabled: Bool = true) {
         _html = html
@@ -49,6 +65,7 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
         self.spellCheckEnabled = spellCheckEnabled
         self.autoCorrectEnabled = autoCorrectEnabled
     }
+    #endif
 
     // MARK: - Platform functions
 
@@ -58,6 +75,9 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
         richHTMLEditorView.html = html
         richHTMLEditorView.spellCheckEnabled = spellCheckEnabled
         richHTMLEditorView.autoCorrectEnabled = autoCorrectEnabled
+        #if canImport(UIKit)
+        richHTMLEditorView.commands = commands
+        #endif
 
         if let css = editorCSS {
             richHTMLEditorView.injectAdditionalCSS(css)

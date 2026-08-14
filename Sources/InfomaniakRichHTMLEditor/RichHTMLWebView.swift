@@ -14,8 +14,9 @@
 import WebKit
 
 public class RichHTMLWebView: WKWebView {
-    #if canImport(UIKit) && !os(visionOS)
-    public override var inputAccessoryView: UIView? {
+    #if canImport(UIKit)
+    #if !os(visionOS)
+    override public var inputAccessoryView: UIView? {
         get {
             return richHTMLEditorInputAccessoryView
         }
@@ -26,41 +27,32 @@ public class RichHTMLWebView: WKWebView {
 
     private var richHTMLEditorInputAccessoryView: UIView?
     #endif
-    
+
+    public var commands: [HTMLEditorCustomAction] = []
+
     override public func buildMenu(with builder: UIMenuBuilder) {
-           super.buildMenu(with: builder)
+        super.buildMenu(with: builder)
 
-           guard builder.system == .context else {
-               return
-           }
+        guard builder.system == .context, !commands.isEmpty else { return }
 
-           let command = UICommand(
-               title: "Coucou Valentin et Elena",
-               action: #selector(pasteWithoutStyling)
-           )
+        builder.insertChild(
+            UIMenu(options: .displayInline, children: commands.map(\.command)),
+            atStartOfMenu: .standardEdit
+        )
+    }
 
-           builder.insertChild(
-               UIMenu(options: .displayInline, children: [command]),
-               atStartOfMenu: .standardEdit
-           )
-       }
+    @objc func performCustomAction(_ sender: Any?) {
+        guard let command = sender as? UICommand,
+              let id = command.propertyList as? String,
+              let customAction = commands.first(where: { $0.id == id }) else { return }
+        customAction.action(self)
+    }
 
-       @objc
-       private func pasteWithoutStyling(_ sender: Any?) {
-           pasteAndMatchStyle(sender)
-       }
-
-       override public func canPerformAction(
-           _ action: Selector,
-           withSender sender: Any?
-       ) -> Bool {
-           if action == #selector(pasteWithoutStyling) {
-               return super.canPerformAction(
-                   #selector(pasteAndMatchStyle(_:)),
-                   withSender: sender
-               )
-           }
-
-           return super.canPerformAction(action, withSender: sender)
-       }
+    override public func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(performCustomAction(_:)) {
+            return true
+        }
+        return super.canPerformAction(action, withSender: sender)
+    }
+    #endif
 }
