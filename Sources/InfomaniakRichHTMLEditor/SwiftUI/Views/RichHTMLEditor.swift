@@ -103,14 +103,18 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
         }
 
         #if canImport(UIKit)
+        if richHTMLEditorView.commands != commands {
+            richHTMLEditorView.commands = commands
+        }
+
         if richHTMLEditorView.isScrollEnabled != isEditorScrollable {
             richHTMLEditorView.isScrollEnabled = isEditorScrollable
         }
-        #endif
-        #if canImport(UIKit) && !os(visionOS)
+        #if !os(visionOS)
         if richHTMLEditorView.inputAccessoryView != editorInputAccessoryView {
             richHTMLEditorView.inputAccessoryView = editorInputAccessoryView
         }
+        #endif
         #endif
     }
 
