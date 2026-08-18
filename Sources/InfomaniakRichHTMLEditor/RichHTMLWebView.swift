@@ -28,7 +28,11 @@ public class RichHTMLWebView: WKWebView {
     private var richHTMLEditorInputAccessoryView: UIView?
     #endif
 
-    public var commands: [HTMLEditorCustomAction] = []
+    public var commands: [HTMLEditorCustomAction] = [] {
+        didSet {
+            UIMenuSystem.context.setNeedsRebuild()
+        }
+    }
 
     override public func buildMenu(with builder: UIMenuBuilder) {
         super.buildMenu(with: builder)

@@ -15,7 +15,7 @@
 import Foundation
 import UIKit
 
-public class HTMLEditorCustomAction {
+public class HTMLEditorCustomAction: Equatable {
     let id = UUID().uuidString
     let action: (RichHTMLWebView) -> Void
     let title: String
@@ -31,6 +31,10 @@ public class HTMLEditorCustomAction {
             action: #selector(RichHTMLWebView.performCustomAction(_:)),
             propertyList: id
         )
+    }
+
+    public static func == (lhs: HTMLEditorCustomAction, rhs: HTMLEditorCustomAction) -> Bool {
+        lhs.id == rhs.id && lhs.title == rhs.title
     }
 }
 #endif
