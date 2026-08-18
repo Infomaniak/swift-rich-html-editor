@@ -16,7 +16,7 @@ import Foundation
 import UIKit
 
 public class HTMLEditorCustomAction: Equatable {
-    let id = UUID().uuidString
+    var id: String { title }
     let action: (RichHTMLWebView) -> Void
     let title: String
 
