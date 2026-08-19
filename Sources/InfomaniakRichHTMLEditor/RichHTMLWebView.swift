@@ -14,8 +14,7 @@
 import WebKit
 
 public class RichHTMLWebView: WKWebView {
-    #if canImport(UIKit)
-    #if !os(visionOS)
+    #if canImport(UIKit) && !os(visionOS)
     override public var inputAccessoryView: UIView? {
         get {
             return richHTMLEditorInputAccessoryView
@@ -27,7 +26,7 @@ public class RichHTMLWebView: WKWebView {
 
     private var richHTMLEditorInputAccessoryView: UIView?
     #endif
-
+    #if canImport(UIKit)
     public var commands: [HTMLEditorCustomAction] = [] {
         didSet {
             UIMenuSystem.context.setNeedsRebuild()

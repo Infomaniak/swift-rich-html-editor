@@ -42,11 +42,8 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
     public let spellCheckEnabled: Bool
     public let autoCorrectEnabled: Bool
 
-    #if canImport(UIKit)
     public let commands: [HTMLEditorCustomAction]
-    #endif
 
-    #if canImport(UIKit)
     public init(html: Binding<String>, selection: Binding<String>? = nil, textAttributes: TextAttributes,
                 spellCheckEnabled: Bool = true, autoCorrectEnabled: Bool = true, commands: [HTMLEditorCustomAction] = []) {
         _html = html
@@ -56,16 +53,6 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
         self.autoCorrectEnabled = autoCorrectEnabled
         self.commands = commands
     }
-    #else
-    public init(html: Binding<String>, selection: Binding<String>? = nil, textAttributes: TextAttributes,
-                spellCheckEnabled: Bool = true, autoCorrectEnabled: Bool = true) {
-        _html = html
-        self.selection = selection
-        _textAttributes = ObservedObject(wrappedValue: textAttributes)
-        self.spellCheckEnabled = spellCheckEnabled
-        self.autoCorrectEnabled = autoCorrectEnabled
-    }
-    #endif
 
     // MARK: - Platform functions
 
@@ -110,11 +97,12 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
         if richHTMLEditorView.isScrollEnabled != isEditorScrollable {
             richHTMLEditorView.isScrollEnabled = isEditorScrollable
         }
-        #if !os(visionOS)
+        #endif
+
+        #if canImport(UIKit) && !os(visionOS)
         if richHTMLEditorView.inputAccessoryView != editorInputAccessoryView {
             richHTMLEditorView.inputAccessoryView = editorInputAccessoryView
         }
-        #endif
         #endif
     }
 
