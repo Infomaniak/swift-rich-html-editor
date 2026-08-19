@@ -11,12 +11,16 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-#if canImport(UIKit)
 import Foundation
+#if canImport(UIKit)
 import UIKit
+#endif
 
-public class HTMLEditorCustomAction: Equatable {
-    var id: String { title }
+public struct HTMLEditorCustomAction: Equatable {
+    var id: String {
+        title
+    }
+
     let action: (RichHTMLWebView) -> Void
     let title: String
 
@@ -25,6 +29,7 @@ public class HTMLEditorCustomAction: Equatable {
         self.action = action
     }
 
+    #if canImport(UIKit)
     var command: UICommand {
         UICommand(
             title: title,
@@ -32,9 +37,9 @@ public class HTMLEditorCustomAction: Equatable {
             propertyList: id
         )
     }
+    #endif
 
     public static func == (lhs: HTMLEditorCustomAction, rhs: HTMLEditorCustomAction) -> Bool {
-        lhs.id == rhs.id && lhs.title == rhs.title
+        lhs.id == rhs.id
     }
 }
-#endif
