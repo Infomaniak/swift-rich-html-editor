@@ -109,10 +109,11 @@ final class JavaScriptManager {
     }
 
     private func evaluate(function: JavaScriptFunction) {
-        webView?.evaluateJavaScript(function.call()) { [weak self] _, error in
-            if let error {
-                self?.delegate?.javascriptFunctionDidFail(error: error, function: function.identifier)
+        webView?
+            .callAsyncJavaScript(function.functionBody, arguments: function.arguments, in: nil, in: .page) { [weak self] result in
+                if case .failure(let error) = result {
+                    self?.delegate?.javascriptFunctionDidFail(error: error, function: function.identifier)
+                }
             }
-        }
     }
 }
