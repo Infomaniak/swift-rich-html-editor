@@ -11,7 +11,9 @@
 //  specific language governing permissions and limitations
 //  under the License.
 
-enum JavaScriptFunction: Sendable {
+import Foundation
+
+enum JavaScriptFunction {
     case execCommand(command: String, argument: Sendable? = nil)
     case setContent(content: String)
     case injectCSS(content: String)
@@ -75,17 +77,20 @@ enum JavaScriptFunction: Sendable {
         }
     }
 
-    func call() -> String {
-        let formattedArgs = formatArgs(args)
-        return "\(identifier)(\(formattedArgs));"
+    var functionBody: String {
+        let argumentNames = args.indices.map(argumentName)
+        return "\(identifier)(\(argumentNames.joined(separator: ", ")));"
     }
 
-    private func formatArgs(_ args: [Any?]) -> String {
-        guard !args.isEmpty else {
-            return ""
+    var arguments: [String: Any] {
+        var arguments = [String: Any]()
+        for (index, value) in args.enumerated() {
+            arguments[argumentName(index)] = value ?? NSNull()
         }
+        return arguments
+    }
 
-        let formattedArgs = args.map { JavaScriptFormatterHelper.format($0) }
-        return formattedArgs.joined(separator: ", ")
+    private func argumentName(_ index: Int) -> String {
+        return "arg\(index)"
     }
 }
