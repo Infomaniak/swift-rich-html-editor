@@ -70,6 +70,17 @@ public class RichHTMLEditorView: PlatformView {
     }
 
     #if canImport(UIKit)
+    public var commands: [HTMLEditorCustomAction] {
+        get {
+            return rawCommands
+        }
+        set {
+            setCommands(newValue)
+        }
+    }
+    #endif
+
+    #if canImport(UIKit)
     /// A Boolean value that indicates whether the responder accepts first responder status.
     override public var canBecomeFirstResponder: Bool {
         return true
@@ -153,6 +164,9 @@ public class RichHTMLEditorView: PlatformView {
     var rawIsScrollEnabled = false
     var rawIsSpellCheckEnabled = true
     var rawIsAutoCorrectEnabled = true
+    #if canImport(UIKit)
+    var rawCommands: [HTMLEditorCustomAction] = []
+    #endif
     var rawContentHeight = CGFloat.zero
 
     var javaScriptManager: JavaScriptManager!
@@ -221,6 +235,7 @@ public extension RichHTMLEditorView {
         webView = RichHTMLWebView(frame: .zero, configuration: WKWebViewConfiguration())
         webView.translatesAutoresizingMaskIntoConstraints = false
         #if canImport(UIKit)
+        webView.commands = commands
         webView.scrollView.delegate = self
         #endif
         webView.navigationDelegate = self
@@ -303,6 +318,13 @@ public extension RichHTMLEditorView {
     }
 
     #if canImport(UIKit)
+    private func setCommands(_ newCommands: [HTMLEditorCustomAction]) {
+        rawCommands = newCommands
+        if webView != nil {
+            webView.commands = newCommands
+        }
+    }
+
     private func setScrollableBehavior(_ isScrollEnabled: Bool) {
         rawIsScrollEnabled = isScrollEnabled
         webView.scrollView.isScrollEnabled = isScrollEnabled

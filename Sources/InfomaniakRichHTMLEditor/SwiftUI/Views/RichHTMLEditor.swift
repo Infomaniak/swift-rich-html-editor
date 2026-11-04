@@ -12,6 +12,7 @@
 //  under the License.
 
 import SwiftUI
+import WebKit
 
 #if canImport(UIKit)
 public typealias PlateformViewRepresentable = UIViewRepresentable
@@ -41,13 +42,16 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
     public let spellCheckEnabled: Bool
     public let autoCorrectEnabled: Bool
 
+    public let commands: [HTMLEditorCustomAction]
+
     public init(html: Binding<String>, selection: Binding<String>? = nil, textAttributes: TextAttributes,
-                spellCheckEnabled: Bool = true, autoCorrectEnabled: Bool = true) {
+                spellCheckEnabled: Bool = true, autoCorrectEnabled: Bool = true, commands: [HTMLEditorCustomAction] = []) {
         _html = html
         self.selection = selection
         _textAttributes = ObservedObject(wrappedValue: textAttributes)
         self.spellCheckEnabled = spellCheckEnabled
         self.autoCorrectEnabled = autoCorrectEnabled
+        self.commands = commands
     }
 
     // MARK: - Platform functions
@@ -58,6 +62,9 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
         richHTMLEditorView.html = html
         richHTMLEditorView.spellCheckEnabled = spellCheckEnabled
         richHTMLEditorView.autoCorrectEnabled = autoCorrectEnabled
+        #if canImport(UIKit)
+        richHTMLEditorView.commands = commands
+        #endif
 
         if let css = editorCSS {
             richHTMLEditorView.injectAdditionalCSS(css)
@@ -83,10 +90,15 @@ public struct RichHTMLEditor: PlateformViewRepresentable {
         }
 
         #if canImport(UIKit)
+        if richHTMLEditorView.commands != commands {
+            richHTMLEditorView.commands = commands
+        }
+
         if richHTMLEditorView.isScrollEnabled != isEditorScrollable {
             richHTMLEditorView.isScrollEnabled = isEditorScrollable
         }
         #endif
+
         #if canImport(UIKit) && !os(visionOS)
         if richHTMLEditorView.inputAccessoryView != editorInputAccessoryView {
             richHTMLEditorView.inputAccessoryView = editorInputAccessoryView
